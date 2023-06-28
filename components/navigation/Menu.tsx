@@ -182,10 +182,10 @@ interface MenuItemProps {
   icon: React.ReactNode;
   isActive: boolean;
   onClick: () => void;
-  classes?: string;
+  margin?: string;
 }
 
-function MenuItem({ label, icon, isActive, onClick, classes }: MenuItemProps) {
+function MenuItem({ label, icon, isActive, onClick, margin }: MenuItemProps) {
   return (
     <button
       type='button'
@@ -194,7 +194,7 @@ function MenuItem({ label, icon, isActive, onClick, classes }: MenuItemProps) {
       }}
       className={`transition-300 group flex cursor-pointer items-center gap-3 rounded-md px-4 py-4 ${
         isActive ? 'bg-grey3' : 'hover:bg-grey3 hover:bg-opacity-70'
-      } ${classes}`}
+      } ${margin}`}
     >
       {icon}
       <span

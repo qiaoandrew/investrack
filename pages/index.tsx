@@ -1,3 +1,9 @@
+import Search from '@/components/sections/home/Search';
+
 export default function Home() {
-  return <main></main>;
+  return (
+    <>
+      <Search />
+    </>
+  );
 }
