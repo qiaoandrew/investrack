@@ -2,26 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+  font-family: 'Inter', 'system-ui', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  .w-100dvw {
+    width: 100dvw;
+    max-width: 100dvw;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .h-100dvh {
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+
+  .transition-300 {
+    @apply duration-300 ease-in-out;
+  }
+
+  .mx-dashboard {
+    @apply mx-5 xs:mx-7 xl:mx-10 3xl:mx-20 4xl:mx-28;
+  }
+
+  .px-dashboard {
+    @apply px-5 xs:px-7 xl:px-10 3xl:px-20 4xl:px-28;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
