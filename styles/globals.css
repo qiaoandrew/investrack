@@ -31,6 +31,14 @@
     @apply px-5 xs:px-7 xl:px-10 3xl:px-20 4xl:px-28;
   }
 
+  .bg-gradient {
+    @apply bg-gradient-to-tr from-[#85ffc4] via-[#5cc6ff] to-[#bc85ff];
+  }
+
+  .text-gradient {
+    @apply bg-gradient inline-block bg-clip-text text-transparent;
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
