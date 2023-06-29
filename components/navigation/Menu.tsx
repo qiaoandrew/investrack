@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 import {
   Home,
   Repeat,
@@ -55,12 +57,17 @@ const PORTFOLIOS = [
 export default function Menu() {
   const router = useRouter();
   const pathname = router.pathname;
-
   const { watchlistId, portfolioId } = router.query;
+
+  const isMobileMenuOpen = useSelector(
+    (state: RootState) => state.mobileMenu.isOpen
+  );
 
   return (
     <nav
-      className={`h-100dvh transition-300 fixed inset-0 z-30 flex w-full flex-col bg-grey4 px-5 pt-28 xl:w-[300px]`}
+      className={`h-100dvh transition-300 fixed inset-0 z-30 flex w-full flex-col bg-grey4 px-5 pt-28 xl:w-[300px] ${
+        isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full xl:translate-x-0'
+      }`}
     >
       <div className='mb-3 grid gap-1'>
         <MenuItem
@@ -150,7 +157,7 @@ export default function Menu() {
             })}
           </div>
         </div>
-        <div className='pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black to-transparent' />
+        <div className='pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-grey4 to-transparent' />
       </div>
       <hr className='border-b-1 mb-3 border-grey2' />
       <div className='mb-12 grid gap-1'>
