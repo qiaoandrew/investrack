@@ -1,4 +1,5 @@
 import { COLORS } from '@/constants/colors';
+import Link from 'next/link';
 import { ChevronUp, ChevronDown } from 'react-feather';
 
 interface AssetCardProps {
@@ -6,7 +7,7 @@ interface AssetCardProps {
   price: number;
   change: number;
   changePercent: number;
-  onClick?: () => void;
+  route?: string;
 }
 
 export default function AssetCard({
@@ -14,13 +15,12 @@ export default function AssetCard({
   price,
   change,
   changePercent,
-  onClick,
+  route,
 }: AssetCardProps) {
-  return (
+  const content = (
     <div
-      onClick={onClick}
       className={`transition-300 flex gap-4 rounded-md border border-grey2 p-3 hover:bg-grey3 hover:bg-opacity-60 ${
-        onClick ? 'cursor-pointer' : ''
+        route ? 'cursor-pointer' : ''
       }`}
     >
       <div>
@@ -39,4 +39,6 @@ export default function AssetCard({
       </div>
     </div>
   );
+
+  return route ? <Link href={route}>{content}</Link> : content;
 }
