@@ -67,7 +67,9 @@ export default function Watchlist() {
   return (
     <div className='mx-dashboard max-w-[566px]'>
       <div className='mb-3 flex items-center justify-between'>
-        <h1 className='text-3xl font-semibold text-white'>Watchlist 1</h1>
+        <h1 className='text-3xl font-semibold text-white 2xl:text-4xl'>
+          Watchlist 1
+        </h1>
         <div className='flex gap-4'>
           <IconButton
             icon={<Edit size={16} color={COLORS.grey1} />}
