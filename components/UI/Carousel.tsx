@@ -8,8 +8,8 @@ interface CarouselProps {
   selectionOption?: string;
   setSelectedOption?: (value: string) => void;
   dropdownOptions?: string[];
+  dropdownLabelSize?: string;
   margin?: string;
-  dropdownLabelSize: string;
   children: React.ReactNode[];
 }
 
@@ -18,8 +18,8 @@ export default function Carousel({
   selectionOption,
   setSelectedOption,
   dropdownOptions,
-  margin,
   dropdownLabelSize,
+  margin,
   children,
 }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -31,20 +31,23 @@ export default function Carousel({
   };
 
   return (
-    <>
+    <section className={margin}>
       <div className='mx-dashboard mb-4 flex items-center justify-between 3xl:mb-5'>
         <div className='flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-20'>
           <h2 className='text-2xl font-semibold text-white 2xl:text-3xl'>
             {title}
           </h2>
-          {selectionOption && setSelectedOption && dropdownOptions && (
-            <Dropdown
-              selectedOption={selectionOption}
-              setSelectedOption={setSelectedOption}
-              dropdownOptions={dropdownOptions}
-              labelSize={dropdownLabelSize}
-            />
-          )}
+          {selectionOption &&
+            setSelectedOption &&
+            dropdownOptions &&
+            dropdownLabelSize && (
+              <Dropdown
+                selectedOption={selectionOption}
+                setSelectedOption={setSelectedOption}
+                dropdownOptions={dropdownOptions}
+                labelSize={dropdownLabelSize}
+              />
+            )}
         </div>
         <div className='hidden gap-3 md:flex'>
           <div
@@ -74,6 +77,6 @@ export default function Carousel({
         </div>
         <div className='pointer-events-none absolute inset-y-0 right-0 w-1/5 bg-gradient-to-l from-black to-transparent' />
       </div>
-    </>
+    </section>
   );
 }

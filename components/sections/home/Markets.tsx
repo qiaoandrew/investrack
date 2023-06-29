@@ -64,8 +64,8 @@ export default function Markets() {
       selectionOption={selectedOption}
       setSelectedOption={setSelectedOption}
       dropdownOptions={DROPDOWN_OPTIONS}
-      margin='mb-section'
       dropdownLabelSize='w-6'
+      margin='mb-section'
     >
       {MARKETS.map((market) => (
         <AssetCard
