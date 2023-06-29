@@ -43,7 +43,8 @@ export default function Button({
   } else if (hierarchy === 'secondary') {
     buttonClasses += ' bg-blue2 text-black hover:bg-blue1';
   } else if (hierarchy === 'tertiary') {
-    buttonClasses += ' border border-blue2 text-blue2';
+    buttonClasses +=
+      ' border border-blue2 text-blue2 hover:border-blue1 hover:text-blue1';
   } else if (hierarchy === 'quaternary') {
     buttonClasses +=
       ' border border-grey1 text-grey1 hover:bg-grey3 hover:bg-opacity-80';
