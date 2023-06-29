@@ -10,7 +10,7 @@ export default function Search() {
   const { searchResults, loading, error } = useSearchResults();
 
   return (
-    <section className='mx-dashboard mb-section relative z-10'>
+    <section className='mx-dashboard mb-section relative z-20'>
       <h1 className='mx-auto mb-8 max-w-[353px] text-center text-4xl font-semibold 2xl:max-w-[457px] 2xl:text-6xl'>
         <span className='text-gradient'>
           Research the markets with Investrack.
