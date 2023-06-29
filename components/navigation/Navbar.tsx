@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { toggleMobileMenu } from '@/store/slices/mobileMenuSlice';
 import logo from '@/public/logo.svg';
 
-export default function Header() {
+export default function Navbar() {
   const router = useRouter();
   const pathname = router.pathname;
 

@@ -17,7 +17,7 @@ export default function CategoryCard({
   return (
     <Link
       href={route}
-      className='group relative flex h-40 w-60 flex-col justify-between rounded-lg border border-grey2 pb-5 pl-5 pr-4 pt-4'
+      className='group relative flex h-40 w-60 flex-col justify-between overflow-hidden rounded-lg border border-grey2 pb-5 pl-5 pr-4 pt-4'
     >
       <div
         className={`absolute inset-0 ${bg} transition-300 opacity-60 group-hover:opacity-100`}

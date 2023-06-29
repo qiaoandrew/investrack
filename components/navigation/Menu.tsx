@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
 import {
   Home,
   Repeat,
@@ -11,6 +11,7 @@ import {
   Plus,
 } from 'react-feather';
 import { COLORS } from '@/constants/colors';
+import { openModal } from '@/store/slices/modalSlice';
 
 const WATCHLISTS = [
   {
@@ -59,6 +60,7 @@ export default function Menu() {
   const pathname = router.pathname;
   const { watchlistId, portfolioId } = router.query;
 
+  const dispatch: AppDispatch = useDispatch();
   const isMobileMenuOpen = useSelector(
     (state: RootState) => state.mobileMenu.isOpen
   );
@@ -100,7 +102,10 @@ export default function Menu() {
         <div className='no-scrollbar flex-grow overflow-y-scroll pb-8 pt-6'>
           <div className='mb-2 flex items-center justify-between px-4'>
             <p className='text-sm text-grey1'>WATCHLISTS</p>
-            <button className='transition-300 -m-1.5 rounded-full p-1.5 hover:bg-grey3'>
+            <button
+              onClick={() => dispatch(openModal('createWatchlist'))}
+              className='transition-300 -m-1.5 rounded-full p-1.5 hover:bg-grey3'
+            >
               <Plus size={24} color={COLORS.grey1} />
             </button>
           </div>
@@ -129,7 +134,10 @@ export default function Menu() {
           </div>
           <div className='mb-2 flex items-center justify-between px-4'>
             <p className='text-sm text-grey1'>PORTFOLIOS</p>
-            <button className='transition-300 -m-1.5 rounded-full p-1.5 hover:bg-grey3'>
+            <button
+              onClick={() => dispatch(openModal('createPortfolio'))}
+              className='transition-300 -m-1.5 rounded-full p-1.5 hover:bg-grey3'
+            >
               <Plus size={24} color={COLORS.grey1} />
             </button>
           </div>

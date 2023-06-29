@@ -1,7 +1,9 @@
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import ReduxProvider from '@/components/redux/ReduxProvider';
+import Navbar from '@/components/navigation/Navbar';
+import DashboardLayout from '@/components/layouts/DashboardLayout';
+import Modal from '@/components/modal/ModalContainer';
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -10,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ReduxProvider>
+      <Navbar />
       {['/log-in', '/sign-up'].includes(pathname) ? (
         <Component {...pageProps} />
       ) : (
@@ -17,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </DashboardLayout>
       )}
+      <Modal />
     </ReduxProvider>
   );
 }
