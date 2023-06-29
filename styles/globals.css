@@ -39,6 +39,10 @@
     @apply bg-gradient inline-block bg-clip-text text-transparent;
   }
 
+  .mb-section {
+    @apply mb-20 xl:mb-24;
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
