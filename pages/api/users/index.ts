@@ -23,6 +23,6 @@ export default async function handler(
     return res.status(200).json(savedNewUser);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error });
+    return res.status(500).json({ message: 'Internal server error.' });
   }
 }

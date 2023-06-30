@@ -7,7 +7,7 @@ interface SearchResultsProps {
   searchResults: SearchResult[];
   showSearchResults: boolean;
   loading: boolean;
-  error: string | null;
+  error: boolean;
   maxHeight: string;
 }
 

@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { debounce } from 'lodash';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface SearchResult {
   symbol: string;
@@ -6,20 +8,68 @@ export interface SearchResult {
   exchange: string;
 }
 
-const SEARCH_RESULTS: SearchResult[] = [
+export default function useSearchResults(query: string) {
+  const [searchResults, setSearchResults] = useState<SearchResult[]>(
+    DEFAULT_SEARCH_RESULTS
+  );
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const getSearchResults = useCallback(async () => {
+    setLoading(true);
+    try {
+      const { data } = await axios.get('/api/stocks/search', {
+        params: { query },
+      });
+      setSearchResults(data);
+    } catch (error) {
+      console.error(error);
+      setError(true);
+    }
+    setLoading(false);
+  }, [query]);
+
+  const debouncer: any = useRef();
+
+  useEffect(() => {
+    debouncer.current = debounce(() => getSearchResults(), 300);
+  }, [getSearchResults]);
+
+  const debouncedGetSearchResults = useCallback(() => {
+    debouncer.current();
+  }, []);
+
+  useEffect(() => {
+    if (query) {
+      debouncedGetSearchResults();
+    } else {
+      setSearchResults(DEFAULT_SEARCH_RESULTS);
+    }
+
+    return () => {
+      if (debouncer.current) {
+        debouncer.current.cancel();
+      }
+    };
+  }, [query, debouncedGetSearchResults]);
+
+  return { searchResults, loading, error };
+}
+
+const DEFAULT_SEARCH_RESULTS: SearchResult[] = [
   {
     symbol: 'AAPL',
     name: 'Apple Inc.',
     exchange: 'NASDAQ',
   },
   {
-    symbol: 'GOOGL',
+    symbol: 'GOOG',
     name: 'Alphabet Inc.',
     exchange: 'NASDAQ',
   },
   {
     symbol: 'TSLA',
-    name: 'Tesla Inc.',
+    name: 'Tesla, Inc.',
     exchange: 'NASDAQ',
   },
   {
@@ -29,16 +79,7 @@ const SEARCH_RESULTS: SearchResult[] = [
   },
   {
     symbol: 'META',
-    name: 'Meta Platforms Inc.',
+    name: 'Meta Platforms, Inc.',
     exchange: 'NASDAQ',
   },
 ];
-
-export default function useSearchResults(searchValue: string) {
-  const [searchResults, setSearchResults] =
-    useState<SearchResult[]>(SEARCH_RESULTS);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  return { searchResults, loading, error };
-}

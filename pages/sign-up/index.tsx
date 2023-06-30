@@ -11,8 +11,8 @@ import AuthLayout from '@/components/layouts/AuthLayout';
 import TextInput from '@/components/UI/TextInput';
 import InputFeedback from '@/components/UI/InputFeedback';
 import Button from '@/components/UI/Button';
-import { FcGoogle } from 'react-icons/fc';
 import { Eye, EyeOff } from 'react-feather';
+import { FcGoogle } from 'react-icons/fc';
 import { COLORS } from '@/constants/colors';
 
 export default function SignUp() {

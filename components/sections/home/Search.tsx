@@ -4,10 +4,10 @@ import SearchBar from '@/components/UI/SearchBar';
 import SearchResults from '@/components/UI/SearchResults';
 
 export default function Search() {
-  const [searchValue, setSearchValue] = useState('');
+  const [query, setQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
 
-  const { searchResults, loading, error } = useSearchResults(searchValue);
+  const { searchResults, loading, error } = useSearchResults(query);
 
   return (
     <section className='mx-dashboard mb-section relative z-20'>
@@ -18,8 +18,8 @@ export default function Search() {
       </h1>
       <div className='relative mx-auto max-w-[560px]'>
         <SearchBar
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setShowSearchResults(true)}
           onBlur={() => {
             setTimeout(() => {
