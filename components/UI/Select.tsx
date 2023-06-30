@@ -14,6 +14,7 @@ interface SelectProps {
   }[];
   placeholder: string;
   noOptionsMessage: string;
+  margin?: string;
 }
 
 export default function Select({
@@ -22,6 +23,7 @@ export default function Select({
   options,
   placeholder,
   noOptionsMessage,
+  margin,
 }: SelectProps) {
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -38,10 +40,12 @@ export default function Select({
   }, [showDropdown]);
 
   return (
-    <div className='select relative'>
+    <div className={`select relative z-10 ${margin}`}>
       <div
         onClick={() => setShowDropdown((prev) => !prev)}
-        className='transition-300 flex cursor-pointer justify-between rounded-sm border border-grey1 py-3.5 pl-5 pr-4'
+        className={`transition-300 flex cursor-pointer justify-between rounded-sm border py-3.5 pl-5 pr-4 ${
+          showDropdown ? 'border-grey1' : 'border-grey2'
+        }`}
       >
         <p
           className={`flex-grow ${
@@ -67,7 +71,7 @@ export default function Select({
       >
         {options.length > 0 ? (
           <>
-            <div className='no-scrollbar grid max-h-40 gap-1 overflow-y-scroll p-1'>
+            <div className='no-scrollbar grid max-h-40 gap-1 overflow-y-scroll bg-grey3 p-1'>
               {options.map((option) => (
                 <div
                   key={option.value}
@@ -94,7 +98,7 @@ export default function Select({
               ))}
             </div>
             {options.length > 2 && (
-              <div className='pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-black to-transparent' />
+              <div className='pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-grey3 to-transparent' />
             )}
           </>
         ) : (

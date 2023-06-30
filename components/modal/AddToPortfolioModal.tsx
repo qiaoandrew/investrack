@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import Select from '../UI/Select';
+import DateInput from '../UI/DateInput';
+import { useFormik } from 'formik';
+import TextInput from '../UI/TextInput';
+import Button from '../UI/Button';
 
 const PORTFOLIO = [
   {
@@ -34,6 +38,19 @@ export default function AddToPortfolioModal() {
     name: string;
   } | null>(null);
 
+  const formik = useFormik({
+    initialValues: {
+      date: {
+        month: '',
+        day: '',
+        year: '',
+      },
+      numShares: '',
+      price: '',
+    },
+    onSubmit: (values) => {},
+  });
+
   return (
     <>
       <h2 className='mb-4 text-3xl font-semibold text-white'>
@@ -60,7 +77,46 @@ export default function AddToPortfolioModal() {
         }))}
         placeholder='Select Portfolio'
         noOptionsMessage='You have no portfolios yet.'
+        margin='mb-6'
       />
+      <form onSubmit={formik.handleSubmit}>
+        <DateInput
+          label='Date Purchased'
+          value={formik.values.date}
+          setValue={(value) => formik.setFieldValue('date', value)}
+          margin='mb-7'
+        />
+        <TextInput
+          id='numShares'
+          name='numShares'
+          type='text'
+          placeholder='Number of Shares'
+          value={formik.values.numShares}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          bg='bg-grey3'
+          classes='mb-5'
+        />{' '}
+        <TextInput
+          id='price'
+          name='price'
+          type='text'
+          placeholder='Price'
+          value={formik.values.price}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          bg='bg-grey3'
+          classes='mb-8'
+        />
+        <Button
+          type='submit'
+          hierarchy='secondary'
+          font='font-semibold'
+          classes='w-full'
+        >
+          Confirm
+        </Button>
+      </form>
     </>
   );
 }

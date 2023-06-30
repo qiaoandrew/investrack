@@ -8,6 +8,7 @@ interface TextInputProps {
   placeholder: string;
   icon?: React.ReactNode;
   iconOnClick?: () => void;
+  bg?: string;
   classes?: string;
 }
 
@@ -21,6 +22,7 @@ export default function TextInput({
   placeholder,
   icon,
   iconOnClick,
+  bg,
   classes,
 }: TextInputProps) {
   return (
@@ -34,7 +36,7 @@ export default function TextInput({
         value={value}
         placeholder={placeholder}
         className={`transition-300 text-base w-full rounded-sm border border-grey2 bg-black p-4 text-white outline-none placeholder:text-grey1 focus:border-grey1 xl:px-5 
-                    ${icon ? 'pr-14' : ''}`}
+                    ${icon ? 'pr-14' : ''} ${bg}`}
       />
       {icon && (
         <div
