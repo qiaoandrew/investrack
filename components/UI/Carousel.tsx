@@ -1,13 +1,21 @@
 import { useRef } from 'react';
 import DropdownSmall from './DropdownSmall';
+import LoadingSpinner from './LoadingSpinner';
 import { ChevronLeft, ChevronRight } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
 interface CarouselProps {
   title: string;
-  selectionOption?: string;
-  setSelectedOption?: (value: string) => void;
-  dropdownOptions?: string[];
+  loading?: boolean;
+  selectedOption?: {
+    label: string;
+    value: any;
+  };
+  setSelectedOption?: (value: { label: string; value: any }) => void;
+  dropdownOptions?: {
+    label: string;
+    value: any;
+  }[];
   dropdownLabelSize?: string;
   margin?: string;
   children: React.ReactNode[];
@@ -15,7 +23,8 @@ interface CarouselProps {
 
 export default function Carousel({
   title,
-  selectionOption,
+  loading,
+  selectedOption,
   setSelectedOption,
   dropdownOptions,
   dropdownLabelSize,
@@ -37,12 +46,12 @@ export default function Carousel({
           <h2 className='text-2xl font-semibold text-white 2xl:text-3xl'>
             {title}
           </h2>
-          {selectionOption &&
+          {selectedOption &&
             setSelectedOption &&
             dropdownOptions &&
             dropdownLabelSize && (
               <DropdownSmall
-                selectedOption={selectionOption}
+                selectedOption={selectedOption}
                 setSelectedOption={setSelectedOption}
                 dropdownOptions={dropdownOptions}
                 labelSize={dropdownLabelSize}
@@ -64,19 +73,23 @@ export default function Carousel({
           </div>
         </div>
       </div>
-      <div className='relative'>
-        <div
-          ref={carouselRef}
-          className='px-dashboard no-scrollbar relative flex gap-6 overflow-x-scroll scroll-smooth whitespace-nowrap pr-[10%]'
-        >
-          {children.map((child, i) => (
-            <div className='inline-flex self-stretch' key={`child-${i}`}>
-              {child}
-            </div>
-          ))}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className='relative'>
+          <div
+            ref={carouselRef}
+            className='px-dashboard no-scrollbar relative flex gap-6 overflow-x-scroll scroll-smooth whitespace-nowrap pr-[10%]'
+          >
+            {children.map((child, i) => (
+              <div className='inline-flex self-stretch' key={`child-${i}`}>
+                {child}
+              </div>
+            ))}
+          </div>
+          <div className='pointer-events-none absolute inset-y-0 right-0 w-1/5 bg-gradient-to-l from-black to-transparent' />
         </div>
-        <div className='pointer-events-none absolute inset-y-0 right-0 w-1/5 bg-gradient-to-l from-black to-transparent' />
-      </div>
+      )}
     </section>
   );
 }

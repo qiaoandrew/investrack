@@ -53,15 +53,16 @@ const MARKETS = [
   },
 ];
 
-const DROPDOWN_OPTIONS = ['US', 'IN', 'IT', 'AU', 'JP', 'UK'];
-
 export default function Markets() {
-  const [selectedOption, setSelectedOption] = useState('US');
+  const [selectedOption, setSelectedOption] = useState({
+    label: 'US',
+    value: 'united states',
+  });
 
   return (
     <Carousel
       title='Markets'
-      selectionOption={selectedOption}
+      selectedOption={selectedOption}
       setSelectedOption={setSelectedOption}
       dropdownOptions={DROPDOWN_OPTIONS}
       dropdownLabelSize='w-6'
@@ -79,3 +80,54 @@ export default function Markets() {
     </Carousel>
   );
 }
+
+const DROPDOWN_OPTIONS = [
+  {
+    label: 'US',
+    value: 'united states',
+  },
+  {
+    label: 'CA',
+    value: 'canada',
+  },
+  {
+    label: 'UK',
+    value: 'united kingdom',
+  },
+  {
+    label: 'HK',
+    value: 'hong kong',
+  },
+  {
+    label: 'IN',
+    value: 'india',
+  },
+  {
+    label: 'DE',
+    value: 'germany',
+  },
+  {
+    label: 'AU',
+    value: 'australia',
+  },
+  {
+    label: 'SG',
+    value: 'singapore',
+  },
+  {
+    label: 'ES',
+    value: 'spain',
+  },
+  {
+    label: 'IT',
+    value: 'italy',
+  },
+  {
+    label: 'BR',
+    value: 'brazil',
+  },
+  {
+    label: 'NZ',
+    value: 'new zealand',
+  },
+];

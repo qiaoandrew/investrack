@@ -3,9 +3,15 @@ import { ChevronDown } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
 interface DropdownSmallProps {
-  selectedOption: string;
-  setSelectedOption: (value: string) => void;
-  dropdownOptions: string[];
+  selectedOption: {
+    label: string;
+    value: any;
+  };
+  setSelectedOption: (value: { label: string; value: any }) => void;
+  dropdownOptions: {
+    label: string;
+    value: any;
+  }[];
   labelSize: string;
 }
 
@@ -35,7 +41,7 @@ export default function DropdownSmall({
         onClick={() => setDropdownOpen((prev) => !prev)}
         className='flex cursor-pointer items-center gap-2'
       >
-        <p className={`text-blue1 ${labelSize}`}>{selectedOption}</p>
+        <p className={`text-blue1 ${labelSize}`}>{selectedOption.label}</p>
         <ChevronDown
           size={20}
           color={COLORS.blue1}
@@ -52,7 +58,6 @@ export default function DropdownSmall({
         <div className='no-scrollbar grid flex-grow gap-1 overflow-y-scroll p-1'>
           {dropdownOptions.map((option) => (
             <div
-              key={option}
               className={`transition-300 flex cursor-pointer items-center gap-2 rounded-xs p-2 ${
                 selectedOption === option
                   ? 'bg-grey3'
@@ -62,8 +67,9 @@ export default function DropdownSmall({
                 setSelectedOption(option);
                 setDropdownOpen(false);
               }}
+              key={option.value}
             >
-              <p className='text-blue1'>{option}</p>
+              <p className='text-blue1'>{option.label}</p>
             </div>
           ))}
         </div>
