@@ -84,13 +84,13 @@ export default function AddToWatchlistModal() {
               </label>
             ))
           ) : (
-            <p className='text-white'>
+            <p className='text-blue1'>
               You don&apos;t have any watchlists yet.
             </p>
           )}
         </div>
         {WATCHLISTS.length > 5 && (
-          <div className='pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-grey3 to-transparent'></div>
+          <div className='pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-grey3 to-transparent' />
         )}
       </div>
       {WATCHLISTS.length > 0 ? (
