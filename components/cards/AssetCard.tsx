@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { ChevronUp, ChevronDown } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-interface AssetCardProps {
-  label: string;
+export interface Asset {
+  symbol: string;
   price: number;
   change: number;
   changePercent: number;
@@ -11,12 +11,12 @@ interface AssetCardProps {
 }
 
 export default function AssetCard({
-  label,
+  symbol,
   price,
   change,
   changePercent,
   route,
-}: AssetCardProps) {
+}: Asset) {
   const content = (
     <div
       className={`transition-300 flex gap-4 rounded-md border border-grey2 p-3 hover:bg-grey3 hover:bg-opacity-60 ${
@@ -24,8 +24,8 @@ export default function AssetCard({
       }`}
     >
       <div>
-        <p className='mb-1.5 font-medium text-white'>{label}</p>
-        <p className='text-grey1'>{price}</p>
+        <p className='mb-1.5 font-medium text-white'>{symbol}</p>
+        <p className='text-grey1'>{price.toFixed(2)}</p>
       </div>
       <div className='flex flex-col items-end justify-between'>
         {change >= 0 ? (
@@ -34,7 +34,7 @@ export default function AssetCard({
           <ChevronDown size={20} color={COLORS.red} className='mt-0.5' />
         )}
         <p className={change >= 0 ? 'text-green' : 'text-red'}>
-          {change} ({changePercent}%)
+          {change.toFixed(2)} ({changePercent.toFixed(2)}%)
         </p>
       </div>
     </div>

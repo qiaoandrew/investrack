@@ -70,7 +70,7 @@ export default function Markets() {
       {MARKETS.map((market) => (
         <AssetCard
           key={market.label}
-          label={market.label}
+          symbol={market.label}
           price={market.price}
           change={market.change}
           changePercent={market.changePercent}
