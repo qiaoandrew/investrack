@@ -40,13 +40,13 @@ export default function AddToPortfolioModal() {
 
   const formik = useFormik({
     initialValues: {
-      date: {
+      purchaseDate: {
         month: '',
         day: '',
         year: '',
       },
-      numShares: '',
-      price: '',
+      quantity: '',
+      purchasePrice: '',
     },
     onSubmit: (values) => {},
   });
@@ -81,31 +81,31 @@ export default function AddToPortfolioModal() {
       />
       <form onSubmit={formik.handleSubmit}>
         <TextInput
-          id='numShares'
-          name='numShares'
+          id='quantity'
+          name='quantity'
           type='text'
           placeholder='Number of Shares'
-          value={formik.values.numShares}
+          value={formik.values.quantity}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           bg='bg-grey3'
           classes='mb-5'
         />
         <TextInput
-          id='price'
-          name='price'
+          id='purchasePrice'
+          name='purchasePrice'
           type='text'
           placeholder='Price'
-          value={formik.values.price}
+          value={formik.values.purchasePrice}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           bg='bg-grey3'
           classes='mb-5'
         />
         <DateInput
-          label='Date Purchased'
-          value={formik.values.date}
-          setValue={(value) => formik.setFieldValue('date', value)}
+          label='Purchase Date'
+          value={formik.values.purchaseDate}
+          setValue={(value) => formik.setFieldValue('purchaseDate', value)}
           margin='mb-9'
         />
         <Button
