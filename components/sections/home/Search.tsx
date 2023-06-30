@@ -7,7 +7,7 @@ export default function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
 
-  const { searchResults, loading, error } = useSearchResults();
+  const { searchResults, loading, error } = useSearchResults(searchValue);
 
   return (
     <section className='mx-dashboard mb-section relative z-20'>

@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react';
 import { ChevronDown } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-interface DropdownProps {
+interface DropdownSmallProps {
   selectedOption: string;
   setSelectedOption: (value: string) => void;
   dropdownOptions: string[];
   labelSize: string;
 }
 
-export default function Dropdown({
+export default function DropdownSmall({
   selectedOption,
   setSelectedOption,
   dropdownOptions,
   labelSize,
-}: DropdownProps) {
+}: DropdownSmallProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {

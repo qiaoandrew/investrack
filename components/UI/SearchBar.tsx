@@ -1,5 +1,5 @@
-import { COLORS } from '@/constants/colors';
 import { Search } from 'react-feather';
+import { COLORS } from '@/constants/colors';
 
 interface SearchBarProps {
   value: string;

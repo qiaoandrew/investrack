@@ -32,12 +32,7 @@ export default function CreateWatchlistModal() {
           value={formik.values.name}
           placeholder='Watchlist Name'
         />
-        <Button
-          type='button'
-          hierarchy='secondary'
-          font='font-semibold'
-          classes='w-full'
-        >
+        <Button type='button' hierarchy='secondary' font='font-semibold'>
           Confirm
         </Button>
       </form>

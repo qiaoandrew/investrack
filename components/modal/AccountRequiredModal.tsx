@@ -18,16 +18,15 @@ export default function AccountRequiredModal() {
       <h2 className='mb-4 text-3xl font-semibold text-white'>
         Account Required
       </h2>
-      <p className='mb-6 text-blue1 md:mb-8'>
+      <p className='mb-8 text-blue1 md:text-lg'>
         Create an account to create watchlists.
       </p>
-      <div className='flex flex-col gap-5'>
+      <div className='flex flex-col gap-4'>
         <Button
           type='button'
           onClick={() => handleClick('/sign-up')}
           hierarchy='secondary'
           font='font-semibold'
-          classes='w-full'
         >
           Sign Up
         </Button>
@@ -36,7 +35,6 @@ export default function AccountRequiredModal() {
           onClick={() => handleClick('/log-in')}
           hierarchy='tertiary'
           font='font-semibold'
-          classes='w-full'
         >
           Log In
         </Button>

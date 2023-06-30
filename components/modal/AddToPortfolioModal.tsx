@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Select from '../UI/Select';
-import DateInput from '../UI/DateInput';
 import { useFormik } from 'formik';
+import DropdownLarge from '../UI/DropdownLarge';
+import DateInput from '../UI/DateInput';
 import TextInput from '../UI/TextInput';
 import Button from '../UI/Button';
 
@@ -33,7 +33,7 @@ const PORTFOLIO = [
 ];
 
 export default function AddToPortfolioModal() {
-  const [selectedOption, setSelectedOption] = useState<{
+  const [selectedPortfolio, setSelectedPortfolio] = useState<{
     id: number;
     name: string;
   } | null>(null);
@@ -56,17 +56,17 @@ export default function AddToPortfolioModal() {
       <h2 className='mb-4 text-3xl font-semibold text-white'>
         Add To Portfolio
       </h2>
-      <Select
+      <DropdownLarge
         selectedOption={
-          selectedOption
+          selectedPortfolio
             ? {
-                label: selectedOption.name,
-                value: selectedOption.id,
+                label: selectedPortfolio.name,
+                value: selectedPortfolio.id,
               }
             : null
         }
         setSelectedOption={(option) =>
-          setSelectedOption({
+          setSelectedPortfolio({
             id: option.value,
             name: option.label,
           })
@@ -77,15 +77,9 @@ export default function AddToPortfolioModal() {
         }))}
         placeholder='Select Portfolio'
         noOptionsMessage='You have no portfolios yet.'
-        margin='mb-6'
+        margin='mb-5'
       />
       <form onSubmit={formik.handleSubmit}>
-        <DateInput
-          label='Date Purchased'
-          value={formik.values.date}
-          setValue={(value) => formik.setFieldValue('date', value)}
-          margin='mb-7'
-        />
         <TextInput
           id='numShares'
           name='numShares'
@@ -96,7 +90,7 @@ export default function AddToPortfolioModal() {
           onBlur={formik.handleBlur}
           bg='bg-grey3'
           classes='mb-5'
-        />{' '}
+        />
         <TextInput
           id='price'
           name='price'
@@ -106,7 +100,13 @@ export default function AddToPortfolioModal() {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           bg='bg-grey3'
-          classes='mb-8'
+          classes='mb-5'
+        />
+        <DateInput
+          label='Date Purchased'
+          value={formik.values.date}
+          setValue={(value) => formik.setFieldValue('date', value)}
+          margin='mb-9'
         />
         <Button
           type='submit'

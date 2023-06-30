@@ -6,9 +6,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className='pb-28 2xl:pb-40'>
+    <main className='pb-28 pt-32 xl:pl-[300px] 2xl:pb-40'>
       <Menu />
-      <div className='pt-32 xl:ml-[300px]'>{children}</div>
+      {children}
     </main>
   );
 }

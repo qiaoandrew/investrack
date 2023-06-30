@@ -1,6 +1,6 @@
-import { COLORS } from '@/constants/colors';
 import Link from 'next/link';
 import { ChevronUp, ChevronDown } from 'react-feather';
+import { COLORS } from '@/constants/colors';
 
 interface AssetCardProps {
   label: string;

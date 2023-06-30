@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
+import Link from 'next/link';
 import { SearchResult } from '@/hooks/useSearchResults';
 import LoadingSpinner from './LoadingSpinner';
-import Link from 'next/link';
 
 interface SearchResultsProps {
   searchResults: SearchResult[];
@@ -56,22 +56,22 @@ export default function SearchResults({
                 className='transition-300 m-1.5 flex items-center justify-between rounded-md p-3 hover:bg-grey3'
               >
                 <div>
-                  <p className='text-base mb-1 font-semibold text-white xl:text-lg'>
+                  <p className='mb-1 font-semibold text-white xl:text-lg'>
                     {result.symbol}
                   </p>
-                  <p className='xl:text-base text-sm font-medium text-blue1'>
+                  <p className='text-sm font-medium text-blue1 xl:text-md'>
                     {result.name}
                   </p>
                 </div>
-                <p className='xl:text-base text-sm text-blue1'>
+                <p className='text-sm text-blue1 xl:text-md'>
                   {result.exchange}
                 </p>
               </Link>
             </Fragment>
           ))}
-          {searchResults.length > 3 ? (
+          {searchResults.length > 3 && (
             <div className='pointer-events-none sticky inset-x-0 bottom-0 -mt-8 h-10 bg-gradient-to-t from-black to-transparent' />
-          ) : null}
+          )}
         </>
       )}
     </div>

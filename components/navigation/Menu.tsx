@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
+import { openModal } from '@/store/slices/modalSlice';
 import {
   Home,
   Repeat,
@@ -11,7 +12,6 @@ import {
   Plus,
 } from 'react-feather';
 import { COLORS } from '@/constants/colors';
-import { openModal } from '@/store/slices/modalSlice';
 
 const WATCHLISTS = [
   {
@@ -98,7 +98,7 @@ export default function Menu() {
         />
       </div>
       <hr className='border-b-1 border-grey2' />
-      <div className='relative flex flex-grow flex-col overflow-y-hidden'>
+      <div className='relative flex flex-grow overflow-y-hidden'>
         <div className='no-scrollbar flex-grow overflow-y-scroll pb-8 pt-6'>
           <div className='mb-2 flex items-center justify-between px-4'>
             <p className='text-sm text-grey1'>WATCHLISTS</p>

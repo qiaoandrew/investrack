@@ -2,7 +2,7 @@ import Image, { type StaticImageData } from 'next/image';
 
 interface NewsCardProps {
   title: string;
-  description: string;
+  description?: string;
   picture: StaticImageData;
   link: string;
 }
@@ -18,7 +18,7 @@ export default function NewsCard({
       href={link}
       target='_blank'
       rel='noopener noreferrer'
-      className='transition-300 w-[320px] overflow-hidden rounded-xl border border-grey2 hover:bg-grey3 hover:bg-opacity-60'
+      className='transition-300 w-80 overflow-hidden rounded-xl border border-grey2 hover:bg-grey3 hover:bg-opacity-60'
     >
       <Image
         src={picture}
@@ -26,12 +26,18 @@ export default function NewsCard({
         className='aspect-[320/150] object-cover'
       />
       <div className='whitespace-normal px-5 pb-7 pt-4'>
-        <p className='mb-2 line-clamp-2 font-medium text-white 2xl:text-lg'>
+        <p
+          className={`line-clamp-2 font-medium text-white 2xl:text-lg ${
+            description ? 'mb-2' : ''
+          }`}
+        >
           {title}
         </p>
-        <p className='line-clamp-3 text-sm text-grey1 2xl:text-md'>
-          {description}
-        </p>
+        {description && (
+          <p className='line-clamp-3 text-sm text-grey1 2xl:text-md'>
+            {description}
+          </p>
+        )}
       </div>
     </a>
   );

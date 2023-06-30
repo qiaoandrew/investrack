@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ChevronDown } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-interface SelectProps {
+interface DropdownLargeProps {
   selectedOption?: {
     label: string;
     value: any;
@@ -17,14 +17,14 @@ interface SelectProps {
   margin?: string;
 }
 
-export default function Select({
+export default function DropdownLarge({
   selectedOption,
   setSelectedOption,
   options,
   placeholder,
   noOptionsMessage,
   margin,
-}: SelectProps) {
+}: DropdownLargeProps) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
@@ -38,6 +38,9 @@ export default function Select({
 
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showDropdown]);
+
+  console.log(selectedOption);
+  console.log(options);
 
   return (
     <div className={`select relative z-10 ${margin}`}>
@@ -63,7 +66,7 @@ export default function Select({
         />
       </div>
       <div
-        className={`transition-300 absolute inset-x-0 top-[calc(100%+24px)] overflow-hidden rounded-sm border border-grey1 bg-black ${
+        className={`transition-300 absolute inset-x-0 top-[calc(100%+20px)] overflow-hidden rounded-sm border border-grey1 bg-black ${
           showDropdown
             ? 'pointer-events-auto opacity-100'
             : 'pointer-events-none opacity-0'
@@ -81,8 +84,8 @@ export default function Select({
                   }}
                   className={`transition-300 flex cursor-pointer items-center gap-2 rounded-xs px-3 py-4 ${
                     selectedOption?.value === option.value
-                      ? 'bg-grey3'
-                      : 'hover:bg-grey3 hover:bg-opacity-60'
+                      ? 'bg-grey2 bg-opacity-50'
+                      : 'hover:bg-grey2 hover:bg-opacity-30'
                   }`}
                 >
                   <p

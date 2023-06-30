@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
@@ -16,10 +17,10 @@ export default function Navbar() {
 
   return (
     <nav className='fixed inset-x-5 top-10 z-40 flex h-10 items-center justify-between md:inset-x-8 xl:inset-x-9 xl:top-12'>
-      <div className='flex items-center gap-2'>
+      <Link href='/' className='flex items-center gap-2'>
         <Image src={logo} alt='Investrack logo' className='w-6' />
         <p className='text-gradient text-xl font-semibold'>Investrack</p>
-      </div>
+      </Link>
       {!['/log-in', '/sign-up'].includes(pathname) && (
         <button
           type='button'

@@ -11,16 +11,15 @@ export default function DeleteWatchlistModal() {
       <h2 className='mb-4 text-3xl font-semibold text-white'>
         Delete Watchlist
       </h2>
-      <p className='mb-6 text-blue1 md:mb-8'>
+      <p className='mb-8 text-blue1 md:text-lg'>
         Are you sure you want to delete this watchlist?
       </p>
-      <div className='flex flex-col gap-5'>
+      <div className='grid gap-4'>
         <Button
           type='button'
           onClick={() => {}}
           hierarchy='secondary'
           font='font-semibold'
-          classes='w-full'
         >
           Confirm
         </Button>
@@ -29,7 +28,6 @@ export default function DeleteWatchlistModal() {
           onClick={() => dispatch(closeModal())}
           hierarchy='tertiary'
           font='font-semibold'
-          classes='w-full'
         >
           Cancel
         </Button>

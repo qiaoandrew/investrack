@@ -1,7 +1,7 @@
-import { COLORS } from '@/constants/colors';
 import { useRef } from 'react';
+import DropdownSmall from './DropdownSmall';
 import { ChevronLeft, ChevronRight } from 'react-feather';
-import Dropdown from './Dropdown';
+import { COLORS } from '@/constants/colors';
 
 interface CarouselProps {
   title: string;
@@ -32,7 +32,7 @@ export default function Carousel({
 
   return (
     <section className={margin}>
-      <div className='mx-dashboard mb-4 flex items-center justify-between 3xl:mb-5'>
+      <div className='mx-dashboard mb-4 flex items-center justify-between 2xl:mb-5'>
         <div className='flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-20'>
           <h2 className='text-2xl font-semibold text-white 2xl:text-3xl'>
             {title}
@@ -41,7 +41,7 @@ export default function Carousel({
             setSelectedOption &&
             dropdownOptions &&
             dropdownLabelSize && (
-              <Dropdown
+              <DropdownSmall
                 selectedOption={selectionOption}
                 setSelectedOption={setSelectedOption}
                 dropdownOptions={dropdownOptions}

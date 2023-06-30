@@ -32,12 +32,7 @@ export default function CreatePortfolioModal() {
           value={formik.values.name}
           placeholder='Portfolio Name'
         />
-        <Button
-          type='button'
-          hierarchy='secondary'
-          font='font-semibold'
-          classes='w-full'
-        >
+        <Button type='button' hierarchy='secondary' font='font-semibold'>
           Confirm
         </Button>
       </form>

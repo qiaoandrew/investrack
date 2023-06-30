@@ -35,7 +35,7 @@ export default function TextInput({
         onBlur={onBlur}
         value={value}
         placeholder={placeholder}
-        className={`transition-300 text-base w-full rounded-sm border border-grey2 bg-black p-4 text-white outline-none placeholder:text-grey1 focus:border-grey1 xl:px-5 
+        className={`transition-300 w-full rounded-sm border border-grey2 bg-black p-4 text-white outline-none placeholder:text-grey1 focus:border-grey1 xl:px-5 
                     ${icon ? 'pr-14' : ''} ${bg}`}
       />
       {icon && (

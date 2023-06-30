@@ -42,8 +42,8 @@ export default function AddToWatchlistModal() {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const handleSelect = (event: any, watchlistId: string) => {
-    if (event.target.checked) {
+  const handleSelect = (e: any, watchlistId: string) => {
+    if (e.target.checked) {
       setSelectedWatchlistIds((prevState) => [...prevState, watchlistId]);
     } else {
       setSelectedWatchlistIds((prevState) =>
@@ -64,7 +64,7 @@ export default function AddToWatchlistModal() {
       <div className='relative mb-8'>
         <div
           className={`no-scrollbar grid max-h-[220px] gap-6 overflow-y-scroll ${
-            WATCHLISTS.length > 4 ? 'pb-8' : ''
+            WATCHLISTS.length > 4 ? 'pb-6' : ''
           }`}
         >
           {WATCHLISTS.length > 0 ? (
@@ -77,14 +77,14 @@ export default function AddToWatchlistModal() {
                 <input
                   id={watchlist.id}
                   type='checkbox'
-                  onChange={(event) => handleSelect(event, watchlist.id)}
+                  onChange={(e) => handleSelect(e, watchlist.id)}
                   className='transition-300 rounded h-5 w-5 cursor-pointer appearance-none rounded-2xs border border-white checked:bg-white'
                 />
-                <p className='text-base text-white'>{watchlist.name}</p>
+                <p className='text-white'>{watchlist.name}</p>
               </label>
             ))
           ) : (
-            <p className='text-blue1'>
+            <p className='text-blue1 md:text-lg'>
               You don&apos;t have any watchlists yet.
             </p>
           )}

@@ -34,7 +34,7 @@ const SEARCH_RESULTS: SearchResult[] = [
   },
 ];
 
-export default function useSearchResults() {
+export default function useSearchResults(searchValue: string) {
   const [searchResults, setSearchResults] =
     useState<SearchResult[]>(SEARCH_RESULTS);
   const [loading, setLoading] = useState(false);
