@@ -1,41 +1,31 @@
-import Image, { type StaticImageData } from 'next/image';
-
-interface NewsCardProps {
-  title: string;
-  description?: string;
-  picture: StaticImageData;
-  link: string;
+export interface Article {
+  id: any;
+  headline: string;
+  summary?: string;
+  image: string;
+  url: string;
 }
 
-export default function NewsCard({
-  title,
-  description,
-  picture,
-  link,
-}: NewsCardProps) {
+export default function NewsCard({ headline, summary, image, url }: Article) {
   return (
     <a
-      href={link}
+      href={url}
       target='_blank'
       rel='noopener noreferrer'
       className='transition-300 w-80 overflow-hidden rounded-xl border border-grey2 hover:bg-grey3 hover:bg-opacity-60'
     >
-      <Image
-        src={picture}
-        alt={title}
-        className='aspect-[320/150] object-cover'
-      />
+      <img src={image} alt={headline} className='h-40 w-80 object-cover' />
       <div className='whitespace-normal px-5 pb-7 pt-4'>
         <p
           className={`line-clamp-2 font-medium text-white 2xl:text-lg ${
-            description ? 'mb-2' : ''
+            summary ? 'mb-2' : ''
           }`}
         >
-          {title}
+          {headline}
         </p>
-        {description && (
+        {summary && (
           <p className='line-clamp-3 text-sm text-grey1 2xl:text-md'>
-            {description}
+            {summary}
           </p>
         )}
       </div>

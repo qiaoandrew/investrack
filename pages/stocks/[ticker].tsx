@@ -5,7 +5,7 @@ import KeyStats from '@/components/sections/stock/KeyStats';
 import FinancialData from '@/components/sections/stock/FinancialData';
 import Description from '@/components/sections/stock/Description';
 import Profile from '@/components/sections/stock/Profile';
-import News from '@/components/sections/home/News';
+import MarketNews from '@/components/sections/home/MarketNews';
 
 export default function Stock() {
   return (
@@ -17,7 +17,7 @@ export default function Stock() {
       <FinancialData />
       <Description />
       <Profile />
-      <News />
+      <MarketNews />
     </>
   );
 }
