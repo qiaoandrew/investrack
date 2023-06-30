@@ -46,7 +46,7 @@ export default function LogIn() {
             <InputFeedback state='error'>{formik.errors.email}</InputFeedback>
           )}
         </div>
-        <div className='mb-6'>
+        <div className='mb-16'>
           <TextInput
             id='password'
             name='password'
@@ -72,9 +72,6 @@ export default function LogIn() {
             </InputFeedback>
           )}
         </div>
-        <Link href='/forgot-password' className='mb-12 self-end text-white'>
-          Forgot Password
-        </Link>
         <Button
           type='submit'
           hierarchy='primary'

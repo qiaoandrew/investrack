@@ -1,23 +1,9 @@
 import Button from '@/components/UI/Button';
 import { COLORS } from '@/constants/colors';
-import { Lock, LogOut, Mail } from 'react-feather';
+import { LogOut } from 'react-feather';
 
 export default function Settings() {
   const buttons = [
-    {
-      type: 'route',
-      label: 'Change Password',
-      route: '/change-password',
-      hierarchy: 'quinary',
-      icon: <Lock size={24} color={COLORS.grey1} />,
-    },
-    {
-      type: 'route',
-      label: 'Change Email',
-      route: '/change-email',
-      hierarchy: 'quinary',
-      icon: <Mail size={24} color={COLORS.grey1} />,
-    },
     {
       type: 'button',
       label: 'Log Out',
