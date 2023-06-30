@@ -1,77 +1,43 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Carousel from '@/components/UI/Carousel';
-import AssetCard from '@/components/cards/AssetCard';
-
-const MARKETS = [
-  {
-    label: 'S&P 500',
-    price: 4135.21,
-    change: 0.87,
-    changePercent: 1.28,
-  },
-  {
-    label: 'Dow Jones',
-    price: 33821.3,
-    change: 15.66,
-    changePercent: 0.05,
-  },
-  {
-    label: 'Nasdaq',
-    price: 13986.48,
-    change: 139.84,
-    changePercent: 1.01,
-  },
-  {
-    label: 'Russell 2000',
-    price: 2237.27,
-    change: 0.87,
-    changePercent: 1.28,
-  },
-  {
-    label: 'Crude Oil',
-    price: 63.13,
-    change: 0.87,
-    changePercent: 1.28,
-  },
-  {
-    label: 'Gold',
-    price: 1767.5,
-    change: 0.87,
-    changePercent: 1.28,
-  },
-  {
-    label: 'Silver',
-    price: 25.98,
-    change: 0.87,
-    changePercent: 1.28,
-  },
-  {
-    label: 'EUR/USD',
-    price: 1.2035,
-    change: 0.87,
-    changePercent: 1.28,
-  },
-];
+import AssetCard, { type Asset } from '@/components/cards/AssetCard';
 
 export default function Markets() {
+  const [markets, setMarkets] = useState<Asset[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState({
     label: 'US',
     value: 'united states',
   });
 
+  useEffect(() => {
+    const fetchMarkets = async () => {
+      setLoading(true);
+      const { data } = await axios.get('/api/stocks/markets', {
+        params: { country: selectedOption.value },
+      });
+      setMarkets(data.map((asset: any) => ({ ...asset, label: asset.name })));
+      setLoading(false);
+    };
+
+    fetchMarkets();
+  }, [selectedOption]);
+
   return (
     <Carousel
       title='Markets'
+      loading={loading}
       selectedOption={selectedOption}
       setSelectedOption={setSelectedOption}
       dropdownOptions={DROPDOWN_OPTIONS}
       dropdownLabelSize='w-6'
       margin='mb-section'
     >
-      {MARKETS.map((market) => (
+      {markets.map((market) => (
         <AssetCard
           key={market.label}
-          symbol={market.label}
+          label={market.label}
           price={market.price}
           change={market.change}
           changePercent={market.changePercent}

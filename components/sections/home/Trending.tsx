@@ -10,7 +10,9 @@ export default function Trending() {
   useEffect(() => {
     const fetchTrending = async () => {
       const { data } = await axios.get('/api/stocks/trending');
-      setTrending(data);
+      setTrending(
+        data.map((asset: any) => ({ ...asset, label: asset.symbol }))
+      );
       setLoading(false);
     };
 
@@ -21,12 +23,12 @@ export default function Trending() {
     <Carousel title='Trending' loading={loading} margin='mb-section'>
       {trending.map((asset) => (
         <AssetCard
-          symbol={asset.symbol}
+          label={asset.label}
           price={asset.price}
           change={asset.change}
           changePercent={asset.changePercent}
-          route={`/stocks/${asset.symbol}`}
-          key={asset.symbol}
+          route={`/stocks/${asset.label}`}
+          key={asset.label}
         />
       ))}
     </Carousel>

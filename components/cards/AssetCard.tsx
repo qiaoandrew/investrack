@@ -3,7 +3,7 @@ import { ChevronUp, ChevronDown } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
 export interface Asset {
-  symbol: string;
+  label: string;
   price: number;
   change: number;
   changePercent: number;
@@ -11,7 +11,7 @@ export interface Asset {
 }
 
 export default function AssetCard({
-  symbol,
+  label,
   price,
   change,
   changePercent,
@@ -24,7 +24,7 @@ export default function AssetCard({
       }`}
     >
       <div>
-        <p className='mb-1.5 font-medium text-white'>{symbol}</p>
+        <p className='mb-1.5 font-medium text-white'>{label}</p>
         <p className='text-grey1'>{price.toFixed(2)}</p>
       </div>
       <div className='flex flex-col items-end justify-between'>
