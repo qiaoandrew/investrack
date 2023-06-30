@@ -103,7 +103,7 @@ export default function Menu() {
           <div className='mb-2 flex items-center justify-between px-4'>
             <p className='text-sm text-grey1'>WATCHLISTS</p>
             <button
-              onClick={() => dispatch(openModal('deleteWatchlist'))}
+              onClick={() => dispatch(openModal('addToWatchlist'))}
               className='transition-300 -m-1.5 rounded-full p-1.5 hover:bg-grey3'
             >
               <Plus size={24} color={COLORS.grey1} />
