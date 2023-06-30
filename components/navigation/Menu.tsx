@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
+import { logOut } from '@/util/auth';
 import {
   Home,
   Repeat,
@@ -10,6 +11,8 @@ import {
   Settings,
   LogOut,
   Plus,
+  LogIn,
+  UserPlus,
 } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
@@ -64,6 +67,7 @@ export default function Menu() {
   const isMobileMenuOpen = useSelector(
     (state: RootState) => state.mobileMenu.isOpen
   );
+  const { user } = useSelector((state: RootState) => state.auth);
 
   return (
     <nav
@@ -99,7 +103,7 @@ export default function Menu() {
       </div>
       <hr className='border-b-1 border-grey2' />
       <div className='relative flex flex-grow overflow-y-hidden'>
-        <div className='no-scrollbar flex-grow overflow-y-scroll pb-8 pt-6'>
+        <div className='no-scrollbar flex-grow overflow-y-scroll overscroll-contain pb-8 pt-6'>
           <div className='mb-2 flex items-center justify-between px-4'>
             <p className='text-sm text-grey1'>WATCHLISTS</p>
             <button
@@ -169,24 +173,43 @@ export default function Menu() {
       </div>
       <hr className='border-b-1 mb-3 border-grey2' />
       <div className='mb-12 grid gap-1'>
-        <MenuItem
-          label='Settings'
-          icon={
-            <Settings
-              size={24}
-              color={pathname === '/settings' ? COLORS.white : COLORS.grey1}
-              className='transition-300'
+        {user ? (
+          <>
+            <MenuItem
+              label='Settings'
+              icon={
+                <Settings
+                  size={24}
+                  color={pathname === '/settings' ? COLORS.white : COLORS.grey1}
+                  className='transition-300'
+                />
+              }
+              isActive={pathname === '/settings'}
+              onClick={() => router.push('/settings')}
             />
-          }
-          isActive={pathname === '/settings'}
-          onClick={() => router.push('/settings')}
-        />
-        <MenuItem
-          label='Log Out'
-          icon={<LogOut size={24} color={COLORS.grey1} />}
-          isActive={false}
-          onClick={() => {}}
-        />
+            <MenuItem
+              label='Log Out'
+              icon={<LogOut size={24} color={COLORS.grey1} />}
+              isActive={false}
+              onClick={logOut}
+            />
+          </>
+        ) : (
+          <>
+            <MenuItem
+              label='Sign Up'
+              icon={<UserPlus size={24} color={COLORS.grey1} />}
+              isActive={false}
+              onClick={() => router.push('/sign-up')}
+            />
+            <MenuItem
+              label='Log In'
+              icon={<LogIn size={24} color={COLORS.grey1} />}
+              isActive={false}
+              onClick={() => router.push('/log-in')}
+            />
+          </>
+        )}
       </div>
     </nav>
   );

@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 import { useFormik } from 'formik';
+import { signIn, signInWithGoogle } from '@/util/auth';
+import { createUser } from '@/util/user';
+import { validateLogIn } from '@/util/formValidation';
 import AuthLayout from '@/components/layouts/AuthLayout';
 import TextInput from '@/components/UI/TextInput';
 import InputFeedback from '@/components/UI/InputFeedback';
@@ -11,14 +17,61 @@ import { COLORS } from '@/constants/colors';
 
 export default function LogIn() {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+
+  const router = useRouter();
+
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
-    onSubmit: (values) => {},
+    validate: validateLogIn,
+    onSubmit: async (values) => {
+      setError('');
+      try {
+        await signIn(values.email, values.password);
+      } catch (error: any) {
+        const errorCode = error.code;
+        switch (errorCode) {
+          case 'auth/wrong-password':
+            formik.setFieldError(
+              'password',
+              'Incorrect password. Please try again.'
+            );
+            break;
+          case 'auth/invalid-email':
+            formik.setFieldError('email', 'Invalid email. Please try again.');
+            break;
+          case 'auth/user-not-found':
+            formik.setFieldError('email', 'User not found. Please sign up.');
+            break;
+          default:
+            setError('Something went wrong. Please try again.');
+            break;
+        }
+      }
+    },
   });
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
+
+  const handleSignInWithGoogle = async () => {
+    setError('');
+    try {
+      const { uid, email } = await signInWithGoogle();
+      await createUser(uid, email);
+    } catch (error: any) {
+      console.error(error);
+      setError('Something went wrong. Please try again later.');
+    }
+  };
 
   return (
     <AuthLayout>
@@ -71,6 +124,7 @@ export default function LogIn() {
               {formik.errors.password}
             </InputFeedback>
           )}
+          {error && <InputFeedback state='error'>{error}</InputFeedback>}
         </div>
         <Button
           type='submit'
@@ -80,16 +134,17 @@ export default function LogIn() {
         >
           Log In
         </Button>
-        <Button
-          type='button'
-          onClick={() => {}}
-          hierarchy='quaternary'
-          font='font-semibold'
-        >
-          Log in with Google
-          <FcGoogle className='absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2' />
-        </Button>
       </form>
+      <Button
+        type='button'
+        onClick={handleSignInWithGoogle}
+        hierarchy='quaternary'
+        font='font-semibold'
+        classes='w-full'
+      >
+        Log in with Google
+        <FcGoogle className='absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2' />
+      </Button>
     </AuthLayout>
   );
 }

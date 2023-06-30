@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 import { useFormik } from 'formik';
+import { signInWithGoogle, signUp } from '@/util/auth';
+import { createUser } from '@/util/user';
+import { validateSignUp } from '@/util/formValidation';
 import AuthLayout from '@/components/layouts/AuthLayout';
 import TextInput from '@/components/UI/TextInput';
 import InputFeedback from '@/components/UI/InputFeedback';
@@ -12,6 +18,11 @@ import { COLORS } from '@/constants/colors';
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState('');
+
+  const router = useRouter();
+
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -19,8 +30,54 @@ export default function SignUp() {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: (values) => {},
+    validate: validateSignUp,
+    onSubmit: async (values) => {
+      setError('');
+      try {
+        const { uid, email } = await signUp(values.email, values.password);
+        await createUser(uid, email);
+      } catch (error: any) {
+        const errorCode = error.code;
+        switch (errorCode) {
+          case 'auth/weak-password':
+            formik.setFieldError(
+              'password',
+              'Password must be at least 6 characters.'
+            );
+            break;
+          case 'auth/email-already-in-use':
+            formik.setFieldError(
+              'email',
+              'An account with this email already exists.'
+            );
+            break;
+          case 'auth/invalid-email':
+            formik.setFieldError('email', 'Invalid email. Please try again.');
+            break;
+          default:
+            setError('Something went wrong. Please try again.');
+            break;
+        }
+      }
+    },
   });
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
+
+  const handleSignUpWithGoogle = async () => {
+    setError('');
+    try {
+      const { uid, email } = await signInWithGoogle();
+      await createUser(uid, email);
+    } catch (error: any) {
+      console.error(error);
+      setError('Something went wrong. Please try again later.');
+    }
+  };
 
   return (
     <AuthLayout>
@@ -95,6 +152,7 @@ export default function SignUp() {
               {formik.errors.confirmPassword}
             </InputFeedback>
           )}
+          {error && <InputFeedback state='error'>{error}</InputFeedback>}
         </div>
         <Button
           type='submit'
@@ -104,16 +162,17 @@ export default function SignUp() {
         >
           Sign Up
         </Button>
-        <Button
-          type='button'
-          onClick={() => {}}
-          hierarchy='quaternary'
-          font='font-semibold'
-        >
-          Sign up with Google
-          <FcGoogle className='absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2' />
-        </Button>
       </form>
+      <Button
+        type='button'
+        onClick={handleSignUpWithGoogle}
+        hierarchy='quaternary'
+        font='font-semibold'
+        classes='w-full'
+      >
+        Sign up with Google
+        <FcGoogle className='absolute right-5 top-1/2 h-6 w-6 -translate-y-1/2' />
+      </Button>
     </AuthLayout>
   );
 }

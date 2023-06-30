@@ -1,4 +1,3 @@
-import { auth } from '@/lib/firebase';
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -6,6 +5,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 export const signIn = async (email: string, password: string) => {
   const userCredential = await signInWithEmailAndPassword(
@@ -13,7 +13,10 @@ export const signIn = async (email: string, password: string) => {
     email,
     password
   );
-  return userCredential.user.uid;
+  return {
+    uid: userCredential.user.uid,
+    email: userCredential.user.email as string,
+  };
 };
 
 export const signUp = async (email: string, password: string) => {
@@ -22,12 +25,18 @@ export const signUp = async (email: string, password: string) => {
     email,
     password
   );
-  return userCredential.user.uid;
+  return {
+    uid: userCredential.user.uid,
+    email: userCredential.user.email as string,
+  };
 };
 
 export const signInWithGoogle = async () => {
   const userCredential = await signInWithPopup(auth, new GoogleAuthProvider());
-  return { uid: userCredential.user.uid, email: userCredential.user.email };
+  return {
+    uid: userCredential.user.uid,
+    email: userCredential.user.email as string,
+  };
 };
 
 export const logOut = async () => {
