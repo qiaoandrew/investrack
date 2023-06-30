@@ -13,13 +13,7 @@ export default async function handler(
     const { data } = await axios.get(`${FINANCE_API_BASE_URL}/search`, {
       params: { query },
     });
-    res.status(200).json(
-      data.slice(0, 16).map((stock: any) => ({
-        symbol: stock.symbol,
-        name: stock.shortname,
-        exchange: stock.exchDisp,
-      }))
-    );
+    res.status(200).json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error.' });
