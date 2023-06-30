@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 interface ButtonProps {
   type: 'route' | 'link' | 'button' | 'submit';
-  hierarchy: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+  hierarchy: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'quinary';
   route?: string;
   link?: string;
   onClick?: () => void;
@@ -46,6 +46,9 @@ export default function Button({
     buttonClasses +=
       ' border border-blue2 text-blue2 hover:border-blue1 hover:text-blue1';
   } else if (hierarchy === 'quaternary') {
+    buttonClasses +=
+      ' border border-white text-white hover:bg-grey3 hover:bg-opacity-80';
+  } else if (hierarchy === 'quinary') {
     buttonClasses +=
       ' border border-grey1 text-grey1 hover:bg-grey3 hover:bg-opacity-80';
   }
