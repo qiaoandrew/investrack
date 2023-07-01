@@ -17,8 +17,7 @@ export default function CreatePortfolioModal() {
     },
     onSubmit: async (values) => {
       if (!user) return;
-      const { data } = await axios.post('/api/portfolios', {
-        uid: user.uid,
+      const { data } = await axios.post(`/api/users/${user.uid}/portfolios`, {
         name: values.name,
       });
       dispatch(addPortfolio(data));

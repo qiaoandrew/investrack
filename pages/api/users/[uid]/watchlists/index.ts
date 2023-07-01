@@ -7,8 +7,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { uid } = req.query;
   if (req.method === 'POST') {
-    const { name, uid } = req.body;
+    const { name } = req.body;
     try {
       await connectDB();
       const user = await User.findOne({ uid });
@@ -25,7 +26,6 @@ export default async function handler(
       res.status(500).json({ message: 'Internal server error.' });
     }
   } else if (req.method === 'GET') {
-    const { uid } = req.query;
     try {
       await connectDB();
       const user = await User.findOne({ uid }).populate('watchlists');

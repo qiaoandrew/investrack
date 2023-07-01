@@ -18,8 +18,7 @@ export default function CreateWatchlistModal() {
     },
     onSubmit: async (values) => {
       if (!user) return;
-      const { data } = await axios.post('/api/watchlists', {
-        uid: user.uid,
+      const { data } = await axios.post(`/api/users/${user.uid}/watchlists`, {
         name: values.name,
       });
       dispatch(addWatchlist(data));

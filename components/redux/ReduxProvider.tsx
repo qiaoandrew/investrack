@@ -39,7 +39,7 @@ function StateWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchWatchlists = async () => {
       if (!user) return;
-      const { data } = await axios.get('/api/watchlists', {
+      const { data } = await axios.get(`/api/users/${user.uid}/watchlists`, {
         params: { uid: user.uid },
       });
       dispatch(setWatchlists(data));
@@ -47,7 +47,7 @@ function StateWrapper({ children }: { children: React.ReactNode }) {
 
     const fetchPortfolios = async () => {
       if (!user) return;
-      const { data } = await axios.get('/api/portfolios', {
+      const { data } = await axios.get(`/api/users/${user.uid}/portfolios`, {
         params: { uid: user.uid },
       });
       dispatch(setPortfolios(data));
