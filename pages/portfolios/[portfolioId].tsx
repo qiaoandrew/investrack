@@ -1,8 +1,13 @@
 import { Fragment, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { openModal } from '@/store/slices/modalSlice';
 import AnimateHeight from 'react-animate-height';
 import IconButton from '@/components/UI/IconButton';
-import { COLORS } from '@/constants/colors';
+import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { ChevronDown, ChevronUp, Edit, Trash } from 'react-feather';
+import { COLORS } from '@/constants/colors';
 
 const HOLDINGS = [
   {
@@ -68,9 +73,21 @@ const HOLDINGS = [
 ];
 
 export default function Portfolio() {
+  const router = useRouter();
+  const { portfolioId } = router.query;
+
+  const dispatch: AppDispatch = useDispatch();
+  const portfolio = useSelector((state: RootState) =>
+    state.portfolios.portfolios.find(
+      (portfolio) => portfolio._id === portfolioId
+    )
+  );
+
   const [heights, setHeights] = useState<(0 | 'auto')[]>(
     Array(HOLDINGS.length).fill(0)
   );
+
+  if (!portfolio) return <LoadingSpinner />;
 
   const toggleHeight = (i: number) => {
     const newHeights = [...heights];
@@ -82,16 +99,16 @@ export default function Portfolio() {
     <div className='mx-dashboard max-w-[566px]'>
       <div className='mb-2 flex items-center justify-between'>
         <h1 className='text-3xl font-semibold text-white 2xl:text-4xl'>
-          Portfolio 1
+          {portfolio.name}
         </h1>
         <div className='flex gap-4'>
           <IconButton
             icon={<Edit size={16} color={COLORS.grey1} />}
-            onClick={() => {}}
+            onClick={() => dispatch(openModal('renamePortfolio'))}
           />
           <IconButton
             icon={<Trash size={16} color={COLORS.grey1} />}
-            onClick={() => {}}
+            onClick={() => dispatch(openModal('deletePortfolio'))}
           />
         </div>
       </div>
