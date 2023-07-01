@@ -1,13 +1,20 @@
+import { useRouter } from 'next/router';
+import { logOut } from '@/util/auth';
 import Button from '@/components/UI/Button';
-import { COLORS } from '@/constants/colors';
 import { LogOut } from 'react-feather';
+import { COLORS } from '@/constants/colors';
 
 export default function Settings() {
-  const buttons = [
+  const router = useRouter();
+
+  const BUTTONS = [
     {
       type: 'button',
       label: 'Log Out',
-      onClick: () => {},
+      onClick: async () => {
+        await logOut();
+        router.push('/');
+      },
       hierarchy: 'quinary',
       icon: <LogOut size={24} color={COLORS.grey1} />,
     },
@@ -19,10 +26,10 @@ export default function Settings() {
         Settings
       </h1>
       <div className='grid max-w-[366px] gap-5'>
-        {buttons.map((button, i) => (
+        {BUTTONS.map((button, i) => (
           <Button
             type={button.type as 'route' | 'button'}
-            hierarchy='quaternary'
+            hierarchy='quinary'
             onClick={button.onClick}
             icon={button.icon}
             key={i}
