@@ -1,4 +1,5 @@
-import { Fragment } from 'react';
+import axios from 'axios';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,66 +10,20 @@ import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { COLORS } from '@/constants/colors';
 import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
 
-const ASSETS = [
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 123.45,
-    change: 0.12,
-    changePercent: 0.12,
-  },
-];
+interface Price {
+  symbol: string;
+  name: string;
+  price: number;
+  change: number;
+  changePercent: number;
+  exchange: string;
+}
 
 export default function Watchlist() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [stockPrices, setStockPrices] = useState<Price[]>([]);
+
   const router = useRouter();
   const { watchlistId } = router.query;
 
@@ -78,6 +33,29 @@ export default function Watchlist() {
       (watchlist) => watchlist._id === watchlistId
     )
   );
+
+  useEffect(() => {
+    const fetchStockPrices = async () => {
+      setLoading(true);
+      try {
+        if (!watchlist) return;
+        const promises = watchlist.stocks.map(async (symbol) => {
+          const { data } = await axios.get(`/api/stocks/price`, {
+            params: { symbol },
+          });
+          return data;
+        });
+        const stockPrices = await Promise.all(promises);
+        setStockPrices(stockPrices as Price[]);
+      } catch (error) {
+        console.log(error);
+        setError('Something went wrong. Please try again later.');
+      }
+      setLoading(false);
+    };
+
+    fetchStockPrices();
+  }, [watchlist]);
 
   if (!watchlist) return <LoadingSpinner />;
 
@@ -98,46 +76,50 @@ export default function Watchlist() {
           />
         </div>
       </div>
-      {ASSETS.map((asset, i) => (
-        <Fragment key={i}>
-          <Link
-            href={`/stocks/${asset.symbol}`}
-            className={`transition-300 grid grid-cols-[8fr_2fr_4fr_1fr] items-center gap-4 py-4 hover:bg-grey3 hover:bg-opacity-60 xs:px-4 
+      {loading ? (
+        <LoadingSpinner margin='mt-12' />
+      ) : (
+        stockPrices.map((price, i) => (
+          <Fragment key={i}>
+            <Link
+              href={`/stocks/${price.symbol}`}
+              className={`transition-300 grid grid-cols-[8fr_2fr_4fr_1fr] items-center gap-4 py-4 hover:bg-grey3 hover:bg-opacity-60 xs:px-4 
               ${i === 0 ? 'rounded-t-sm' : ''} 
-              ${i === ASSETS.length - 1 ? 'rounded-b-sm' : ''}`}
-          >
-            <div className='flex flex-col gap-1.5 xl:flex-row-reverse xl:items-center xl:gap-0 xl:justify-self-start'>
-              <p className='text-base line-clamp-1 font-medium text-white'>
-                {asset.name}
+              ${i === stockPrices.length - 1 ? 'rounded-b-sm' : ''}`}
+            >
+              <div className='flex flex-col gap-1.5 xl:flex-row-reverse xl:items-center xl:gap-0 xl:justify-self-start'>
+                <p className='text-base line-clamp-1 font-medium text-white'>
+                  {price.name}
+                </p>
+                <p className='text-sm text-blue1 xl:w-16'>{price.symbol}</p>
+              </div>
+              <p className='text-base justify-self-end font-medium text-white'>
+                {price.price}
               </p>
-              <p className='text-sm text-blue1 xl:w-16'>{asset.symbol}</p>
-            </div>
-            <p className='text-base justify-self-end font-medium text-white'>
-              {asset.price}
-            </p>
-            <div className='flex items-center gap-1 xs:gap-1.5'>
-              {asset.change > 0 ? (
-                <ChevronUp size={20} color={COLORS.green} />
-              ) : (
-                <ChevronDown size={20} color={COLORS.red} />
-              )}
-              <p
-                className={`text-base whitespace-nowrap ${
-                  asset.change > 0 ? 'text-green' : 'text-red'
-                }`}
-              >
-                {asset.change} ({asset.changePercent}%)
-              </p>
-            </div>
-            <div className='transition-300 -m-1.5 justify-self-end rounded-full p-1.5 hover:bg-grey2 hover:bg-opacity-50'>
-              <X size={20} color={COLORS.grey1} />
-            </div>
-          </Link>
-          {i !== ASSETS.length - 1 && (
-            <hr className='border-b-1 border-grey2 border-opacity-60' />
-          )}
-        </Fragment>
-      ))}
+              <div className='flex items-center gap-1 xs:gap-1.5'>
+                {price.change > 0 ? (
+                  <ChevronUp size={20} color={COLORS.green} />
+                ) : (
+                  <ChevronDown size={20} color={COLORS.red} />
+                )}
+                <p
+                  className={`text-base whitespace-nowrap ${
+                    price.change > 0 ? 'text-green' : 'text-red'
+                  }`}
+                >
+                  {price.change} ({price.changePercent}%)
+                </p>
+              </div>
+              <div className='transition-300 -m-1.5 justify-self-end rounded-full p-1.5 hover:bg-grey2 hover:bg-opacity-50'>
+                <X size={20} color={COLORS.grey1} />
+              </div>
+            </Link>
+            {i !== stockPrices.length - 1 && (
+              <hr className='border-b-1 border-grey2 border-opacity-60' />
+            )}
+          </Fragment>
+        ))
+      )}
     </div>
   );
 }
