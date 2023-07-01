@@ -16,25 +16,6 @@ import {
 } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-const WATCHLISTS = [
-  {
-    id: '1',
-    name: 'Watchlist 1',
-  },
-  {
-    id: '2',
-    name: 'Watchlist 2',
-  },
-  {
-    id: '3',
-    name: 'Watchlist 3',
-  },
-  {
-    id: '4',
-    name: 'Watchlist 4',
-  },
-];
-
 const PORTFOLIOS = [
   {
     id: '1',
@@ -68,6 +49,7 @@ export default function Menu() {
     (state: RootState) => state.mobileMenu.isOpen
   );
   const { user } = useSelector((state: RootState) => state.auth);
+  const { watchlists } = useSelector((state: RootState) => state.watchlists);
 
   return (
     <nav
@@ -107,21 +89,25 @@ export default function Menu() {
           <div className='mb-2 flex items-center justify-between px-4'>
             <p className='text-sm text-grey1'>WATCHLISTS</p>
             <button
-              onClick={() => dispatch(openModal('addToPortfolio'))}
+              onClick={() =>
+                dispatch(
+                  openModal(user ? 'createWatchlist' : 'accountRequired')
+                )
+              }
               className='transition-300 -m-1.5 rounded-full p-1.5 hover:bg-grey3'
             >
               <Plus size={24} color={COLORS.grey1} />
             </button>
           </div>
           <div className='mb-8 grid gap-1'>
-            {WATCHLISTS.map((watchlist) => {
+            {watchlists.map((watchlist) => {
               const isActive =
                 pathname.startsWith('/watchlist') &&
-                watchlistId === watchlist.id;
+                watchlistId === watchlist._id;
 
               return (
                 <MenuItem
-                  key={watchlist.id}
+                  key={watchlist._id}
                   label={watchlist.name}
                   icon={
                     <List
@@ -131,7 +117,7 @@ export default function Menu() {
                     />
                   }
                   isActive={isActive}
-                  onClick={() => router.push(`/watchlists/${watchlist.id}`)}
+                  onClick={() => router.push(`/watchlists/${watchlist._id}`)}
                 />
               );
             })}
@@ -139,7 +125,11 @@ export default function Menu() {
           <div className='mb-2 flex items-center justify-between px-4'>
             <p className='text-sm text-grey1'>PORTFOLIOS</p>
             <button
-              onClick={() => dispatch(openModal('deletePortfolio'))}
+              onClick={() =>
+                dispatch(
+                  openModal(user ? 'createPortfolio' : 'accountRequired')
+                )
+              }
               className='transition-300 -m-1.5 rounded-full p-1.5 hover:bg-grey3'
             >
               <Plus size={24} color={COLORS.grey1} />

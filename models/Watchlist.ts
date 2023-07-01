@@ -3,9 +3,8 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const WatchlistSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+  uid: {
+    type: String,
     required: true,
   },
   name: {

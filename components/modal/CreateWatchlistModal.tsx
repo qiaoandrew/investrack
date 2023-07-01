@@ -1,5 +1,7 @@
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store/store';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { addWatchlist } from '@/store/slices/watchlistsSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 import { useFormik } from 'formik';
 import TextInput from '../UI/TextInput';
@@ -8,11 +10,19 @@ import Button from '../UI/Button';
 export default function CreateWatchlistModal() {
   const dispatch: AppDispatch = useDispatch();
 
+  const { user } = useSelector((state: RootState) => state.auth);
+
   const formik = useFormik({
     initialValues: {
       name: '',
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      if (!user) return;
+      const { data } = await axios.post('/api/watchlists', {
+        uid: user.uid,
+        name: values.name,
+      });
+      dispatch(addWatchlist(data));
       dispatch(closeModal());
     },
   });
@@ -22,7 +32,7 @@ export default function CreateWatchlistModal() {
       <h2 className='mb-4 text-3xl font-semibold text-white'>
         Create Watchlist
       </h2>
-      <form className='grid gap-8'>
+      <form onSubmit={formik.handleSubmit} className='grid gap-8'>
         <TextInput
           id='name'
           name='name'
@@ -32,7 +42,7 @@ export default function CreateWatchlistModal() {
           value={formik.values.name}
           placeholder='Watchlist Name'
         />
-        <Button type='button' hierarchy='secondary' font='font-semibold'>
+        <Button type='submit' hierarchy='secondary' font='font-semibold'>
           Confirm
         </Button>
       </form>
