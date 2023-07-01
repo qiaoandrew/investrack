@@ -1,4 +1,8 @@
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store/store';
+import { logOutWatchlists } from '@/store/slices/watchlistsSlice';
+import { logOutPortfolios } from '@/store/slices/portfoliosSlice';
 import { logOut } from '@/util/auth';
 import Button from '@/components/UI/Button';
 import { LogOut } from 'react-feather';
@@ -7,12 +11,16 @@ import { COLORS } from '@/constants/colors';
 export default function Settings() {
   const router = useRouter();
 
+  const dispatch: AppDispatch = useDispatch();
+
   const BUTTONS = [
     {
       type: 'button',
       label: 'Log Out',
       onClick: async () => {
         await logOut();
+        dispatch(logOutWatchlists());
+        dispatch(logOutPortfolios());
         router.push('/');
       },
       hierarchy: 'quinary',

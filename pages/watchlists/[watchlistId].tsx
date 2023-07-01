@@ -91,8 +91,8 @@ export default function Watchlist() {
               ${i === 0 ? 'rounded-t-sm' : ''} 
               ${i === stockPrices.length - 1 ? 'rounded-b-sm' : ''}`}
             >
-              <div className='flex flex-shrink flex-col gap-1.5 xl:flex-row-reverse xl:items-center xl:gap-0 xl:justify-self-start'>
-                <p className='text-base line-clamp-1 font-medium text-white'>
+              <div className='grid flex-shrink gap-1.5 xl:grid-cols-[minmax(0,1fr),minmax(0,3fr)] xl:items-center xl:gap-0 xl:justify-self-start'>
+                <p className='text-base line-clamp-1 font-medium text-white xl:order-2'>
                   {price.name}
                 </p>
                 <p className='text-sm text-blue1 xl:w-16'>{price.symbol}</p>

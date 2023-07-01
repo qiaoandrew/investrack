@@ -2,6 +2,9 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
+import { closeMobileMenu } from '@/store/slices/mobileMenuSlice';
+import { logOutWatchlists } from '@/store/slices/watchlistsSlice';
+import { logOutPortfolios } from '@/store/slices/portfoliosSlice';
 import { logOut } from '@/util/auth';
 import {
   Home,
@@ -159,7 +162,11 @@ export default function Menu() {
               label='Log Out'
               icon={<LogOut size={24} color={COLORS.grey1} />}
               isActive={false}
-              onClick={logOut}
+              onClick={() => {
+                dispatch(logOutWatchlists());
+                dispatch(logOutPortfolios());
+                logOut();
+              }}
             />
           </>
         ) : (
@@ -192,11 +199,14 @@ interface MenuItemProps {
 }
 
 function MenuItem({ label, icon, isActive, onClick, margin }: MenuItemProps) {
+  const dispatch: AppDispatch = useDispatch();
+
   return (
     <button
       type='button'
       onClick={() => {
         onClick();
+        dispatch(closeMobileMenu());
       }}
       className={`transition-300 group flex cursor-pointer items-center gap-3 rounded-md px-4 py-4 ${
         isActive ? 'bg-grey3' : 'hover:bg-grey3 hover:bg-opacity-70'
