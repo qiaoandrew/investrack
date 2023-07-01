@@ -8,6 +8,7 @@ import CreatePortfolioModal from './CreatePortfolioModal';
 import CreateWatchlistModal from './CreateWatchlistModal';
 import DeletePortfolioModal from './DeletePortfolioModal';
 import DeleteWatchlistModal from './DeleteWatchlistModal';
+import RenameWatchlistModal from './RenameWatchlistModal';
 import { XCircle } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
@@ -37,6 +38,7 @@ export default function Modal() {
         {modalContent === 'deletePortfolio' && <DeletePortfolioModal />}
         {modalContent === 'addToWatchlist' && <AddToWatchlistModal />}
         {modalContent === 'addToPortfolio' && <AddToPortfolioModal />}
+        {modalContent === 'renameWatchlist' && <RenameWatchlistModal />}
 
         <XCircle
           size={32}

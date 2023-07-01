@@ -1,7 +1,12 @@
-import IconButton from '@/components/UI/IconButton';
-import { COLORS } from '@/constants/colors';
-import Link from 'next/link';
 import { Fragment } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { openModal } from '@/store/slices/modalSlice';
+import IconButton from '@/components/UI/IconButton';
+import LoadingSpinner from '@/components/UI/LoadingSpinner';
+import { COLORS } from '@/constants/colors';
 import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
 
 const ASSETS = [
@@ -64,27 +69,39 @@ const ASSETS = [
 ];
 
 export default function Watchlist() {
+  const router = useRouter();
+  const { watchlistId } = router.query;
+
+  const dispatch: AppDispatch = useDispatch();
+  const watchlist = useSelector((state: RootState) =>
+    state.watchlists.watchlists.find(
+      (watchlist) => watchlist._id === watchlistId
+    )
+  );
+
+  if (!watchlist) return <LoadingSpinner />;
+
   return (
     <div className='mx-dashboard max-w-[566px]'>
       <div className='mb-3 flex items-center justify-between'>
         <h1 className='text-3xl font-semibold text-white 2xl:text-4xl'>
-          Watchlist 1
+          {watchlist.name}
         </h1>
         <div className='flex gap-4'>
           <IconButton
             icon={<Edit size={16} color={COLORS.grey1} />}
-            onClick={() => {}}
+            onClick={() => dispatch(openModal('renameWatchlist'))}
           />
           <IconButton
             icon={<Trash size={16} color={COLORS.grey1} />}
-            onClick={() => {}}
+            onClick={() => dispatch(openModal('deleteWatchlist'))}
           />
         </div>
       </div>
       {ASSETS.map((asset, i) => (
-        <Fragment key={asset.symbol}>
+        <Fragment key={i}>
           <Link
-            href={`/stock/${asset.symbol}`}
+            href={`/stocks/${asset.symbol}`}
             className={`transition-300 grid grid-cols-[8fr_2fr_4fr_1fr] items-center gap-4 py-4 hover:bg-grey3 hover:bg-opacity-60 xs:px-4 
               ${i === 0 ? 'rounded-t-sm' : ''} 
               ${i === ASSETS.length - 1 ? 'rounded-b-sm' : ''}`}
