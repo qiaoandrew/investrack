@@ -1,19 +1,17 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { StockPrice } from '@/interfaces/interfaces';
+import { TrendingStock } from '@/interfaces/interfaces';
 import Carousel from '@/components/UI/Carousel';
 import AssetCard from '@/components/cards/AssetCard';
 
 export default function Trending() {
-  const [trending, setTrending] = useState<StockPrice[]>([]);
+  const [trending, setTrending] = useState<TrendingStock[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTrending = async () => {
       const { data } = await axios.get('/api/stocks/trending');
-      setTrending(
-        data.map((asset: any) => ({ ...asset, label: asset.symbol }))
-      );
+      setTrending(data as TrendingStock[]);
       setLoading(false);
     };
 

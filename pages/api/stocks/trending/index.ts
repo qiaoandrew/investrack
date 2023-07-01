@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { StockPrice } from '@/interfaces/interfaces';
+import { TrendingStock } from '@/interfaces/interfaces';
 
 const FINANCE_API_BASE_URL = process.env.FINANCE_API_BASE_URL;
 
@@ -12,7 +12,7 @@ export default async function handler(
     const { data } = await axios.get(
       `${FINANCE_API_BASE_URL}/trending?country=united states`
     );
-    res.status(200).json(data as StockPrice[]);
+    res.status(200).json(data as TrendingStock[]);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error.' });

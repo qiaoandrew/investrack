@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import connectDB from '@/lib/mongoose';
 import User from '@/models/User';
 import Watchlist from '@/models/Watchlist';
-import { Watchlist as WatchlistType } from '@/interfaces/interfaces';
 
 export default async function handler(
   req: NextApiRequest,
