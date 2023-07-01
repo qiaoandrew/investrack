@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
 import { updateWatchlist } from '@/store/slices/watchlistsSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 import { useFormik } from 'formik';
@@ -13,15 +13,20 @@ export default function RenameWatchlistModal() {
   const { watchlistId } = router.query;
 
   const dispatch: AppDispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const formik = useFormik({
     initialValues: {
       name: '',
     },
     onSubmit: async (values) => {
-      const { data } = await axios.patch(`/api/watchlists/${watchlistId}`, {
-        name: values.name,
-      });
+      if (!user) return null;
+      const { data } = await axios.patch(
+        `/api/users/${user.uid}/watchlists/${watchlistId}`,
+        {
+          name: values.name,
+        }
+      );
       dispatch(updateWatchlist(data));
       dispatch(closeModal());
     },

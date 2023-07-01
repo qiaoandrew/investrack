@@ -32,6 +32,13 @@ const watchlistsSlice = createSlice({
       );
       state.watchlists[watchlistIndex] = action.payload;
     },
+    removeWatchlist(state, action) {
+      const { _id } = action.payload;
+      const watchlistIndex = state.watchlists.findIndex(
+        (watchlist) => watchlist._id === _id
+      );
+      state.watchlists.splice(watchlistIndex, 1);
+    },
     logOutWatchlists(state) {
       state.watchlists = [];
     },
@@ -42,6 +49,7 @@ export const {
   setWatchlists,
   addWatchlist,
   updateWatchlist,
+  removeWatchlist,
   logOutWatchlists,
 } = watchlistsSlice.actions;
 export default watchlistsSlice.reducer;

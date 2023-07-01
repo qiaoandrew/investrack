@@ -1,10 +1,25 @@
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store/store';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { removeWatchlist } from '@/store/slices/watchlistsSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 import Button from '../UI/Button';
 
 export default function DeleteWatchlistModal() {
+  const router = useRouter();
+  const { watchlistId } = router.query;
+
   const dispatch: AppDispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  if (!user) return null;
+
+  const handleDeleteWatchlist = async () => {
+    await axios.delete(`/api/users/${user.uid}/watchlists/${watchlistId}`);
+    dispatch(removeWatchlist(watchlistId));
+    router.push('/');
+  };
 
   return (
     <>
@@ -17,7 +32,10 @@ export default function DeleteWatchlistModal() {
       <div className='grid gap-4'>
         <Button
           type='button'
-          onClick={() => {}}
+          onClick={async () => {
+            await handleDeleteWatchlist();
+            dispatch(closeModal());
+          }}
           hierarchy='secondary'
           font='font-semibold'
         >
