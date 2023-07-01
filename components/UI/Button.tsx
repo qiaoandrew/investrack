@@ -2,7 +2,13 @@ import Link from 'next/link';
 
 interface ButtonProps {
   type: 'route' | 'link' | 'button' | 'submit';
-  hierarchy: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'quinary';
+  hierarchy:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'quaternary'
+    | 'quinary'
+    | 'senary';
   route?: string;
   link?: string;
   onClick?: () => void;
@@ -12,6 +18,7 @@ interface ButtonProps {
   border?: string;
   hover?: string;
   icon?: React.ReactNode;
+  iconPosition?: string;
   disabled?: boolean;
   classes?: string;
   children: React.ReactNode;
@@ -29,6 +36,7 @@ export default function Button({
   border,
   hover,
   icon,
+  iconPosition = 'right-5',
   disabled,
   classes,
   children,
@@ -51,10 +59,15 @@ export default function Button({
   } else if (hierarchy === 'quinary') {
     buttonClasses +=
       ' border border-grey1 text-grey1 hover:bg-grey3 hover:bg-opacity-80';
+  } else if (hierarchy === 'senary') {
+    buttonClasses +=
+      ' border border-grey2 text-grey1 hover:bg-grey3 hover:bg-opacity-80';
   }
 
   const buttonIcon = icon ? (
-    <div className='absolute right-5 top-1/2 -translate-y-1/2'>{icon}</div>
+    <div className={`absolute top-1/2 -translate-y-1/2 ${iconPosition}`}>
+      {icon}
+    </div>
   ) : null;
 
   switch (type) {

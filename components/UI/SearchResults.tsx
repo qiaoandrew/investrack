@@ -52,7 +52,7 @@ export default function SearchResults({
           {searchResults.map((result, i) => (
             <Fragment key={result.symbol}>
               <Link
-                href={`/stock/${result.symbol}`}
+                href={`/stocks/${result.symbol}`}
                 className='transition-300 m-1.5 flex items-center justify-between rounded-md p-3 hover:bg-grey3'
               >
                 <div>

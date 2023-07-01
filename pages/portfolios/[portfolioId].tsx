@@ -6,7 +6,7 @@ import { ChevronDown, ChevronUp, Edit, Trash } from 'react-feather';
 
 const HOLDINGS = [
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 125.9,
     numShares: 120,
@@ -26,7 +26,7 @@ const HOLDINGS = [
     ],
   },
   {
-    ticker: 'TSLA',
+    symbol: 'TSLA',
     name: 'Apple Inc.',
     price: 125.9,
     numShares: 120,
@@ -46,7 +46,7 @@ const HOLDINGS = [
     ],
   },
   {
-    ticker: 'META',
+    symbol: 'META',
     name: 'Apple Inc.',
     price: 125.9,
     numShares: 120,
@@ -109,14 +109,14 @@ export default function Portfolio() {
         <p>Total Return</p>
       </div>
       {HOLDINGS.map((holding, i) => (
-        <Fragment key={holding.ticker}>
+        <Fragment key={holding.symbol}>
           <div
             className='mb-7 grid grid-cols-[3fr_3fr_3fr_1fr] items-center gap-x-6 md:grid-cols-[3fr_2fr_2fr_1fr]'
-            key={holding.ticker}
+            key={holding.symbol}
           >
             <div>
               <p className='mb-1 font-semibold text-white md:text-lg'>
-                {holding.ticker}
+                {holding.symbol}
               </p>
               <p className='text-sm text-blue1 md:text-md'>{holding.name}</p>
             </div>

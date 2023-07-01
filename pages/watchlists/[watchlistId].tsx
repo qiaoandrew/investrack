@@ -6,56 +6,56 @@ import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
 
 const ASSETS = [
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
     changePercent: 0.12,
   },
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
     changePercent: 0.12,
   },
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
     changePercent: 0.12,
   },
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
     changePercent: 0.12,
   },
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
     changePercent: 0.12,
   },
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
     changePercent: 0.12,
   },
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
     changePercent: 0.12,
   },
   {
-    ticker: 'AAPL',
+    symbol: 'AAPL',
     name: 'Apple Inc.',
     price: 123.45,
     change: 0.12,
@@ -82,9 +82,9 @@ export default function Watchlist() {
         </div>
       </div>
       {ASSETS.map((asset, i) => (
-        <Fragment key={asset.ticker}>
+        <Fragment key={asset.symbol}>
           <Link
-            href={`/stock/${asset.ticker}`}
+            href={`/stock/${asset.symbol}`}
             className={`transition-300 grid grid-cols-[8fr_2fr_4fr_1fr] items-center gap-4 py-4 hover:bg-grey3 hover:bg-opacity-60 xs:px-4 
               ${i === 0 ? 'rounded-t-sm' : ''} 
               ${i === ASSETS.length - 1 ? 'rounded-b-sm' : ''}`}
@@ -93,7 +93,7 @@ export default function Watchlist() {
               <p className='text-base line-clamp-1 font-medium text-white'>
                 {asset.name}
               </p>
-              <p className='text-sm text-blue1 xl:w-16'>{asset.ticker}</p>
+              <p className='text-sm text-blue1 xl:w-16'>{asset.symbol}</p>
             </div>
             <p className='text-base justify-self-end font-medium text-white'>
               {asset.price}

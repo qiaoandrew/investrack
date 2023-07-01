@@ -24,7 +24,7 @@ export default function Search() {
           onBlur={() => {
             setTimeout(() => {
               setShowSearchResults(false);
-            }, 10);
+            }, 300);
           }}
           placeholder='Search for stocks...'
         />
