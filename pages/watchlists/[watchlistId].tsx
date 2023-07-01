@@ -10,6 +10,7 @@ import IconButton from '@/components/UI/IconButton';
 import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
 import { COLORS } from '@/constants/colors';
+import { updateWatchlist } from '@/store/slices/watchlistsSlice';
 
 export default function Watchlist() {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ export default function Watchlist() {
   const { watchlistId } = router.query;
 
   const dispatch: AppDispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
   const watchlist = useSelector((state: RootState) =>
     state.watchlists.watchlists.find(
       (watchlist) => watchlist._id === watchlistId
@@ -50,7 +52,14 @@ export default function Watchlist() {
     fetchStockPrices();
   }, [watchlist]);
 
-  if (!watchlist) return <LoadingSpinner />;
+  if (!watchlist || !user) return <LoadingSpinner />;
+
+  const handleRemoveStock = async (symbol: string) => {
+    const { data } = await axios.delete(
+      `/api/users/${user.uid}/watchlists/${watchlistId}/stocks/${symbol}`
+    );
+    dispatch(updateWatchlist(data));
+  };
 
   return (
     <div className='mx-dashboard max-w-[566px]'>
@@ -70,9 +79,10 @@ export default function Watchlist() {
         </div>
       </div>
       {loading && <LoadingSpinner margin='mt-12' />}
-      {error && <p className='mt-4 text-blue1'>{error}</p>}
+      {error && <p className='mt-4 text-blue1 md:text-lg'>{error}</p>}
       {!loading &&
         !error &&
+        stockPrices.length !== 0 &&
         stockPrices.map((price, i) => (
           <Fragment key={i}>
             <Link
@@ -112,7 +122,13 @@ export default function Watchlist() {
                   {price.change} ({price.changePercent}%)
                 </p>
               </div>
-              <div className='transition-300 -m-1.5 flex-shrink-0 justify-self-end rounded-full p-1.5 hover:bg-grey2 hover:bg-opacity-50'>
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleRemoveStock(price.symbol);
+                }}
+                className='transition-300 -m-1.5 flex-shrink-0 justify-self-end rounded-full p-1.5 hover:bg-grey2 hover:bg-opacity-50'
+              >
                 <X size={20} color={COLORS.grey1} />
               </div>
             </Link>
@@ -121,6 +137,9 @@ export default function Watchlist() {
             )}
           </Fragment>
         ))}
+      {!loading && !error && stockPrices.length === 0 && (
+        <p className='mt-4 text-blue1 md:text-lg'>This watchlist is empty.</p>
+      )}
     </div>
   );
 }

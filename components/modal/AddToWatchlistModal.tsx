@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { closeModal } from '@/store/slices/modalSlice';
+import { updateWatchlists } from '@/store/slices/watchlistsSlice';
 import Button from '../UI/Button';
 
 export default function AddToWatchlistModal() {
@@ -30,10 +31,12 @@ export default function AddToWatchlistModal() {
 
   const handleConfirm = async () => {
     if (!user) return dispatch(closeModal());
-    await axios.put(`/api/users/${user.uid}/watchlists`, {
+    const { data } = await axios.put(`/api/users/${user.uid}/watchlists`, {
       watchlistIds: selectedWatchlistIds,
       symbol,
     });
+    console.log(data);
+    dispatch(updateWatchlists(data));
     dispatch(closeModal());
   };
 

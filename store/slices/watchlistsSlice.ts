@@ -26,6 +26,15 @@ const watchlistsSlice = createSlice({
       );
       state.watchlists[watchlistIndex] = action.payload;
     },
+    updateWatchlists(state, action) {
+      const watchlists = action.payload;
+      watchlists.forEach((watchlist: Watchlist) => {
+        const watchlistIndex = state.watchlists.findIndex(
+          (w) => w._id === watchlist._id
+        );
+        state.watchlists[watchlistIndex] = watchlist;
+      });
+    },
     removeWatchlist(state, action) {
       const { _id } = action.payload;
       const watchlistIndex = state.watchlists.findIndex(
@@ -43,6 +52,7 @@ export const {
   setWatchlists,
   addWatchlist,
   updateWatchlist,
+  updateWatchlists,
   removeWatchlist,
   logOutWatchlists,
 } = watchlistsSlice.actions;

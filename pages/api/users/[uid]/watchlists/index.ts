@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import connectDB from '@/lib/mongoose';
 import User from '@/models/User';
 import Watchlist from '@/models/Watchlist';
+import { Watchlist as WatchlistType } from '@/interfaces/interfaces';
 
 export default async function handler(
   req: NextApiRequest,
@@ -43,13 +44,18 @@ export default async function handler(
     try {
       await connectDB();
       const watchlists = await Watchlist.find({ _id: { $in: watchlistIds } });
-      watchlists.forEach(async (watchlist) => {
-        if (!watchlist.stocks.includes(symbol)) {
-          watchlist.stocks.push(symbol);
-          await watchlist.save();
-        }
-      });
-      res.status(200).json({ message: 'Added to watchlists successfully.' });
+      const savedWatchlists = (
+        await Promise.all(
+          watchlists.map(async (watchlist) => {
+            if (!watchlist.stocks.includes(symbol)) {
+              watchlist.stocks.push(symbol);
+              const savedWatchlist = await watchlist.save();
+              return savedWatchlist;
+            }
+          })
+        )
+      ).filter(Boolean);
+      res.status(200).json(savedWatchlists);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error.' });
