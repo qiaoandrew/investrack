@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const HoldingSchema = new Schema({
+  stock: {
+    type: String,
+    required: true,
+  },
   purchaseDate: {
     type: Date,
     required: true,
@@ -13,10 +17,6 @@ const HoldingSchema = new Schema({
   },
   quantity: {
     type: Number,
-    required: true,
-  },
-  stock: {
-    type: String,
     required: true,
   },
 });

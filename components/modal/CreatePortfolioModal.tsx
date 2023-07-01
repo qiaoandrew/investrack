@@ -1,18 +1,27 @@
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store/store';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
 import { closeModal } from '@/store/slices/modalSlice';
+import { addPortfolio } from '@/store/slices/portfoliosSlice';
 import { useFormik } from 'formik';
 import TextInput from '../UI/TextInput';
 import Button from '../UI/Button';
 
 export default function CreatePortfolioModal() {
   const dispatch: AppDispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const formik = useFormik({
     initialValues: {
       name: '',
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      if (!user) return;
+      const { data } = await axios.post('/api/portfolios', {
+        uid: user.uid,
+        name: values.name,
+      });
+      dispatch(addPortfolio(data));
       dispatch(closeModal());
     },
   });
@@ -22,7 +31,7 @@ export default function CreatePortfolioModal() {
       <h2 className='mb-4 text-3xl font-semibold text-white'>
         Create Portfolio
       </h2>
-      <form className='grid gap-8'>
+      <form onSubmit={formik.handleSubmit} className='grid gap-8'>
         <TextInput
           id='name'
           name='name'
@@ -32,7 +41,7 @@ export default function CreatePortfolioModal() {
           value={formik.values.name}
           placeholder='Portfolio Name'
         />
-        <Button type='button' hierarchy='secondary' font='font-semibold'>
+        <Button type='submit' hierarchy='secondary' font='font-semibold'>
           Confirm
         </Button>
       </form>

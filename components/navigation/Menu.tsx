@@ -16,29 +16,6 @@ import {
 } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-const PORTFOLIOS = [
-  {
-    id: '1',
-    name: 'Portfolio 1',
-  },
-  {
-    id: '2',
-    name: 'Portfolio 2',
-  },
-  {
-    id: '3',
-    name: 'Portfolio 3',
-  },
-  {
-    id: '4',
-    name: 'Portfolio 4',
-  },
-  {
-    id: '5',
-    name: 'Portfolio 5',
-  },
-];
-
 export default function Menu() {
   const router = useRouter();
   const pathname = router.pathname;
@@ -50,6 +27,7 @@ export default function Menu() {
   );
   const { user } = useSelector((state: RootState) => state.auth);
   const { watchlists } = useSelector((state: RootState) => state.watchlists);
+  const { portfolios } = useSelector((state: RootState) => state.portfolios);
 
   return (
     <nav
@@ -136,14 +114,14 @@ export default function Menu() {
             </button>
           </div>
           <div className='grid gap-1'>
-            {PORTFOLIOS.map((portfolio) => {
+            {portfolios.map((portfolio) => {
               const isActive =
                 pathname.startsWith('/portfolios') &&
-                portfolioId === portfolio.id;
+                portfolioId === portfolio._id;
 
               return (
                 <MenuItem
-                  key={portfolio.id}
+                  key={portfolio._id}
                   label={portfolio.name}
                   icon={
                     <Briefcase
@@ -153,7 +131,7 @@ export default function Menu() {
                     />
                   }
                   isActive={isActive}
-                  onClick={() => router.push(`/portfolios/${portfolio.id}`)}
+                  onClick={() => router.push(`/portfolios/${portfolio._id}`)}
                 />
               );
             })}

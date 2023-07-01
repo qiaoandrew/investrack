@@ -3,6 +3,7 @@ import authReducer from './slices/authSlice';
 import mobileMenuReducer from './slices/mobileMenuSlice';
 import modalReducer from './slices/modalSlice';
 import watchlistsReducer from './slices/watchlistsSlice';
+import portfoliosReducer from './slices/portfoliosSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     mobileMenu: mobileMenuReducer,
     modal: modalReducer,
     watchlists: watchlistsReducer,
+    portfolios: portfoliosReducer,
   },
 });
 

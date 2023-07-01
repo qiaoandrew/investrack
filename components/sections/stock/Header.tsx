@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
+import Button from '@/components/UI/Button';
 import { Briefcase, List } from 'react-feather';
 import { COLORS } from '@/constants/colors';
-import Button from '@/components/UI/Button';
 
 interface HeaderProps {
   name: string;
@@ -26,7 +26,7 @@ export default function Header({ name, symbol, exchange }: HeaderProps) {
             {symbol} | {exchange}
           </p>
         </div>
-        <div className='hidden gap-4 xl:flex'>
+        <div className='hidden flex-shrink-0 gap-4 xl:flex'>
           <Button
             hierarchy='senary'
             type='button'
