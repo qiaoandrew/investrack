@@ -37,6 +37,7 @@ export default function Watchlist() {
   useEffect(() => {
     const fetchStockPrices = async () => {
       setLoading(true);
+      setError('');
       try {
         if (!watchlist) return;
         const promises = watchlist.stocks.map(async (symbol) => {
@@ -76,18 +77,19 @@ export default function Watchlist() {
           />
         </div>
       </div>
-      {loading ? (
-        <LoadingSpinner margin='mt-12' />
-      ) : (
+      {loading && <LoadingSpinner margin='mt-12' />}
+      {error && <p className='mt-4 text-blue1'>{error}</p>}
+      {!loading &&
+        !error &&
         stockPrices.map((price, i) => (
           <Fragment key={i}>
             <Link
               href={`/stocks/${price.symbol}`}
-              className={`transition-300 grid grid-cols-[8fr_2fr_4fr_1fr] items-center gap-4 py-4 hover:bg-grey3 hover:bg-opacity-60 xs:px-4 
+              className={`transition-300 grid grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,4fr)_minmax(0,1fr)] items-center gap-4 py-4 hover:bg-grey3 hover:bg-opacity-60 xs:px-4 md:grid-cols-[minmax(0,8fr)_minmax(0,2fr)_minmax(0,4fr)_minmax(0,1fr)] 
               ${i === 0 ? 'rounded-t-sm' : ''} 
               ${i === stockPrices.length - 1 ? 'rounded-b-sm' : ''}`}
             >
-              <div className='flex flex-col gap-1.5 xl:flex-row-reverse xl:items-center xl:gap-0 xl:justify-self-start'>
+              <div className='flex flex-shrink flex-col gap-1.5 xl:flex-row-reverse xl:items-center xl:gap-0 xl:justify-self-start'>
                 <p className='text-base line-clamp-1 font-medium text-white'>
                   {price.name}
                 </p>
@@ -96,11 +98,19 @@ export default function Watchlist() {
               <p className='text-base justify-self-end font-medium text-white'>
                 {price.price}
               </p>
-              <div className='flex items-center gap-1 xs:gap-1.5'>
+              <div className='flex flex-shrink-0 items-center gap-1 xs:gap-1.5'>
                 {price.change > 0 ? (
-                  <ChevronUp size={20} color={COLORS.green} />
+                  <ChevronUp
+                    size={20}
+                    color={COLORS.green}
+                    className='flex-shrink-0'
+                  />
                 ) : (
-                  <ChevronDown size={20} color={COLORS.red} />
+                  <ChevronDown
+                    size={20}
+                    color={COLORS.red}
+                    className='flex-shrink-0'
+                  />
                 )}
                 <p
                   className={`text-base whitespace-nowrap ${
@@ -110,7 +120,7 @@ export default function Watchlist() {
                   {price.change} ({price.changePercent}%)
                 </p>
               </div>
-              <div className='transition-300 -m-1.5 justify-self-end rounded-full p-1.5 hover:bg-grey2 hover:bg-opacity-50'>
+              <div className='transition-300 -m-1.5 flex-shrink-0 justify-self-end rounded-full p-1.5 hover:bg-grey2 hover:bg-opacity-50'>
                 <X size={20} color={COLORS.grey1} />
               </div>
             </Link>
@@ -118,8 +128,7 @@ export default function Watchlist() {
               <hr className='border-b-1 border-grey2 border-opacity-60' />
             )}
           </Fragment>
-        ))
-      )}
+        ))}
     </div>
   );
 }
