@@ -5,24 +5,16 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
+import { StockPrice } from '@/interfaces/interfaces';
 import IconButton from '@/components/UI/IconButton';
 import LoadingSpinner from '@/components/UI/LoadingSpinner';
-import { COLORS } from '@/constants/colors';
 import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
-
-interface Price {
-  symbol: string;
-  name: string;
-  price: number;
-  change: number;
-  changePercent: number;
-  exchange: string;
-}
+import { COLORS } from '@/constants/colors';
 
 export default function Watchlist() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [stockPrices, setStockPrices] = useState<Price[]>([]);
+  const [stockPrices, setStockPrices] = useState<StockPrice[]>([]);
 
   const router = useRouter();
   const { watchlistId } = router.query;
@@ -47,7 +39,7 @@ export default function Watchlist() {
           return data;
         });
         const stockPrices = await Promise.all(promises);
-        setStockPrices(stockPrices as Price[]);
+        setStockPrices(stockPrices as StockPrice[]);
       } catch (error) {
         console.log(error);
         setError('Something went wrong. Please try again later.');

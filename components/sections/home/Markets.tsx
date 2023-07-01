@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { MarketSummary } from '@/interfaces/interfaces';
 import Carousel from '@/components/UI/Carousel';
-import AssetCard, { type Asset } from '@/components/cards/AssetCard';
+import AssetCard from '@/components/cards/AssetCard';
 
 export default function Markets() {
-  const [markets, setMarkets] = useState<Asset[]>([]);
+  const [markets, setMarkets] = useState<MarketSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState({
     label: 'US',
@@ -14,7 +15,7 @@ export default function Markets() {
   useEffect(() => {
     const fetchMarkets = async () => {
       setLoading(true);
-      const { data } = await axios.get('/api/stocks/markets', {
+      const { data } = await axios.get('/api/stocks/market-summary', {
         params: { country: selectedOption.value },
       });
       setMarkets(data.map((asset: any) => ({ ...asset, label: asset.name })));
@@ -36,8 +37,8 @@ export default function Markets() {
     >
       {markets.map((market) => (
         <AssetCard
-          key={market.label}
-          label={market.label}
+          key={market.name}
+          label={market.name}
           price={market.price}
           change={market.change}
           changePercent={market.changePercent}

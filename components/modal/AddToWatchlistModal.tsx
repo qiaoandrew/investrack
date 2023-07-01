@@ -20,10 +20,10 @@ export default function AddToWatchlistModal() {
 
   const handleSelect = (e: any, watchlistId: string) => {
     if (e.target.checked) {
-      setSelectedWatchlistIds((prevState) => [...prevState, watchlistId]);
+      setSelectedWatchlistIds((prev) => [...prev, watchlistId]);
     } else {
-      setSelectedWatchlistIds((prevState) =>
-        prevState.filter((id) => id !== watchlistId)
+      setSelectedWatchlistIds((prev) =>
+        prev.filter((id) => id !== watchlistId)
       );
     }
   };

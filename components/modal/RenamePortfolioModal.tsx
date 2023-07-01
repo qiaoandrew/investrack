@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { updatePortfolio } from '@/store/slices/portfoliosSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 import { useFormik } from 'formik';
+import { Portfolio } from '@/interfaces/interfaces';
 import TextInput from '../UI/TextInput';
 import Button from '../UI/Button';
 
@@ -23,7 +24,7 @@ export default function RenamePortfolioModal() {
         `/api/users/${user.uid}/portfolios/${portfolioId}`,
         { name: values.name }
       );
-      dispatch(updatePortfolio(data));
+      dispatch(updatePortfolio(data as Portfolio));
       dispatch(closeModal());
     },
   });

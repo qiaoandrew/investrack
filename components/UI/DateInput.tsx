@@ -1,8 +1,4 @@
-export interface DateType {
-  month: string;
-  day: string;
-  year: string;
-}
+import { DateType } from '@/interfaces/interfaces';
 
 interface DateInputProps {
   label: string;

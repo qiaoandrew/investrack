@@ -2,6 +2,22 @@ import Carousel from '@/components/UI/Carousel';
 import CategoryCard from '@/components/cards/CategoryCard';
 import computerGraphic from '@/public/img/graphics/computer.png';
 
+export default function Categories() {
+  return (
+    <Carousel title='Categories' margin='mb-section'>
+      {CATEGORIES.map((category) => (
+        <CategoryCard
+          key={category.label}
+          label={category.label}
+          graphic={category.graphic}
+          route={category.route}
+          bg={category.bg}
+        />
+      ))}
+    </Carousel>
+  );
+}
+
 const CATEGORIES = [
   {
     label: 'Technology',
@@ -34,19 +50,3 @@ const CATEGORIES = [
     route: '/categories/technology',
   },
 ];
-
-export default function Categories() {
-  return (
-    <Carousel title='Categories' margin='mb-section'>
-      {CATEGORIES.map((category) => (
-        <CategoryCard
-          key={category.label}
-          label={category.label}
-          graphic={category.graphic}
-          route={category.route}
-          bg={category.bg}
-        />
-      ))}
-    </Carousel>
-  );
-}

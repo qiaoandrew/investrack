@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { addWatchlist } from '@/store/slices/watchlistsSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 import { useFormik } from 'formik';
+import { Watchlist } from '@/interfaces/interfaces';
 import TextInput from '../UI/TextInput';
 import Button from '../UI/Button';
 
@@ -21,7 +22,7 @@ export default function CreateWatchlistModal() {
       const { data } = await axios.post(`/api/users/${user.uid}/watchlists`, {
         name: values.name,
       });
-      dispatch(addWatchlist(data));
+      dispatch(addWatchlist(data as Watchlist));
       dispatch(closeModal());
     },
   });

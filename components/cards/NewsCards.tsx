@@ -1,12 +1,18 @@
-export interface Article {
-  id: any;
+/* eslint-disable @next/next/no-img-element */
+
+export interface NewsCardProps {
   headline: string;
   summary?: string;
   image: string;
   url: string;
 }
 
-export default function NewsCard({ headline, summary, image, url }: Article) {
+export default function NewsCard({
+  headline,
+  summary,
+  image,
+  url,
+}: NewsCardProps) {
   return (
     <a
       href={url}

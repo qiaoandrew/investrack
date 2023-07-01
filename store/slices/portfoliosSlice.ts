@@ -1,19 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface Holding {
-  _id: string;
-  stock: string;
-  purchaseDate: Date;
-  purchasePrice: number;
-  quantity: number;
-}
-
-export interface Portfolio {
-  _id: string;
-  uid: string;
-  name: string;
-  holdings: Holding[];
-}
+import { Portfolio } from '@/interfaces/interfaces';
 
 interface PortfoliosState {
   portfolios: Portfolio[];

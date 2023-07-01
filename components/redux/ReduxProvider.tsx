@@ -7,6 +7,7 @@ import { setPortfolios } from '@/store/slices/portfoliosSlice';
 import { setUser } from '@/store/slices/authSlice';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import { Portfolio, Watchlist } from '@/interfaces/interfaces';
 
 export default function ReduxProvider({
   children,
@@ -42,7 +43,7 @@ function StateWrapper({ children }: { children: React.ReactNode }) {
       const { data } = await axios.get(`/api/users/${user.uid}/watchlists`, {
         params: { uid: user.uid },
       });
-      dispatch(setWatchlists(data));
+      dispatch(setWatchlists(data as Watchlist[]));
     };
 
     const fetchPortfolios = async () => {
@@ -50,7 +51,7 @@ function StateWrapper({ children }: { children: React.ReactNode }) {
       const { data } = await axios.get(`/api/users/${user.uid}/portfolios`, {
         params: { uid: user.uid },
       });
-      dispatch(setPortfolios(data));
+      dispatch(setPortfolios(data as Portfolio[]));
     };
 
     fetchWatchlists();

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ChevronUp, ChevronDown } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-export interface Asset {
+export interface AssetCardProps {
   label: string;
   price: number;
   change: number;
@@ -16,7 +16,7 @@ export default function AssetCard({
   change,
   changePercent,
   route,
-}: Asset) {
+}: AssetCardProps) {
   const content = (
     <div
       className={`transition-300 flex gap-4 rounded-md border border-grey2 p-3 hover:bg-grey3 hover:bg-opacity-60 ${
