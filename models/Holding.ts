@@ -2,11 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const HoldingSchema = new Schema({
-  stock: {
-    type: String,
-    required: true,
-  },
+export const HoldingSchema = new Schema({
   purchaseDate: {
     type: Date,
     required: true,

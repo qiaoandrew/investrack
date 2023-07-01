@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { HoldingSchema } from './Holding';
 
 const { Schema } = mongoose;
 
@@ -11,13 +12,11 @@ const PortfolioSchema = new Schema({
     type: String,
     required: true,
   },
-  holdings: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Holding',
-      required: true,
-    },
-  ],
+  holdings: {
+    type: Map,
+    of: [HoldingSchema],
+    required: true,
+  },
 });
 
 export default mongoose.models.Portfolio ||

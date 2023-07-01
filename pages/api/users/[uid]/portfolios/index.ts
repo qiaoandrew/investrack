@@ -17,7 +17,7 @@ export default async function handler(
       if (!user) {
         return res.status(404).json({ message: 'User not found.' });
       }
-      const portfolio = new Portfolio({ name, uid });
+      const portfolio = new Portfolio({ name, uid, holdings: {} });
       const savedPortfolio = await portfolio.save();
       user.portfolios.push(savedPortfolio._id);
       await user.save();

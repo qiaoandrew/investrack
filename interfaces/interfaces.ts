@@ -37,7 +37,6 @@ export interface StockPrice {
 
 export interface Holding {
   _id: string;
-  stock: string;
   purchaseDate: Date;
   purchasePrice: number;
   quantity: number;
@@ -47,7 +46,7 @@ export interface Portfolio {
   _id: string;
   uid: string;
   name: string;
-  holdings: Holding[];
+  holdings: Record<string, Holding[]>;
 }
 
 export interface Watchlist {
