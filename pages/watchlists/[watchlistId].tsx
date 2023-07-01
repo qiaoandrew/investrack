@@ -34,14 +34,10 @@ export default function Watchlist() {
       setError('');
       try {
         if (!watchlist) return;
-        const promises = watchlist.stocks.map(async (symbol) => {
-          const { data } = await axios.get(`/api/stocks/price`, {
-            params: { symbol },
-          });
-          return data;
+        const { data } = await axios.get('/api/stocks/price', {
+          params: { symbols: watchlist.stocks.join(',') },
         });
-        const stockPrices = await Promise.all(promises);
-        setStockPrices(stockPrices as StockPrice[]);
+        setStockPrices(data as StockPrice[]);
       } catch (error) {
         console.log(error);
         setError('Something went wrong. Please try again later.');

@@ -8,11 +8,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { symbol } = req.query;
+  const { symbol, symbols } = req.query;
 
   try {
     const { data } = await axios.get(`${FINANCE_API_BASE_URL}/price`, {
-      params: { symbol },
+      params: { symbol, symbols },
     });
     res.status(200).json(data as StockPrice[]);
   } catch (error) {
