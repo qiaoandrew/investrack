@@ -11,12 +11,7 @@ const WatchlistSchema = new Schema({
     type: String,
     required: true,
   },
-  stocks: [
-    {
-      type: String,
-      unique: true,
-    },
-  ],
+  stocks: [{ type: String }],
 });
 
 export default mongoose.models.Watchlist ||

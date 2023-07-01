@@ -1,46 +1,22 @@
+import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store/store';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
 import { closeModal } from '@/store/slices/modalSlice';
 import Button from '../UI/Button';
-
-const WATCHLISTS = [
-  {
-    id: '1',
-    name: 'Watchlist 1',
-  },
-  {
-    id: '2',
-    name: 'Watchlist 2',
-  },
-  {
-    id: '3',
-    name: 'Watchlist 3',
-  },
-  {
-    id: '4',
-    name: 'Watchlist 4',
-  },
-  {
-    id: '5',
-    name: 'Watchlist 5',
-  },
-  {
-    id: '6',
-    name: 'Watchlist 6',
-  },
-  {
-    id: '7',
-    name: 'Watchlist 7',
-  },
-];
 
 export default function AddToWatchlistModal() {
   const [selectedWatchlistIds, setSelectedWatchlistIds] = useState<string[]>(
     []
   );
 
+  const router = useRouter();
+  const { symbol } = router.query;
+
   const dispatch: AppDispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { watchlists } = useSelector((state: RootState) => state.watchlists);
 
   const handleSelect = (e: any, watchlistId: string) => {
     if (e.target.checked) {
@@ -53,6 +29,11 @@ export default function AddToWatchlistModal() {
   };
 
   const handleConfirm = async () => {
+    if (!user) return dispatch(closeModal());
+    await axios.put(`/api/users/${user.uid}/watchlists`, {
+      watchlistIds: selectedWatchlistIds,
+      symbol,
+    });
     dispatch(closeModal());
   };
 
@@ -64,20 +45,20 @@ export default function AddToWatchlistModal() {
       <div className='relative mb-8'>
         <div
           className={`no-scrollbar grid max-h-[220px] gap-6 overflow-y-scroll ${
-            WATCHLISTS.length > 4 ? 'pb-6' : ''
+            watchlists.length > 4 ? 'pb-6' : ''
           }`}
         >
-          {WATCHLISTS.length > 0 ? (
-            WATCHLISTS.map((watchlist) => (
+          {watchlists.length > 0 ? (
+            watchlists.map((watchlist) => (
               <label
-                htmlFor={watchlist.id}
+                htmlFor={watchlist._id}
                 className='flex cursor-pointer items-center justify-start gap-4'
-                key={watchlist.id}
+                key={watchlist._id}
               >
                 <input
-                  id={watchlist.id}
+                  id={watchlist._id}
                   type='checkbox'
-                  onChange={(e) => handleSelect(e, watchlist.id)}
+                  onChange={(e) => handleSelect(e, watchlist._id)}
                   className='transition-300 rounded h-5 w-5 cursor-pointer appearance-none rounded-2xs border border-white checked:bg-white'
                 />
                 <p className='text-white'>{watchlist.name}</p>
@@ -89,11 +70,11 @@ export default function AddToWatchlistModal() {
             </p>
           )}
         </div>
-        {WATCHLISTS.length > 5 && (
+        {watchlists.length > 5 && (
           <div className='pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-grey3 to-transparent' />
         )}
       </div>
-      {WATCHLISTS.length > 0 ? (
+      {watchlists.length > 0 ? (
         <Button
           type='button'
           onClick={handleConfirm}

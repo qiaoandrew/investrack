@@ -8,6 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { uid } = req.query;
+
   if (req.method === 'POST') {
     const { name } = req.body;
     try {
@@ -37,6 +38,21 @@ export default async function handler(
       console.error(error);
       res.status(500).json({ message: 'Internal server error.' });
     }
-  } else {
+  } else if (req.method === 'PUT') {
+    const { watchlistIds, symbol } = req.body;
+    try {
+      await connectDB();
+      const watchlists = await Watchlist.find({ _id: { $in: watchlistIds } });
+      watchlists.forEach(async (watchlist) => {
+        if (!watchlist.stocks.includes(symbol)) {
+          watchlist.stocks.push(symbol);
+          await watchlist.save();
+        }
+      });
+      res.status(200).json({ message: 'Added to watchlists successfully.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error.' });
+    }
   }
 }
