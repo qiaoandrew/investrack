@@ -22,6 +22,7 @@ export default function Category({ stocks }: { stocks: StockQuote[] }) {
 const FRONTEND_BASE_URL = process.env.FRONTEND_BASE_URL;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  console.log(params?.category);
   const { data } = await axios.get(
     `${FRONTEND_BASE_URL}/api/stocks/categories`,
     {
