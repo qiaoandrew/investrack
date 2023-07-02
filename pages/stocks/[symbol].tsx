@@ -1,20 +1,21 @@
 import axios from 'axios';
 import { type GetServerSideProps } from 'next';
-import { StockPrice } from '@/interfaces/interfaces';
+import { StockPrice, TableItem } from '@/interfaces/interfaces';
 import Header from '@/components/sections/stock/Header';
 import Chart from '@/components/sections/stock/Chart';
 import MobileButtons from '@/components/sections/stock/MobileButtons';
 import Summary from '@/components/sections/stock/Summary';
-import FinancialData from '@/components/sections/stock/FinancialData';
+import Financials from '@/components/sections/stock/Financials';
 import Description from '@/components/sections/stock/Description';
 import Profile from '@/components/sections/stock/Profile';
 import News from '@/components/sections/stock/News';
 
 interface StockProps {
   price: StockPrice;
+  summary: TableItem[];
 }
 
-export default function Stock({ price }: StockProps) {
+export default function Stock({ price, summary }: StockProps) {
   return (
     <>
       <Header
@@ -28,8 +29,8 @@ export default function Stock({ price }: StockProps) {
         changePercent={price.changePercent}
       />
       <MobileButtons />
-      <Summary />
-      <FinancialData />
+      <Summary summary={summary} />
+      <Financials />
       <Description />
       <Profile />
       <News />
@@ -50,13 +51,15 @@ export const getServerSideProps: GetServerSideProps = async ({
     `${FRONTEND_BASE_URL}/api/stocks/price`,
     { params: { symbol } }
   );
+  const { data: summary } = await axios.get(
+    `${FRONTEND_BASE_URL}/api/stocks/summary`,
+    { params: { symbol } }
+  );
 
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
 
-  return {
-    props: { price },
-  };
+  return { props: { price, summary } };
 };

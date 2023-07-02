@@ -5,6 +5,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: ['sm:hidden', '2xl:hidden', '2xl:block'],
   theme: {
     borderRadius: {
       '2xs': '4px',

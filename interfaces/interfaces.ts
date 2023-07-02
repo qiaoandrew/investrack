@@ -43,6 +43,11 @@ export interface StockPrice {
   exchange: 'NASDAQ' | 'NYSE';
 }
 
+export interface TableItem {
+  label: string;
+  value: string;
+}
+
 export interface Holding {
   _id: string;
   purchaseDate: Date;
