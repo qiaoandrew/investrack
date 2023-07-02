@@ -10,8 +10,12 @@ export default function MarketNews() {
 
   useEffect(() => {
     const fetchMarketNews = async () => {
-      const { data } = await axios.get('/api/stocks/market-news');
-      setNews(data as NewsArticle[]);
+      try {
+        const { data } = await axios.get('/api/stocks/market-news');
+        setNews(data as NewsArticle[]);
+      } catch (error) {
+        console.error(error);
+      }
       setLoading(false);
     };
 

@@ -28,8 +28,12 @@ export default function Modal() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`absolute left-1/2 top-1/2 w-[min(440px,100%-40px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-grey3 px-5 py-6 md:px-6 md:py-7 ${
+        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-grey3 px-5 py-6 md:px-6 md:py-7 ${
           modalContent ? 'block' : 'hidden'
+        } ${
+          modalContent === 'addToPortfolio'
+            ? 'w-[min(480px,100%-40px)]'
+            : 'w-[min(440px,100%-40px)]'
         }`}
       >
         {modalContent === 'createWatchlist' && <CreateWatchlistModal />}

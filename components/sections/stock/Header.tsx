@@ -16,7 +16,7 @@ export default function Header({ name, symbol, exchange }: HeaderProps) {
   const { user } = useSelector((state: RootState) => state.auth);
 
   return (
-    <section className='mx-dashboard mb-4 2xl:mb-9'>
+    <section className='mx-dashboard mb-6 2xl:mb-8'>
       <div className='mb-7 items-center justify-between gap-6 xl:flex 2xl:mb-9'>
         <div>
           <h1 className='mb-3 line-clamp-1 text-4xl font-semibold text-white 2xl:text-5xl'>
@@ -57,6 +57,7 @@ export default function Header({ name, symbol, exchange }: HeaderProps) {
           </Button>
         </div>
       </div>
+      <hr className='border-b-1 border-grey2' />
     </section>
   );
 }
