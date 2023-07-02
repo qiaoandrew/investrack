@@ -35,7 +35,6 @@ export default function AddToWatchlistModal() {
       watchlistIds: selectedWatchlistIds,
       symbol,
     });
-    console.log(data);
     dispatch(updateWatchlists(data));
     dispatch(closeModal());
   };

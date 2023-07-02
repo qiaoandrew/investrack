@@ -39,3 +39,21 @@ export const SUMMARY_FIELDS = {
   'Shares Outstanding': [{ key: 'sharesOutstanding', type: 'number' }],
   Currency: [{ key: 'currency', type: 'string' }],
 };
+
+export const PROFILE_FIELDS = {
+  Sector: [{ key: 'sector', type: 'string' }],
+  Industry: [{ key: 'industryDisp', type: 'string' }],
+  Employees: [{ key: 'fullTimeEmployees', type: 'number' }],
+  Website: [{ key: 'website', type: 'url' }],
+  Address: [{ key: 'address1', type: 'string' }],
+  City: [{ key: 'city', type: 'string' }],
+  State: [{ key: 'state', type: 'string' }],
+  Country: [{ key: 'country', type: 'string' }],
+  Zip: [{ key: 'zip', type: 'string' }],
+  Phone: [{ key: 'phone', type: 'string' }],
+  'Overall Risk': [{ key: 'overallRisk', type: 'number' }],
+  'Audit Risk': [{ key: 'auditRisk', type: 'number' }],
+  'Board Risk': [{ key: 'boardRisk', type: 'number' }],
+  'Compensation Risk': [{ key: 'compensationRisk', type: 'number' }],
+  'Shareholder Rights Risk': [{ key: 'shareHolderRightsRisk', type: 'number' }],
+};

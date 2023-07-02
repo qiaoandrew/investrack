@@ -13,9 +13,17 @@ import News from '@/components/sections/stock/News';
 interface StockProps {
   price: StockPrice;
   summary: TableItem[];
+  profile: TableItem[];
+  description: string;
 }
 
-export default function Stock({ price, summary }: StockProps) {
+export default function Stock({
+  price,
+  summary,
+  profile,
+  description,
+}: StockProps) {
+
   return (
     <>
       <Header
@@ -31,8 +39,8 @@ export default function Stock({ price, summary }: StockProps) {
       <MobileButtons />
       <Summary summary={summary} />
       <Financials />
-      <Description />
-      <Profile />
+      <Description description={description} />
+      <Profile profile={profile} />
       <News />
     </>
   );
@@ -55,11 +63,16 @@ export const getServerSideProps: GetServerSideProps = async ({
     `${FRONTEND_BASE_URL}/api/stocks/summary`,
     { params: { symbol } }
   );
+  const {
+    data: { profile, description },
+  } = await axios.get(`${FRONTEND_BASE_URL}/api/stocks/profile`, {
+    params: { symbol },
+  });
 
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
 
-  return { props: { price, summary } };
+  return { props: { price, summary, profile, description } };
 };

@@ -45,7 +45,7 @@ export interface StockPrice {
 
 export interface TableItem {
   label: string;
-  value: string;
+  value: string | React.ReactNode;
 }
 
 export interface Holding {

@@ -39,7 +39,7 @@ export default function Watchlist() {
         });
         setStockPrices(data as StockQuote[]);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setError('Something went wrong. Please try again later.');
       }
       setLoading(false);
