@@ -5,17 +5,17 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
-import { StockPrice } from '@/interfaces/interfaces';
+import { updateWatchlist } from '@/store/slices/watchlistsSlice';
+import { StockQuote } from '@/interfaces/interfaces';
 import IconButton from '@/components/UI/IconButton';
 import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
 import { COLORS } from '@/constants/colors';
-import { updateWatchlist } from '@/store/slices/watchlistsSlice';
 
 export default function Watchlist() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [stockPrices, setStockPrices] = useState<StockPrice[]>([]);
+  const [stockPrices, setStockPrices] = useState<StockQuote[]>([]);
 
   const router = useRouter();
   const { watchlistId } = router.query;
@@ -37,7 +37,7 @@ export default function Watchlist() {
         const { data } = await axios.get('/api/stocks/price', {
           params: { symbols: watchlist.stocks.join(',') },
         });
-        setStockPrices(data as StockPrice[]);
+        setStockPrices(data as StockQuote[]);
       } catch (error) {
         console.log(error);
         setError('Something went wrong. Please try again later.');
@@ -87,7 +87,7 @@ export default function Watchlist() {
               ${i === 0 ? 'rounded-t-sm' : ''} 
               ${i === stockPrices.length - 1 ? 'rounded-b-sm' : ''}`}
             >
-              <div className='grid flex-shrink gap-1.5 xl:grid-cols-[minmax(0,1fr),minmax(0,3fr)] xl:items-center xl:gap-0 xl:justify-self-start'>
+              <div className='grid flex-shrink gap-1.5 xl:grid-cols-[minmax(0,1fr),minmax(0,3fr)] xl:items-center xl:gap-0'>
                 <p className='text-base line-clamp-1 font-medium text-white xl:order-2'>
                   {price.name}
                 </p>

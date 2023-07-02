@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { StockQuote } from '@/interfaces/interfaces';
 
 const FINANCE_API_BASE_URL = process.env.FINANCE_API_BASE_URL;
 
@@ -8,13 +7,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { symbol, symbols } = req.query;
+  const { type } = req.query;
 
   try {
-    const { data } = await axios.get(`${FINANCE_API_BASE_URL}/price`, {
-      params: { symbol, symbols },
+    const { data } = await axios.get(`${FINANCE_API_BASE_URL}/screener`, {
+      params: { type },
     });
-    res.status(200).json(data as StockQuote[]);
+    res.status(200).json(data);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error.' });

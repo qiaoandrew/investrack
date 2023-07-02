@@ -26,6 +26,14 @@ export interface TrendingStock {
   changePercent: number;
 }
 
+export interface StockQuote {
+  symbol: string;
+  name: string;
+  price: number;
+  change: number;
+  changePercent: number;
+}
+
 export interface StockPrice {
   symbol: string;
   name: string;
