@@ -39,9 +39,6 @@ export default function DropdownLarge({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showDropdown]);
 
-  console.log(selectedOption);
-  console.log(options);
-
   return (
     <div className={`select relative z-10 ${margin}`}>
       <div
@@ -74,7 +71,7 @@ export default function DropdownLarge({
       >
         {options.length > 0 ? (
           <>
-            <div className='no-scrollbar grid max-h-40 gap-1 overflow-y-scroll bg-grey3 p-1'>
+            <div className='no-scrollbar grid max-h-56 gap-1 overflow-y-scroll bg-grey3 p-1'>
               {options.map((option) => (
                 <div
                   key={option.value}
@@ -100,7 +97,7 @@ export default function DropdownLarge({
                 </div>
               ))}
             </div>
-            {options.length > 2 && (
+            {options.length > 3 && (
               <div className='pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-grey3 to-transparent' />
             )}
           </>
