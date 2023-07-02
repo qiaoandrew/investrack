@@ -44,7 +44,7 @@ export const PROFILE_FIELDS = {
   Sector: [{ key: 'sector', type: 'string' }],
   Industry: [{ key: 'industryDisp', type: 'string' }],
   Employees: [{ key: 'fullTimeEmployees', type: 'number' }],
-  Website: [{ key: 'website', type: 'url' }],
+  Website: [{ key: 'website', type: 'string' }],
   Address: [{ key: 'address1', type: 'string' }],
   City: [{ key: 'city', type: 'string' }],
   State: [{ key: 'state', type: 'string' }],

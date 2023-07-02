@@ -7,7 +7,7 @@ export interface SearchResult {
 export interface NewsArticle {
   id: number;
   headline: string;
-  summary: string;
+  summary?: string;
   url: string;
   image: string;
 }

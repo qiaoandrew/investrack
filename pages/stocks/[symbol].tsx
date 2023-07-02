@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { type GetServerSideProps } from 'next';
-import { StockPrice, TableItem } from '@/interfaces/interfaces';
+import { NewsArticle, StockPrice, TableItem } from '@/interfaces/interfaces';
 import Header from '@/components/sections/stock/Header';
 import Chart from '@/components/sections/stock/Chart';
 import MobileButtons from '@/components/sections/stock/MobileButtons';
@@ -15,6 +15,7 @@ interface StockProps {
   summary: TableItem[];
   profile: TableItem[];
   description: string;
+  news: NewsArticle[];
 }
 
 export default function Stock({
@@ -22,8 +23,8 @@ export default function Stock({
   summary,
   profile,
   description,
+  news,
 }: StockProps) {
-
   return (
     <>
       <Header
@@ -41,7 +42,7 @@ export default function Stock({
       <Financials />
       <Description description={description} />
       <Profile profile={profile} />
-      <News />
+      <News news={news} />
     </>
   );
 }
@@ -68,11 +69,15 @@ export const getServerSideProps: GetServerSideProps = async ({
   } = await axios.get(`${FRONTEND_BASE_URL}/api/stocks/profile`, {
     params: { symbol },
   });
+  const { data: news } = await axios.get(
+    `${FRONTEND_BASE_URL}/api/stocks/news`,
+    { params: { symbol } }
+  );
 
   res.setHeader(
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
 
-  return { props: { price, summary, profile, description } };
+  return { props: { price, summary, profile, description, news } };
 };
