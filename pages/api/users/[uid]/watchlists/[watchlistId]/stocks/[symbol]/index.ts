@@ -1,5 +1,6 @@
 import User from '@/models/User';
 import { NextApiRequest, NextApiResponse } from 'next';
+import connectDB from '@/lib/mongoose';
 import { Watchlist } from '@/interfaces/interfaces';
 
 export default async function handler(
@@ -9,6 +10,7 @@ export default async function handler(
   const { uid, watchlistId, symbol } = req.query;
 
   if (req.method === 'DELETE') {
+    await connectDB();
     const user = await User.findOne({ uid }).populate('watchlists');
     if (!user) {
       return res.status(404).json({ message: 'User not found.' });

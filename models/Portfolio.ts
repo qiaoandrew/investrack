@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { PurchaseSchema } from './Holding';
 
 const { Schema } = mongoose;
 
@@ -12,9 +11,9 @@ const PortfolioSchema = new Schema({
     type: String,
     required: true,
   },
-  purchases: {
+  holdings: {
     type: Map,
-    of: [PurchaseSchema],
+    of: Schema.Types.Mixed,
     required: true,
   },
 });

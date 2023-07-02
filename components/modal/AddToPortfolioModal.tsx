@@ -1,42 +1,27 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
 import { useFormik } from 'formik';
 import DropdownLarge from '../UI/DropdownLarge';
 import DateInput from '../UI/DateInput';
 import TextInput from '../UI/TextInput';
 import Button from '../UI/Button';
-
-const PORTFOLIO = [
-  {
-    id: 1,
-    name: 'Portfolio 1',
-  },
-  {
-    id: 2,
-    name: 'Portfolio 2',
-  },
-  {
-    id: 3,
-    name: 'Portfolio 3',
-  },
-  {
-    id: 4,
-    name: 'Portfolio 4',
-  },
-  {
-    id: 5,
-    name: 'Portfolio 5',
-  },
-  {
-    id: 6,
-    name: 'Portfolio 6',
-  },
-];
+import axios from 'axios';
+import { updatePortfolio } from '@/store/slices/portfoliosSlice';
 
 export default function AddToPortfolioModal() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<{
     id: number;
     name: string;
   } | null>(null);
+
+  const dispatch: AppDispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { portfolios } = useSelector((state: RootState) => state.portfolios);
+
+  const router = useRouter();
+  const { symbol } = router.query;
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +33,23 @@ export default function AddToPortfolioModal() {
       quantity: '',
       purchasePrice: '',
     },
-    onSubmit: (values) => {},
+    onSubmit: async (values) => {
+      if (!selectedPortfolio || !user) return;
+      try {
+        const { data } = await axios.post(
+          `/api/users/${user.uid}/portfolios/${selectedPortfolio.id}`,
+          {
+            symbol,
+            quantity: values.quantity,
+            purchasePrice: values.purchasePrice,
+            purchaseDate: values.purchaseDate,
+          }
+        );
+        dispatch(updatePortfolio(data));
+      } catch (error) {
+        console.log(error);
+      }
+    },
   });
 
   return (
@@ -71,9 +72,9 @@ export default function AddToPortfolioModal() {
             name: option.label,
           })
         }
-        options={PORTFOLIO.map((portfolio) => ({
+        options={portfolios.map((portfolio) => ({
           label: portfolio.name,
-          value: portfolio.id,
+          value: portfolio._id,
         }))}
         placeholder='Select Portfolio'
         noOptionsMessage='You have no portfolios yet.'
