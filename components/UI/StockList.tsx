@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
 export default function StockList({ stocks }: { stocks: StockQuote[] }) {
+  if (!stocks) return null;
   return (
     <div className='max-w-[566px]'>
       {stocks.map((stock, i) => (
