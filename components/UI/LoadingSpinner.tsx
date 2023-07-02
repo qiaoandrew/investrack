@@ -1,9 +1,17 @@
 import { Oval } from 'react-loader-spinner';
 import { COLORS } from '@/constants/colors';
 
-export default function LoadingSpinner({ margin }: { margin?: string }) {
+interface LoadingSpinnerProps {
+  height?: string;
+  margin?: string;
+}
+
+export default function LoadingSpinner({
+  height,
+  margin,
+}: LoadingSpinnerProps) {
   return (
-    <div className={`grid place-content-center ${margin}`}>
+    <div className={`grid place-content-center ${height} ${margin}`}>
       <Oval
         width={60}
         height={60}

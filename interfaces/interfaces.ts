@@ -48,6 +48,11 @@ export interface TableItem {
   value: string | React.ReactNode;
 }
 
+export interface PriceHistory {
+  time: string;
+  value: number;
+}
+
 export interface Holding {
   _id: string;
   purchaseDate: Date;

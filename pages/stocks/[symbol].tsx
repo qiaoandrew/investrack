@@ -6,8 +6,8 @@ import Chart from '@/components/sections/stock/Chart';
 import MobileButtons from '@/components/sections/stock/MobileButtons';
 import Summary from '@/components/sections/stock/Summary';
 import Financials from '@/components/sections/stock/Financials';
-import Description from '@/components/sections/stock/Description';
 import Profile from '@/components/sections/stock/Profile';
+import Description from '@/components/sections/stock/Description';
 import News from '@/components/sections/stock/News';
 
 interface StockProps {
@@ -40,8 +40,8 @@ export default function Stock({
       <MobileButtons />
       <Summary summary={summary} />
       <Financials />
-      <Description description={description} />
       <Profile profile={profile} />
+      <Description description={description} />
       <News news={news} />
     </>
   );

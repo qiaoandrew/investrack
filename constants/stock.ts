@@ -57,3 +57,15 @@ export const PROFILE_FIELDS = {
   'Compensation Risk': [{ key: 'compensationRisk', type: 'number' }],
   'Shareholder Rights Risk': [{ key: 'shareHolderRightsRisk', type: 'number' }],
 };
+
+export const PERIODS = [
+  { label: '1D', value: '1d' },
+  { label: '1W', value: '1wk' },
+  { label: '1M', value: '1mo' },
+  { label: '6M', value: '6mo' },
+  { label: '1Y', value: '1y' },
+  { label: '5Y', value: '5y' },
+  { label: 'Max', value: 'max' },
+];
+
+export const INTERVALS = ['2m', '15m', '1h', '1d', '1d', '5d', '1mo'];
