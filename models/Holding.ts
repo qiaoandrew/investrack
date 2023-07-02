@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-export const HoldingSchema = new Schema({
+export const PurchaseSchema = new Schema({
   purchaseDate: {
     type: Date,
     required: true,
@@ -17,5 +17,5 @@ export const HoldingSchema = new Schema({
   },
 });
 
-export default mongoose.models.Holding ||
-  mongoose.model('Holding', HoldingSchema);
+export default mongoose.models.Purchase ||
+  mongoose.model('Purchase', PurchaseSchema);

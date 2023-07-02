@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { HoldingSchema } from './Holding';
+import { PurchaseSchema } from './Holding';
 
 const { Schema } = mongoose;
 
@@ -12,9 +12,9 @@ const PortfolioSchema = new Schema({
     type: String,
     required: true,
   },
-  holdings: {
+  purchases: {
     type: Map,
-    of: [HoldingSchema],
+    of: [PurchaseSchema],
     required: true,
   },
 });

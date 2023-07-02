@@ -45,7 +45,7 @@ export interface StockPrice {
 
 export interface TableItem {
   label: string;
-  value: string | React.ReactNode;
+  value: string;
 }
 
 export interface PriceHistory {
@@ -53,7 +53,7 @@ export interface PriceHistory {
   value: number;
 }
 
-export interface Holding {
+export interface Purchase {
   _id: string;
   purchaseDate: Date;
   purchasePrice: number;
@@ -64,7 +64,7 @@ export interface Portfolio {
   _id: string;
   uid: string;
   name: string;
-  holdings: Record<string, Holding[]>;
+  holdings: Record<string, Purchase[]>;
 }
 
 export interface Watchlist {

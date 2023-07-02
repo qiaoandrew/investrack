@@ -1,5 +1,5 @@
 import { TableItem } from '@/interfaces/interfaces';
-import { getHiddenClasses } from '@/util/helpers';
+import { getHiddenClasses, extractDomain } from '@/util/helpers';
 
 interface TableProps {
   items: TableItem[];
@@ -11,8 +11,19 @@ export default function Table({ items }: TableProps) {
       {items.map((item, i) => (
         <div key={`item-${i}`}>
           <div className='flex justify-between'>
-            <p className='text-base text-blue1'>{item.label}</p>
-            <p className='text-base text-white'>{item.value}</p>
+            <p className='text-blue1'>{item.label}</p>
+            {item.value.startsWith('http') ? (
+              <a
+                href={item.value}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-white underline underline-offset-4'
+              >
+                {extractDomain(item.value)}
+              </a>
+            ) : (
+              <p className='text-white'>{item.value}</p>
+            )}
           </div>
           <hr
             className={`my-5 border-grey1 border-opacity-40 ${getHiddenClasses(

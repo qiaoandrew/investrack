@@ -2,6 +2,13 @@ export const validateEmail = (email: string): boolean => {
   return /\S+@\S+\.\S+/.test(email);
 };
 
+export const extractDomain = (url: string) => {
+  let domain = url.replace(/^(https?:\/\/)?(www\.)?/i, '');
+  domain = domain.split('/')[0];
+  domain = domain.split(':')[0];
+  return domain;
+};
+
 export const formatNumber = (num: number) => {
   num = Math.round(num * 100) / 100;
   if (num === 0) return '0';
