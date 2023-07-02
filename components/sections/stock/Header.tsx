@@ -17,9 +17,9 @@ export default function Header({ name, symbol, exchange }: HeaderProps) {
 
   return (
     <section className='mx-dashboard mb-4 2xl:mb-9'>
-      <div className='mb-7 items-center justify-between xl:flex 2xl:mb-9'>
+      <div className='mb-7 items-center justify-between gap-6 xl:flex 2xl:mb-9'>
         <div>
-          <h1 className='mb-3 text-4xl font-semibold text-white 2xl:text-5xl'>
+          <h1 className='mb-3 line-clamp-1 text-4xl font-semibold text-white 2xl:text-5xl'>
             {name}
           </h1>
           <p className='text-lg text-grey1 2xl:text-xl'>
