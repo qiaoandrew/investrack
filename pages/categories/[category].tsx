@@ -22,14 +22,12 @@ export default function Category({ stocks }: { stocks: StockQuote[] }) {
 const FRONTEND_BASE_URL = process.env.FRONTEND_BASE_URL;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log(params);
   const { data } = await axios.get(
     `${FRONTEND_BASE_URL}/api/stocks/categories`,
     {
       params: { type: params?.category },
     }
   );
-  console.log(data);
   return {
     props: { stocks: data },
     revalidate: 60,
@@ -43,6 +41,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
