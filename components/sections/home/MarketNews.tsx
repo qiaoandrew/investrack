@@ -26,8 +26,8 @@ export default function MarketNews() {
     <Carousel title='Market News' loading={loading}>
       {news.map((article) => (
         <NewsCard
-          headline={article.headline}
-          summary={article.summary}
+          title={article.title}
+          description={article.description}
           image={article.image}
           url={article.url}
           key={article.id}

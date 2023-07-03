@@ -20,8 +20,8 @@ export interface MarketSummary {
 
 export interface NewsArticle {
   id: number;
-  headline: string;
-  summary?: string;
+  title: string;
+  description?: string;
   url: string;
   image: string;
 }

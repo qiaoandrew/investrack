@@ -1,15 +1,15 @@
 import Image from 'next/image';
 
 export interface NewsCardProps {
-  headline: string;
-  summary?: string;
+  title: string;
+  description?: string;
   image: string;
   url: string;
 }
 
 export default function NewsCard({
-  headline,
-  summary,
+  title,
+  description,
   image,
   url,
 }: NewsCardProps) {
@@ -22,7 +22,7 @@ export default function NewsCard({
     >
       <Image
         src={image}
-        alt={headline}
+        alt={title}
         width={320}
         height={160}
         className='h-40 w-80 object-cover'
@@ -30,14 +30,14 @@ export default function NewsCard({
       <div className='whitespace-normal px-5 pb-7 pt-4'>
         <p
           className={`line-clamp-2 font-medium text-white 2xl:text-lg ${
-            summary ? 'mb-2' : ''
+            description ? 'mb-2' : ''
           }`}
         >
-          {headline}
+          {title}
         </p>
-        {summary && (
+        {description && (
           <p className='line-clamp-3 text-sm text-grey1 2xl:text-md'>
-            {summary}
+            {description}
           </p>
         )}
       </div>

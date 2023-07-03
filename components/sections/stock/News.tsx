@@ -8,7 +8,7 @@ export default function News({ news }: { news: NewsArticle[] }) {
       <Carousel title='News'>
         {news.map((article) => (
           <NewsCard
-            headline={article.headline}
+            title={article.title}
             image={article.image}
             url={article.url}
             key={article.id}

@@ -18,7 +18,7 @@ export default async function handler(
       .filter((article: any) => article.thumbnail)
       .map((article: any) => ({
         id: article.uuid,
-        headline: article.title,
+        title: article.title,
         url: article.link,
         image: article.thumbnail.resolutions[0].url,
       }));
