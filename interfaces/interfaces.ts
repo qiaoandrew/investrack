@@ -18,22 +18,6 @@ export interface MarketSummary {
   changePercent: number;
 }
 
-export interface NewsArticle {
-  id: number;
-  title: string;
-  description?: string;
-  url: string;
-  image: string;
-}
-
-export interface StockQuote {
-  symbol: string;
-  name: string;
-  price: number;
-  change: number;
-  changePercent: number;
-}
-
 export interface StockPrice {
   symbol: string;
   name: string;
@@ -41,6 +25,14 @@ export interface StockPrice {
   change: number;
   changePercent: number;
   exchange: 'NASDAQ' | 'NYSE';
+}
+
+export interface NewsArticle {
+  id: number;
+  title: string;
+  description?: string;
+  url: string;
+  image: string;
 }
 
 export interface TableItem {

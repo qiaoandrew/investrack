@@ -122,7 +122,7 @@ export default function Chart({ price, change, changePercent }: ChartProps) {
       <div className='items-center justify-between md:flex'>
         <div className='flex items-center justify-between md:justify-start md:gap-6'>
           <p className='text-5xl font-medium text-white 2xs:text-6xl xs:text-8xl'>
-            ${price}
+            ${price.toFixed(2)}
           </p>
           <div className='flex items-center gap-2'>
             {change >= 0 ? (
@@ -135,7 +135,7 @@ export default function Chart({ price, change, changePercent }: ChartProps) {
                 change >= 0 ? 'text-green' : 'text-red'
               }`}
             >
-              {change} ({changePercent}%)
+              {change.toFixed(2)} ({changePercent.toFixed(2)}%)
             </p>
           </div>
         </div>

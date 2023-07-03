@@ -49,7 +49,7 @@ export default function AddToPortfolioModal() {
         dispatch(updatePortfolio(data));
         dispatch(closeModal());
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   });

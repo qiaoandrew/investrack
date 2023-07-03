@@ -1,10 +1,10 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { StockQuote } from '@/interfaces/interfaces';
+import { StockPrice } from '@/interfaces/interfaces';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-export default function StockList({ stocks }: { stocks: StockQuote[] }) {
+export default function StockList({ stocks }: { stocks: StockPrice[] }) {
   if (!stocks) return null;
   return (
     <div className='max-w-[566px]'>

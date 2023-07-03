@@ -2,10 +2,10 @@ import axios from 'axios';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { CATEGORIES } from '@/constants/categories';
-import { StockQuote } from '@/interfaces/interfaces';
+import { StockPrice } from '@/interfaces/interfaces';
 import StockList from '@/components/UI/StockList';
 
-export default function Category({ stocks }: { stocks: StockQuote[] }) {
+export default function Category({ stocks }: { stocks: StockPrice[] }) {
   const router = useRouter();
   const { category } = router.query;
 

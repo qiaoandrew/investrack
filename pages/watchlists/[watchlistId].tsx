@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
 import { updateWatchlist } from '@/store/slices/watchlistsSlice';
-import { StockQuote } from '@/interfaces/interfaces';
+import { StockPrice } from '@/interfaces/interfaces';
 import IconButton from '@/components/UI/IconButton';
 import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
@@ -15,7 +15,7 @@ import { COLORS } from '@/constants/colors';
 export default function Watchlist() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [stockPrices, setStockPrices] = useState<StockQuote[]>([]);
+  const [stockPrices, setStockPrices] = useState<StockPrice[]>([]);
 
   const router = useRouter();
   const { watchlistId } = router.query;
@@ -37,7 +37,7 @@ export default function Watchlist() {
         const { data } = await axios.get('/api/stocks/price', {
           params: { symbols: watchlist.stocks.join(',') },
         });
-        setStockPrices(data as StockQuote[]);
+        setStockPrices(data as StockPrice[]);
       } catch (error) {
         console.error(error);
         setError('Something went wrong. Please try again later.');

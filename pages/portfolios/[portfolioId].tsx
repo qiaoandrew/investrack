@@ -33,7 +33,7 @@ export default function Portfolio() {
         setPortfolio(data as Portfolio);
         setHeights(new Array(Object.keys(data.holdings).length).fill(0));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
@@ -55,7 +55,7 @@ export default function Portfolio() {
         }
         setStockPrices(stockPrices);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
@@ -128,8 +128,6 @@ export default function Portfolio() {
   );
   const totalReturnPercent =
     Math.round((totalReturn / (totalValue - totalReturn)) * 10000) / 100;
-
-  console.log(holdings);
 
   return (
     <div className='mx-dashboard max-w-[566px]'>

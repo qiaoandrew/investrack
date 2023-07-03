@@ -27,7 +27,7 @@ export default function NewsCard({
         height={160}
         className='h-40 w-80 object-cover'
       />
-      <div className='whitespace-normal px-5 pb-7 pt-4'>
+      <div className='whitespace-normal px-5 pb-6 pt-4'>
         <p
           className={`line-clamp-2 font-medium text-white 2xl:text-lg ${
             description ? 'mb-2' : ''
