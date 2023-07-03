@@ -14,9 +14,9 @@ export default async function handler(
     );
     const trendingStocks = data.map((stock: any) => ({
       symbol: stock.symbol,
-      price: stock.regularMarketPrice,
-      change: stock.regularMarketChange,
-      changePercent: stock.regularMarketChangePercent,
+      price: Math.round(stock.regularMarketPrice * 100) / 100,
+      change: Math.round(stock.regularMarketChange * 100) / 100,
+      changePercent: Math.round(stock.regularMarketChangePercent * 10000) / 100,
     }));
     res.status(200).json(trendingStocks as TrendingStock[]);
   } catch (error) {
