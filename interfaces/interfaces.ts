@@ -4,6 +4,13 @@ export interface SearchResult {
   exchange: 'NASDAQ' | 'NYSE';
 }
 
+export interface TrendingStock {
+  symbol: string;
+  price: number;
+  change: number;
+  changePercent: number;
+}
+
 export interface NewsArticle {
   id: number;
   headline: string;
@@ -14,13 +21,6 @@ export interface NewsArticle {
 
 export interface MarketSummary {
   name: string;
-  price: number;
-  change: number;
-  changePercent: number;
-}
-
-export interface TrendingStock {
-  symbol: string;
   price: number;
   change: number;
   changePercent: number;

@@ -12,7 +12,13 @@ export default async function handler(
     const { data } = await axios.get(
       `${FINANCE_API_BASE_URL}/trending?country=united states`
     );
-    res.status(200).json(data as TrendingStock[]);
+    const trendingStocks = data.map((stock: any) => ({
+      symbol: stock.symbol,
+      price: stock.regularMarketPrice,
+      change: stock.regularMarketChange,
+      changePercent: stock.regularMarketChangePercent,
+    }));
+    res.status(200).json(trendingStocks as TrendingStock[]);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error.' });
