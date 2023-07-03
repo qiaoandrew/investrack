@@ -1,14 +1,15 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
+import { updatePortfolio } from '@/store/slices/portfoliosSlice';
+import { closeModal } from '@/store/slices/modalSlice';
 import { useFormik } from 'formik';
 import DropdownLarge from '../UI/DropdownLarge';
 import DateInput from '../UI/DateInput';
 import TextInput from '../UI/TextInput';
 import Button from '../UI/Button';
-import axios from 'axios';
-import { updatePortfolio } from '@/store/slices/portfoliosSlice';
 
 export default function AddToPortfolioModal() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<{
@@ -46,6 +47,7 @@ export default function AddToPortfolioModal() {
           }
         );
         dispatch(updatePortfolio(data));
+        dispatch(closeModal());
       } catch (error) {
         console.log(error);
       }

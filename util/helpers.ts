@@ -31,6 +31,14 @@ export const formatNumber = (num: number) => {
   return isNegative ? '-' + formattedNum : formattedNum;
 };
 
+export const formatDate = (date: string) => {
+  const dateObj = new Date(date);
+  const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+  const day = dateObj.getDate().toString().padStart(2, '0');
+  const year = dateObj.getFullYear();
+  return `${month}/${day}/${year}`;
+};
+
 export const getHiddenClasses = (i: number, length: number) => {
   let hiddenClasses = '';
 

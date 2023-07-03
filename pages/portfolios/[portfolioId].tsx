@@ -1,99 +1,135 @@
-import { Fragment, useState } from 'react';
+import axios from 'axios';
+import { Fragment, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
+import { Portfolio, StockPrice } from '@/interfaces/interfaces';
+import { formatDate, formatNumber } from '@/util/helpers';
 import AnimateHeight from 'react-animate-height';
 import IconButton from '@/components/UI/IconButton';
 import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { ChevronDown, ChevronUp, Edit, Trash } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
-const HOLDINGS = [
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    price: 125.9,
-    numShares: 120,
-    transactions: [
-      {
-        date: '03/01/2021',
-        time: '12:00 PM',
-        numShares: 100,
-        price: 123.45,
-      },
-      {
-        date: '03/05/2021',
-        time: '12:00 PM',
-        numShares: 20,
-        price: 120.49,
-      },
-    ],
-  },
-  {
-    symbol: 'TSLA',
-    name: 'Apple Inc.',
-    price: 125.9,
-    numShares: 120,
-    transactions: [
-      {
-        date: '03/01/2021',
-        time: '12:00 PM',
-        numShares: 100,
-        price: 123.45,
-      },
-      {
-        date: '03/05/2021',
-        time: '12:00 PM',
-        numShares: 20,
-        price: 120.49,
-      },
-    ],
-  },
-  {
-    symbol: 'META',
-    name: 'Apple Inc.',
-    price: 125.9,
-    numShares: 120,
-    transactions: [
-      {
-        date: '03/01/2021',
-        time: '12:00 PM',
-        numShares: 100,
-        price: 123.45,
-      },
-      {
-        date: '03/05/2021',
-        time: '12:00 PM',
-        numShares: 20,
-        price: 120.49,
-      },
-    ],
-  },
-];
-
 export default function Portfolio() {
+  const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
+  const [stockPrices, setStockPrices] = useState<Record<string, StockPrice>>();
+  const [heights, setHeights] = useState<(0 | 'auto')[]>([]);
+
   const router = useRouter();
   const { portfolioId } = router.query;
 
   const dispatch: AppDispatch = useDispatch();
-  const portfolio = useSelector((state: RootState) =>
-    state.portfolios.portfolios.find(
-      (portfolio) => portfolio._id === portfolioId
-    )
-  );
+  const { user } = useSelector((state: RootState) => state.auth);
 
-  const [heights, setHeights] = useState<(0 | 'auto')[]>(
-    Array(HOLDINGS.length).fill(0)
-  );
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      if (!user) return;
+      try {
+        const { data } = await axios.get(
+          `/api/users/${user.uid}/portfolios/${portfolioId}`
+        );
+        setPortfolio(data as Portfolio);
+        setHeights(new Array(Object.keys(data.holdings).length).fill(0));
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  if (!portfolio) return <LoadingSpinner />;
+    fetchPortfolio();
+  }, [user, portfolioId]);
+
+  useEffect(() => {
+    const fetchStockPrices = async () => {
+      if (!portfolio) return;
+      try {
+        const { data } = await axios.get(
+          `/api/stocks/price?symbols=${Object.keys(portfolio.holdings).join(
+            ','
+          )}`
+        );
+        const stockPrices: Record<string, StockPrice> = {};
+        for (const stockPrice of data as StockPrice[]) {
+          stockPrices[stockPrice.symbol] = stockPrice;
+        }
+        setStockPrices(stockPrices);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchStockPrices();
+  }, [portfolio]);
+
+  if (!portfolio || !stockPrices) return <LoadingSpinner />;
 
   const toggleHeight = (i: number) => {
     const newHeights = [...heights];
     newHeights[i] = newHeights[i] === 0 ? 'auto' : 0;
     setHeights(newHeights);
   };
+
+  const holdings = Object.entries(portfolio.holdings).map(
+    ([symbol, purchases]) => {
+      const stockPrice = stockPrices[symbol];
+      const totalValue = purchases.reduce(
+        (total, purchase) => total + stockPrice.price * purchase.quantity,
+        0
+      );
+      const totalSpent = purchases.reduce(
+        (total, purchase) => total + purchase.purchasePrice * purchase.quantity,
+        0
+      );
+      const totalReturn = Math.round((totalValue - totalSpent) * 100) / 100;
+      const totalReturnPercent =
+        Math.round((totalReturn / totalSpent) * 10000) / 100;
+      const totalShares = purchases.reduce(
+        (total, purchase) => total + purchase.quantity,
+        0
+      );
+      const symbolPurchases = purchases.map((purchase) => ({
+        ...purchase,
+        totalValue: stockPrice.price * purchase.quantity,
+        totalReturn:
+          Math.round(
+            (stockPrice.price * purchase.quantity -
+              purchase.purchasePrice * purchase.quantity) *
+              100
+          ) / 100,
+        totalReturnPercent:
+          Math.round(
+            ((stockPrice.price * purchase.quantity -
+              purchase.purchasePrice * purchase.quantity) /
+              (purchase.purchasePrice * purchase.quantity)) *
+              10000
+          ) / 100,
+      }));
+
+      return {
+        symbol,
+        name: stockPrice.name,
+        totalValue,
+        totalReturn,
+        totalReturnPercent,
+        totalShares,
+        symbolPurchases,
+      };
+    }
+  );
+
+  const totalValue = holdings.reduce(
+    (total, holding) => total + holding.totalValue,
+    0
+  );
+  const totalReturn = holdings.reduce(
+    (total, holding) => total + holding.totalReturn,
+    0
+  );
+  const totalReturnPercent =
+    Math.round((totalReturn / (totalValue - totalReturn)) * 10000) / 100;
+
+  console.log(holdings);
 
   return (
     <div className='mx-dashboard max-w-[566px]'>
@@ -112,43 +148,52 @@ export default function Portfolio() {
           />
         </div>
       </div>
-      <p className='mb-4 text-8xl font-semibold text-white'>$1,267.68</p>
+      <p className='mb-4 text-8xl font-semibold text-white'>
+        ${formatNumber(totalValue)}
+      </p>
       <div className='mb-12 flex items-center gap-2'>
         <ChevronUp size={24} color={COLORS.green} />
         <p className='text-lg xl:text-xl'>
-          <span className='text-green'>0.87 (1.28%)</span>{' '}
+          <span className='text-green'>
+            {formatNumber(totalReturn)} ({totalReturnPercent}%)
+          </span>{' '}
           <span className='text-white'>All Time</span>
         </p>
       </div>
-      <div className='mb-4 grid grid-cols-[3fr_3fr_3fr_1fr] gap-x-6 text-right text-sm text-grey1 md:mb-5 md:grid-cols-[3fr_2fr_2fr_1fr] md:text-md'>
+      <div className='mb-4 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] gap-x-6 text-right text-sm text-grey1 md:mb-5 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)] md:text-md'>
         <div />
         <p>Total Value</p>
         <p>Total Return</p>
       </div>
-      {HOLDINGS.map((holding, i) => (
+      {holdings.map((holding, i) => (
         <Fragment key={holding.symbol}>
-          <div
-            className='mb-7 grid grid-cols-[3fr_3fr_3fr_1fr] items-center gap-x-6 md:grid-cols-[3fr_2fr_2fr_1fr]'
-            key={holding.symbol}
-          >
+          <div className='mb-7 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)]  items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'>
             <div>
-              <p className='mb-1 font-semibold text-white md:text-lg'>
-                {holding.symbol}
-              </p>
+              <p className='mb-1 font-semibold text-white'>{holding.symbol}</p>
               <p className='text-sm text-blue1 md:text-md'>{holding.name}</p>
             </div>
             <div className='text-right'>
-              <p className='mb-1 text-white md:text-lg'>{holding.price}</p>
+              <p className='mb-1 text-white'>{holding.totalValue}</p>
               <p className='text-sm text-blue1 md:text-md'>
-                {holding.numShares} shares
+                {holding.totalShares} shares
               </p>
             </div>
-            <div className='text-right text-green'>
+            <div
+              className={`text-right ${
+                holding.totalReturn >= 0 ? 'text-green' : 'text-red'
+              }`}
+            >
               <div className='mb-1 inline-flex items-center gap-3'>
-                <ChevronUp size={20} color={COLORS.green} />
-                <p className='md:text-lg'>0.87</p>
+                <ChevronUp
+                  size={20}
+                  color={holding.totalReturn >= 0 ? COLORS.green : COLORS.red}
+                  className={`${holding.totalReturn >= 0 ? '' : 'rotate-180'}`}
+                />
+                <p>{holding.totalReturn}</p>
               </div>
-              <p className='text-sm md:text-md'>0.85%</p>
+              <p className='text-sm md:text-md'>
+                {holding.totalReturnPercent}%
+              </p>
             </div>
             <div
               onClick={() => toggleHeight(i)}
@@ -163,33 +208,44 @@ export default function Portfolio() {
               />
             </div>
           </div>
-          {holding.transactions.map((transaction, j) => (
+          {holding.symbolPurchases.map((purchase, j) => (
             <AnimateHeight
               duration={300}
               height={heights[i]}
               key={`transaction-${j}`}
             >
-              <div className='mb-7 grid grid-cols-[3fr_3fr_3fr_1fr] items-center gap-x-6 md:grid-cols-[3fr_2fr_2fr_1fr]'>
-                <div>
-                  <p className='mb-1 font-medium text-white'>
-                    {transaction.date}
-                  </p>
-                  <p className='text-sm text-blue1 md:text-md'>
-                    {transaction.time}
+              <div className='mb-7 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'>
+                <div className='self-start'>
+                  <p className='font-medium text-white'>
+                    {formatDate(purchase.purchaseDate)}
                   </p>
                 </div>
                 <div className='text-right'>
-                  <p className='mb-1 text-white'>{transaction.price}</p>
+                  <p className='mb-1 text-white'>{purchase.totalValue}</p>
                   <p className='text-sm text-blue1 md:text-md'>
-                    {transaction.numShares} shares
+                    {purchase.quantity} shares
                   </p>
                 </div>
-                <div className='text-right text-green'>
+                <div
+                  className={`text-right ${
+                    purchase.totalReturn >= 0 ? 'text-green' : 'text-red'
+                  }`}
+                >
                   <div className='mb-1 inline-flex items-center gap-3'>
-                    <ChevronUp size={20} color={COLORS.green} />
-                    <p>0.87</p>
+                    <ChevronUp
+                      size={20}
+                      color={
+                        purchase.totalReturn >= 0 ? COLORS.green : COLORS.red
+                      }
+                      className={`${
+                        purchase.totalReturn >= 0 ? '' : 'rotate-180'
+                      }`}
+                    />
+                    <p>{purchase.totalReturn}</p>
                   </div>
-                  <p className='text-sm md:text-md'>0.85%</p>
+                  <p className='text-sm md:text-md'>
+                    {purchase.totalReturnPercent}%
+                  </p>
                 </div>
                 <IconButton
                   icon={<Edit size={16} color={COLORS.grey1} />}
@@ -199,7 +255,7 @@ export default function Portfolio() {
               </div>
             </AnimateHeight>
           ))}
-          {i !== HOLDINGS.length - 1 && (
+          {i !== holdings.length - 1 && (
             <hr className='border-b-1 mb-6 border-grey2' />
           )}
         </Fragment>

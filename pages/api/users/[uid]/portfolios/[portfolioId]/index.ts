@@ -58,5 +58,19 @@ export default async function handler(
     portfolio.markModified('holdings');
     const savedPortfolio = await portfolio.save();
     res.status(200).json(savedPortfolio);
+  } else {
+    await connectDB();
+    const portfolio = await Portfolio.findById(portfolioId);
+    if (!portfolio) {
+      return res.status(404).json({ message: 'Portfolio not found.' });
+    }
+    for (let symbol of portfolio.holdings.keys()) {
+      let purchases = portfolio.holdings.get(symbol);
+      purchases = await Promise.all(
+        purchases.map((id: any) => Purchase.findById(id))
+      );
+      portfolio.holdings.set(symbol, purchases);
+    }
+    res.status(200).json(portfolio);
   }
 }

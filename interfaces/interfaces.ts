@@ -55,7 +55,7 @@ export interface PriceHistory {
 
 export interface Purchase {
   _id: string;
-  purchaseDate: Date;
+  purchaseDate: string;
   purchasePrice: number;
   quantity: number;
 }
