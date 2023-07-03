@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
+
+import Button from '../UI/Button';
+
 import { AppDispatch } from '@/store/store';
 import { closeModal } from '@/store/slices/modalSlice';
-import Button from '../UI/Button';
 
 export default function AccountRequiredModal() {
   const router = useRouter();

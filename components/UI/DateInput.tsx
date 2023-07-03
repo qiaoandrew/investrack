@@ -15,7 +15,7 @@ export default function DateInput({
 }: DateInputProps) {
   return (
     <div className={`text-white ${margin}`}>
-      <p className='mb-3 font-medium'>{label}</p>
+      <p className='mb-4 font-medium'>{label}</p>
       <div className='flex items-center gap-2'>
         <input
           type='text'

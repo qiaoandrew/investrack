@@ -24,13 +24,39 @@ export const validateSignUp = (values: {
 };
 
 export const validateLogIn = (values: { email: string; password: string }) => {
-  const errors: {
-    email?: string;
-    password?: string;
-  } = {};
+  const errors: { email?: string; password?: string } = {};
 
   if (!values.email) errors.email = 'Please enter your email.';
   if (!values.password) errors.password = 'Please enter your password.';
+
+  return errors;
+};
+
+export const validateAddToPortfolio = (values: {
+  portfolioId: string;
+  purchaseDate: {
+    month: string;
+    day: string;
+    year: string;
+  };
+  quantity: string;
+  purchasePrice: string;
+}) => {
+  const errors: {
+    quantity?: string;
+    purchasePrice?: string;
+  } = {};
+
+  if (!values.quantity) errors.quantity = 'Please enter a quantity.';
+
+  if (isNaN(parseInt(values.quantity)))
+    errors.quantity = 'Please enter a valid quantity.';
+
+  if (!values.purchasePrice)
+    errors.purchasePrice = 'Please enter a purchase price.';
+
+  if (isNaN(parseFloat(values.purchasePrice)))
+    errors.purchasePrice = 'Please enter a valid purchase price.';
 
   return errors;
 };

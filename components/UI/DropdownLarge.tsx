@@ -43,7 +43,7 @@ export default function DropdownLarge({
     <div className={`select relative z-10 ${margin}`}>
       <div
         onClick={() => setShowDropdown((prev) => !prev)}
-        className={`transition-300 flex cursor-pointer justify-between rounded-sm border py-3.5 pl-5 pr-4 ${
+        className={`transition-300 flex cursor-pointer justify-between rounded-sm border py-4 pl-5 pr-4 ${
           showDropdown ? 'border-grey1' : 'border-grey2'
         }`}
       >
