@@ -80,7 +80,7 @@ export interface PortfolioHolding {
   returnPercent: number;
   purchases: {
     purchaseId: string;
-    purchaseDate: Date;
+    purchaseDate: string;
     value: number;
     quantity: number;
     return: number;

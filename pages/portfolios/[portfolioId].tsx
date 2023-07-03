@@ -15,7 +15,7 @@ import {
   PortfolioHoldings,
   StockPrice,
 } from '@/interfaces/interfaces';
-import { formatNumber } from '@/util/helpers';
+import { formatDate, formatNumber } from '@/util/helpers';
 import { COLORS } from '@/constants/colors';
 
 export default function Portfolio() {
@@ -150,53 +150,54 @@ export default function Portfolio() {
                   />
                 </div>
               </div>
-              {/* {holding.symbolPurchases.map((purchase, j) => (
-            <AnimateHeight
-              duration={300}
-              height={heights[i]}
-              key={`transaction-${j}`}
-            >
-              <div className='mb-7 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'>
-                <div className='self-start'>
-                  <p className='font-medium text-white'>
-                    {formatDate(purchase.purchaseDate)}
-                  </p>
-                </div>
-                <div className='text-right'>
-                  <p className='mb-1 text-white'>{purchase.totalValue}</p>
-                  <p className='text-sm text-blue1 md:text-md'>
-                    {purchase.quantity} shares
-                  </p>
-                </div>
-                <div
-                  className={`text-right ${
-                    purchase.totalReturn >= 0 ? 'text-green' : 'text-red'
-                  }`}
-                >
-                  <div className='mb-1 inline-flex items-center gap-3'>
-                    <ChevronUp
-                      size={20}
-                      color={
-                        purchase.totalReturn >= 0 ? COLORS.green : COLORS.red
-                      }
-                      className={`${
-                        purchase.totalReturn >= 0 ? '' : 'rotate-180'
+              <AnimateHeight duration={300} height={heights[i]}>
+                {holding.purchases.map((purchase, j) => (
+                  <div
+                    key={`purchase-${j}`}
+                    className='mb-7 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'
+                  >
+                    <div className='self-start'>
+                      <p className='font-medium text-white'>
+                        {formatDate(purchase.purchaseDate)}
+                      </p>
+                    </div>
+                    <div className='text-right'>
+                      <p className='mb-1 text-white'>
+                        {purchase.value.toFixed(2)}
+                      </p>
+                      <p className='text-sm text-blue1 md:text-md'>
+                        {purchase.quantity} shares
+                      </p>
+                    </div>
+                    <div
+                      className={`text-right ${
+                        purchase.return >= 0 ? 'text-green' : 'text-red'
                       }`}
+                    >
+                      <div className='mb-1 inline-flex items-center gap-3'>
+                        <ChevronUp
+                          size={20}
+                          color={
+                            purchase.return >= 0 ? COLORS.green : COLORS.red
+                          }
+                          className={`${
+                            purchase.return >= 0 ? '' : 'rotate-180'
+                          }`}
+                        />
+                        <p>{purchase.return.toFixed(2)}</p>
+                      </div>
+                      <p className='text-sm md:text-md'>
+                        {purchase.returnPercent.toFixed(2)}%
+                      </p>
+                    </div>
+                    <IconButton
+                      icon={<Edit size={16} color={COLORS.grey1} />}
+                      onClick={() => {}}
+                      classes='justify-self-end'
                     />
-                    <p>{purchase.totalReturn}</p>
                   </div>
-                  <p className='text-sm md:text-md'>
-                    {purchase.totalReturnPercent}%
-                  </p>
-                </div>
-                <IconButton
-                  icon={<Edit size={16} color={COLORS.grey1} />}
-                  onClick={() => {}}
-                  classes='justify-self-end'
-                />
-              </div>
-            </AnimateHeight>
-          ))} */}
+                ))}
+              </AnimateHeight>
               {i !== portfolioHoldings.holdings.length - 1 && (
                 <hr className='border-b-1 mb-6 border-grey2' />
               )}

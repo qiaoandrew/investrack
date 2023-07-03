@@ -25,7 +25,6 @@ export default async function handler(
       portfolioId;
       return res.status(404).json({ message: 'Portfolio not found.' });
     }
-    console.log(portfolio.holdings.keys());
     if (Array.from(portfolio.holdings.keys()).length === 0) {
       return res.status(200).json({
         value: 0,
@@ -80,7 +79,7 @@ export default async function handler(
         const spent = purchase.quantity * purchase.purchasePrice;
         holding.purchases.push({
           purchaseId: purchase._id,
-          purchaseDate: purchase.date,
+          purchaseDate: purchase.purchaseDate,
           value: Math.round(value * 100) / 100,
           quantity: purchase.quantity,
           return: Math.round((value - spent) * 100) / 100,
@@ -95,6 +94,15 @@ export default async function handler(
       holding.return = valueInSymbol - totalSpentOnSymbol;
       holding.returnPercent =
         ((valueInSymbol - totalSpentOnSymbol) / totalSpentOnSymbol) * 100;
+      holding.purchases.sort((a, b) => {
+        if (a.purchaseDate > b.purchaseDate) {
+          return -1;
+        } else if (a.purchaseDate < b.purchaseDate) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
       holdings.holdings.push(holding);
       totalValue += valueInSymbol;
       totalSpent += totalSpentOnSymbol;
