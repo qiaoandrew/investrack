@@ -1,4 +1,5 @@
 import Table from '@/components/UI/Table';
+
 import { TableItem } from '@/interfaces/interfaces';
 
 interface SummaryProps {

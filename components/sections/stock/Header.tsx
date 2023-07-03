@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { Briefcase, List } from 'react-feather';
+
+import Button from '@/components/UI/Button';
+
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
-import Button from '@/components/UI/Button';
-import { Briefcase, List } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
 interface HeaderProps {

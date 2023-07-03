@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import { StockPrice } from '@/interfaces/interfaces';
 
 const FINANCE_API_BASE_URL = process.env.FINANCE_API_BASE_URL;

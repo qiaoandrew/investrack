@@ -2,10 +2,12 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+
+import Button from '../UI/Button';
+
 import { AppDispatch, RootState } from '@/store/store';
 import { closeModal } from '@/store/slices/modalSlice';
 import { updateWatchlists } from '@/store/slices/watchlistsSlice';
-import Button from '../UI/Button';
 
 export default function AddToWatchlistModal() {
   const [selectedWatchlistIds, setSelectedWatchlistIds] = useState<string[]>(
@@ -19,7 +21,10 @@ export default function AddToWatchlistModal() {
   const { user } = useSelector((state: RootState) => state.auth);
   const { watchlists } = useSelector((state: RootState) => state.watchlists);
 
-  const handleSelect = (e: any, watchlistId: string) => {
+  const handleSelect = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    watchlistId: string
+  ) => {
     if (e.target.checked) {
       setSelectedWatchlistIds((prev) => [...prev, watchlistId]);
     } else {
@@ -41,10 +46,10 @@ export default function AddToWatchlistModal() {
 
   return (
     <>
-      <h2 className='mb-4 text-3xl font-semibold text-white'>
+      <h2 className='mb-5 text-3xl font-semibold text-white'>
         Add To Watchlist
       </h2>
-      <div className='relative mb-8'>
+      <div className='relative mb-10'>
         <div
           className={`no-scrollbar grid max-h-[220px] gap-6 overflow-y-scroll ${
             watchlists.length > 4 ? 'pb-6' : ''

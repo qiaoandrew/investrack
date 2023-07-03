@@ -28,31 +28,27 @@ export default function AddToPortfolioModal() {
   const formik = useFormik({
     initialValues: {
       portfolioId: '',
-      purchaseDate: {
-        month: '',
-        day: '',
-        year: '',
-      },
+      purchaseDate: { month: '', day: '', year: '' },
       quantity: '',
       purchasePrice: '',
     },
     validate: validateAddToPortfolio,
     onSubmit: async (values) => {
       if (!portfolio || !user) return;
-      if (!values.portfolioId) {
-        formik.setFieldError('portfolioId', 'Please select a portfolio.');
-        return;
-      }
-      const dateObj = new Date(
-        parseInt(values.purchaseDate.year),
-        parseInt(values.purchaseDate.month) - 1,
-        parseInt(values.purchaseDate.day)
-      );
-      if (isNaN(dateObj.getTime()) || dateObj > new Date()) {
-        formik.setFieldError('purchaseDate', 'Please enter a valid date.');
-      }
       setError(false);
       try {
+        if (!values.portfolioId) {
+          formik.setFieldError('portfolioId', 'Please select a portfolio.');
+          return;
+        }
+        const dateObj = new Date(
+          parseInt(values.purchaseDate.year),
+          parseInt(values.purchaseDate.month) - 1,
+          parseInt(values.purchaseDate.day)
+        );
+        if (isNaN(dateObj.getTime()) || dateObj > new Date()) {
+          formik.setFieldError('purchaseDate', 'Please enter a valid date.');
+        }
         const { data } = await axios.post(
           `/api/users/${user.uid}/portfolios/${portfolio._id}`,
           {

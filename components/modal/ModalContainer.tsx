@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store/store';
-import { closeModal } from '@/store/slices/modalSlice';
+import { XCircle } from 'react-feather';
+
 import AccountRequiredModal from './AccountRequiredModal';
 import AddToPortfolioModal from './AddToPortfolioModal';
 import AddToWatchlistModal from './AddToWatchlistModal';
@@ -10,7 +10,9 @@ import DeletePortfolioModal from './DeletePortfolioModal';
 import DeleteWatchlistModal from './DeleteWatchlistModal';
 import RenameWatchlistModal from './RenameWatchlistModal';
 import RenamePortfolioModal from './RenamePortfolioModal';
-import { XCircle } from 'react-feather';
+
+import { AppDispatch, RootState } from '@/store/store';
+import { closeModal } from '@/store/slices/modalSlice';
 import { COLORS } from '@/constants/colors';
 
 export default function Modal() {

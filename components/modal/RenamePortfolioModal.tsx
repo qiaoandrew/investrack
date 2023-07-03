@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+
+import TextInput from '../UI/TextInput';
+import Button from '../UI/Button';
+
 import { AppDispatch, RootState } from '@/store/store';
 import { updatePortfolio } from '@/store/slices/portfoliosSlice';
 import { closeModal } from '@/store/slices/modalSlice';
-import { useFormik } from 'formik';
 import { Portfolio } from '@/interfaces/interfaces';
-import TextInput from '../UI/TextInput';
-import Button from '../UI/Button';
 
 export default function RenamePortfolioModal() {
   const router = useRouter();

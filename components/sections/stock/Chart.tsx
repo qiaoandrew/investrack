@@ -2,10 +2,12 @@ import axios from 'axios';
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { createChart, ColorType } from 'lightweight-charts';
-import { PriceHistory } from '@/interfaces/interfaces';
-import LoadingSpinner from '@/components/UI/LoadingSpinner';
-import { INTERVALS, PERIODS } from '@/constants/stock';
 import { ChevronDown, ChevronUp } from 'react-feather';
+
+import LoadingSpinner from '@/components/UI/LoadingSpinner';
+
+import { PriceHistory } from '@/interfaces/interfaces';
+import { INTERVALS, PERIODS } from '@/constants/stock';
 import { COLORS } from '@/constants/colors';
 
 interface ChartProps {

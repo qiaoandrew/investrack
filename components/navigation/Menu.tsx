@@ -1,11 +1,5 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store/store';
-import { openModal } from '@/store/slices/modalSlice';
-import { closeMobileMenu } from '@/store/slices/mobileMenuSlice';
-import { logOutWatchlists } from '@/store/slices/watchlistsSlice';
-import { logOutPortfolios } from '@/store/slices/portfoliosSlice';
-import { logOut } from '@/util/auth';
 import {
   Home,
   Repeat,
@@ -17,6 +11,13 @@ import {
   LogIn,
   UserPlus,
 } from 'react-feather';
+
+import { AppDispatch, RootState } from '@/store/store';
+import { openModal } from '@/store/slices/modalSlice';
+import { closeMobileMenu } from '@/store/slices/mobileMenuSlice';
+import { logOutWatchlists } from '@/store/slices/watchlistsSlice';
+import { logOutPortfolios } from '@/store/slices/portfoliosSlice';
+import { logOut } from '@/util/auth';
 import { COLORS } from '@/constants/colors';
 
 export default function Menu() {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { type GetServerSideProps } from 'next';
-import { NewsArticle, StockPrice, TableItem } from '@/interfaces/interfaces';
+
 import Header from '@/components/sections/stock/Header';
 import Chart from '@/components/sections/stock/Chart';
 import MobileButtons from '@/components/sections/stock/MobileButtons';
@@ -9,6 +9,8 @@ import Financials from '@/components/sections/stock/Financials';
 import Profile from '@/components/sections/stock/Profile';
 import Description from '@/components/sections/stock/Description';
 import News from '@/components/sections/stock/News';
+
+import { NewsArticle, StockPrice, TableItem } from '@/interfaces/interfaces';
 
 interface StockProps {
   price: StockPrice;

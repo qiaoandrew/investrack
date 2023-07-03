@@ -3,13 +3,15 @@ import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
+import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
+
+import IconButton from '@/components/UI/IconButton';
+import LoadingSpinner from '@/components/UI/LoadingSpinner';
+
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
 import { updateWatchlist } from '@/store/slices/watchlistsSlice';
 import { StockPrice } from '@/interfaces/interfaces';
-import IconButton from '@/components/UI/IconButton';
-import LoadingSpinner from '@/components/UI/LoadingSpinner';
-import { ChevronDown, ChevronUp, Edit, Trash, X } from 'react-feather';
 import { COLORS } from '@/constants/colors';
 
 export default function Watchlist() {

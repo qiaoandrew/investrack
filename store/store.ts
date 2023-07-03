@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import authReducer from './slices/authSlice';
 import mobileMenuReducer from './slices/mobileMenuSlice';
 import modalReducer from './slices/modalSlice';

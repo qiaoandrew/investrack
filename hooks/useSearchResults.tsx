@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { debounce } from 'lodash';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { SearchResult } from '@/interfaces/interfaces';
 
 export default function useSearchResults(query: string) {

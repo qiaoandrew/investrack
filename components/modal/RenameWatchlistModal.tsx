@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+
+import TextInput from '../UI/TextInput';
+import Button from '../UI/Button';
+
 import { AppDispatch, RootState } from '@/store/store';
 import { updateWatchlist } from '@/store/slices/watchlistsSlice';
 import { closeModal } from '@/store/slices/modalSlice';
-import { useFormik } from 'formik';
 import { Watchlist } from '@/interfaces/interfaces';
-import TextInput from '../UI/TextInput';
-import Button from '../UI/Button';
 
 export default function RenameWatchlistModal() {
   const router = useRouter();

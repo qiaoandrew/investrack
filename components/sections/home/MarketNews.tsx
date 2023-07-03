@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { NewsArticle } from '@/interfaces/interfaces';
+
 import Carousel from '@/components/UI/Carousel';
 import NewsCard from '@/components/cards/NewsCard';
+
+import { NewsArticle } from '@/interfaces/interfaces';
 
 export default function MarketNews() {
   const [news, setNews] = useState<NewsArticle[]>([]);

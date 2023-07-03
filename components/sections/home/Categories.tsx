@@ -1,5 +1,6 @@
 import Carousel from '@/components/UI/Carousel';
 import CategoryCard from '@/components/cards/CategoryCard';
+
 import { CATEGORIES } from '@/constants/categories';
 
 export default function Categories() {

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { TrendingStock } from '@/interfaces/interfaces';
+
 import Carousel from '@/components/UI/Carousel';
 import AssetCard from '@/components/cards/AssetCard';
+
+import { TrendingStock } from '@/interfaces/interfaces';
 
 export default function Trending() {
   const [trending, setTrending] = useState<TrendingStock[]>([]);

@@ -2,17 +2,19 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
 import { useFormik } from 'formik';
-import { signIn, signInWithGoogle } from '@/util/auth';
-import { createUser } from '@/util/user';
-import { validateLogIn } from '@/util/formValidation';
+import { FcGoogle } from 'react-icons/fc';
+import { Eye, EyeOff } from 'react-feather';
+
 import AuthLayout from '@/components/layouts/AuthLayout';
 import TextInput from '@/components/UI/TextInput';
 import InputFeedback from '@/components/UI/InputFeedback';
 import Button from '@/components/UI/Button';
-import { FcGoogle } from 'react-icons/fc';
-import { Eye, EyeOff } from 'react-feather';
+
+import { RootState } from '@/store/store';
+import { signIn, signInWithGoogle } from '@/util/auth';
+import { createUser } from '@/util/user';
+import { validateLogIn } from '@/util/formValidation';
 import { COLORS } from '@/constants/colors';
 
 export default function LogIn() {

@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+
 import { store, AppDispatch, RootState } from '@/store/store';
 import { setWatchlists } from '@/store/slices/watchlistsSlice';
 import { setPortfolios } from '@/store/slices/portfoliosSlice';
 import { setUser } from '@/store/slices/authSlice';
-import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Portfolio, Watchlist } from '@/interfaces/interfaces';
 

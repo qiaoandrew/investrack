@@ -1,4 +1,5 @@
 import { Oval } from 'react-loader-spinner';
+
 import { COLORS } from '@/constants/colors';
 
 interface LoadingSpinnerProps {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ChevronDown } from 'react-feather';
+
 import { COLORS } from '@/constants/colors';
 
 interface DropdownSmallProps {

@@ -1,21 +1,21 @@
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+
+import TextInput from '../UI/TextInput';
+import Button from '../UI/Button';
+
 import { AppDispatch, RootState } from '@/store/store';
 import { closeModal } from '@/store/slices/modalSlice';
 import { addPortfolio } from '@/store/slices/portfoliosSlice';
-import { useFormik } from 'formik';
 import { Portfolio } from '@/interfaces/interfaces';
-import TextInput from '../UI/TextInput';
-import Button from '../UI/Button';
 
 export default function CreatePortfolioModal() {
   const dispatch: AppDispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
 
   const formik = useFormik({
-    initialValues: {
-      name: '',
-    },
+    initialValues: { name: '' },
     onSubmit: async (values) => {
       if (!user) return;
       const { data } = await axios.post(`/api/users/${user.uid}/portfolios`, {

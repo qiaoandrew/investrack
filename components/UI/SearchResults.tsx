@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
+
 import { SearchResult } from '@/interfaces/interfaces';
 import LoadingSpinner from './LoadingSpinner';
 

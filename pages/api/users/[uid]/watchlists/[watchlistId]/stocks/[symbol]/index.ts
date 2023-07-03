@@ -1,5 +1,6 @@
 import User from '@/models/User';
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import connectDB from '@/lib/mongoose';
 import { Watchlist } from '@/interfaces/interfaces';
 

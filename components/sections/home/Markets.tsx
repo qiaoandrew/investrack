@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { MarketSummary } from '@/interfaces/interfaces';
+
 import Carousel from '@/components/UI/Carousel';
 import AssetCard from '@/components/cards/AssetCard';
+
+import { MarketSummary } from '@/interfaces/interfaces';
 
 export default function Markets() {
   const [markets, setMarkets] = useState<MarketSummary[]>([]);

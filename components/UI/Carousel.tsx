@@ -1,7 +1,9 @@
 import { useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'react-feather';
+
 import DropdownSmall from './DropdownSmall';
 import LoadingSpinner from './LoadingSpinner';
-import { ChevronLeft, ChevronRight } from 'react-feather';
+
 import { COLORS } from '@/constants/colors';
 
 interface CarouselProps {

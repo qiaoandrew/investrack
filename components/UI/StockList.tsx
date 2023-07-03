@@ -1,7 +1,8 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { StockPrice } from '@/interfaces/interfaces';
 import { ChevronDown, ChevronUp } from 'react-feather';
+
+import { StockPrice } from '@/interfaces/interfaces';
 import { COLORS } from '@/constants/colors';
 
 export default function StockList({ stocks }: { stocks: StockPrice[] }) {

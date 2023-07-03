@@ -1,8 +1,11 @@
 import { useDispatch } from 'react-redux';
+import { List, Briefcase } from 'react-feather';
+
+import Button from '@/components/UI/Button';
+
 import { AppDispatch } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
-import Button from '@/components/UI/Button';
-import { List, Briefcase } from 'react-feather';
+
 import { COLORS } from '@/constants/colors';
 
 export default function MobileButtons() {

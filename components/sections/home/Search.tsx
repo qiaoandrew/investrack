@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import useSearchResults from '@/hooks/useSearchResults';
 import SearchBar from '@/components/UI/SearchBar';
 import SearchResults from '@/components/UI/SearchResults';

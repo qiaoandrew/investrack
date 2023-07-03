@@ -1,3 +1,9 @@
+export interface DateType {
+  month: string;
+  day: string;
+  year: string;
+}
+
 export interface SearchResult {
   symbol: string;
   name: string;
@@ -45,29 +51,39 @@ export interface PriceHistory {
   value: number;
 }
 
-export interface Purchase {
-  _id: string;
-  purchaseDate: string;
-  purchasePrice: number;
-  quantity: number;
-}
-
-export interface Portfolio {
-  _id: string;
-  uid: string;
-  name: string;
-  holdings: Record<string, Purchase[]>;
-}
-
 export interface Watchlist {
   _id: string;
   uid: string;
   name: string;
   stocks: string[];
 }
+export interface Portfolio {
+  _id: string;
+  uid: string;
+  name: string;
+  holdings: string[];
+}
 
-export interface DateType {
-  month: string;
-  day: string;
-  year: string;
+export interface PortfolioHoldings {
+  value: number;
+  return: number;
+  returnPercent: number;
+  holdings: PortfolioHolding[];
+}
+
+export interface PortfolioHolding {
+  symbol: string;
+  name: string;
+  value: number;
+  quantity: number;
+  return: number;
+  returnPercent: number;
+  purchases: {
+    purchaseId: string;
+    purchaseDate: Date;
+    value: number;
+    quantity: number;
+    return: number;
+    returnPercent: number;
+  }[];
 }

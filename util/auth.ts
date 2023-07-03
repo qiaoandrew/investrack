@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
+
 import { auth } from '@/lib/firebase';
 
 export const signIn = async (email: string, password: string) => {
