@@ -14,9 +14,15 @@ export default async function handler(
     const { data } = await axios.get(`${FINANCE_API_BASE_URL}/market-summary`, {
       params: { country },
     });
-    res.status(200).json(data as MarketSummary[]);
+    const formattedSummaries = data.map((result: any) => ({
+      name: result.shortName,
+      price: result.regularMarketPrice.raw,
+      change: result.regularMarketChange.raw,
+      changePercent: result.regularMarketChangePercent.raw,
+    }));
+    res.status(200).json(formattedSummaries as MarketSummary[]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: 'Error fetching market summary.', error });
   }
 }

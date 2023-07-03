@@ -11,19 +11,19 @@ export interface TrendingStock {
   changePercent: number;
 }
 
+export interface MarketSummary {
+  name: string;
+  price: number;
+  change: number;
+  changePercent: number;
+}
+
 export interface NewsArticle {
   id: number;
   headline: string;
   summary?: string;
   url: string;
   image: string;
-}
-
-export interface MarketSummary {
-  name: string;
-  price: number;
-  change: number;
-  changePercent: number;
 }
 
 export interface StockQuote {
