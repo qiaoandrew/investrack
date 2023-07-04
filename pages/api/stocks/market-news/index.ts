@@ -11,15 +11,24 @@ export default async function handler(
 ) {
   try {
     const { data } = await axios.get(`${FINANCE_API_BASE_URL}/market-news`);
-    const marketNews = data.map((article: any) => ({
-      id: article.id,
-      title: article.headline.startsWith(': ')
-        ? article.headline.slice(2)
-        : article.headline,
-      description: article.summary,
-      url: article.url,
-      image: article.image,
-    }));
+    const marketNews = data
+      .filter((article: any) =>
+        [
+          'images.mktw.net',
+          'mw3.wsj.net',
+          'image.cnbcfm.com',
+          's.yimg.com',
+        ].some((domain) => article.image.includes(domain))
+      )
+      .map((article: any) => ({
+        id: article.id,
+        title: article.headline.startsWith(': ')
+          ? article.headline.slice(2)
+          : article.headline,
+        description: article.summary,
+        url: article.url,
+        image: article.image,
+      }));
     res.status(200).json(marketNews as NewsArticle[]);
   } catch (error) {
     console.error(error);
