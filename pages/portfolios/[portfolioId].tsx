@@ -54,8 +54,6 @@ export default function Portfolio() {
     fetchPortfolioHoldings();
   }, [user, portfolioId]);
 
-  console.log(portfolioHoldings);
-
   if (!portfolio || !portfolioHoldings) return <LoadingSpinner />;
 
   const toggleHeight = (i: number) => {
@@ -98,19 +96,19 @@ export default function Portfolio() {
               <span className='text-white'>All Time</span>
             </p>
           </div>
-          <div className='mb-4 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] gap-x-6 text-right text-sm text-grey1 md:mb-5 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)] md:text-md'>
+          <div className='mb-4 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] gap-x-6 text-right text-sm text-grey1 md:mb-5 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)] md:text-md'>
             <div />
             <p>Total Value</p>
             <p>Total Return</p>
           </div>
           {portfolioHoldings.holdings.map((holding, i) => (
             <Fragment key={holding.symbol}>
-              <div className='mb-7 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)]  items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'>
+              <div className='mb-7 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)]  items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'>
                 <div>
                   <p className='mb-1 font-semibold text-white'>
                     {holding.symbol}
                   </p>
-                  <p className='text-sm text-blue1 md:text-md'>
+                  <p className='line-clamp-1 text-sm text-blue1 md:text-md'>
                     {holding.name}
                   </p>
                 </div>
@@ -125,7 +123,7 @@ export default function Portfolio() {
                     holding.return >= 0 ? 'text-green' : 'text-red'
                   }`}
                 >
-                  <div className='mb-1 inline-flex items-center gap-3'>
+                  <div className='mb-1 inline-flex w-full max-w-[100px] items-center justify-between gap-3'>
                     <ChevronUp
                       size={20}
                       color={holding.return >= 0 ? COLORS.green : COLORS.red}
@@ -154,7 +152,7 @@ export default function Portfolio() {
                 {holding.purchases.map((purchase, j) => (
                   <div
                     key={`purchase-${j}`}
-                    className='mb-7 grid grid-cols-[minmax(0,3fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'
+                    className='mb-7 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'
                   >
                     <div className='self-start'>
                       <p className='font-medium text-white'>
@@ -174,7 +172,7 @@ export default function Portfolio() {
                         purchase.return >= 0 ? 'text-green' : 'text-red'
                       }`}
                     >
-                      <div className='mb-1 inline-flex items-center gap-3'>
+                      <div className='mb-1 inline-flex w-full max-w-[100px] items-center justify-between gap-3'>
                         <ChevronUp
                           size={20}
                           color={
@@ -190,11 +188,11 @@ export default function Portfolio() {
                         {purchase.returnPercent.toFixed(2)}%
                       </p>
                     </div>
-                    <IconButton
+                    {/* <IconButton
                       icon={<Edit size={16} color={COLORS.grey1} />}
                       onClick={() => {}}
                       classes='justify-self-end'
-                    />
+                    /> */}
                   </div>
                 ))}
               </AnimateHeight>
