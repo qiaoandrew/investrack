@@ -3,7 +3,7 @@ import { ChevronDown } from 'react-feather';
 
 import { COLORS } from '@/constants/colors';
 
-interface DropdownLargeProps {
+type DropdownLargeProps = {
   selectedOption?: {
     label: string;
     value: any;

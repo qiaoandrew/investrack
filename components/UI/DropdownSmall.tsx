@@ -3,18 +3,12 @@ import { ChevronDown } from 'react-feather';
 
 import { COLORS } from '@/constants/colors';
 
-interface DropdownSmallProps {
-  selectedOption: {
-    label: string;
-    value: any;
-  };
+type DropdownSmallProps = {
+  selectedOption: { label: string; value: any };
   setSelectedOption: (value: { label: string; value: any }) => void;
-  dropdownOptions: {
-    label: string;
-    value: any;
-  }[];
+  dropdownOptions: { label: string; value: any }[];
   labelSize: string;
-}
+};
 
 export default function DropdownSmall({
   selectedOption,

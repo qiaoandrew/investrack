@@ -60,3 +60,11 @@ export const validateAddToPortfolio = (values: {
 
   return errors;
 };
+
+export const validateName = (values: { name: string }) => {
+  const errors: { name?: string } = {};
+
+  if (!values.name) errors.name = 'Please enter a name.';
+
+  return errors;
+};

@@ -1,9 +1,7 @@
 import { TableItem } from '@/interfaces/interfaces';
 import { getHiddenClasses, extractDomain } from '@/util/helpers';
 
-interface TableProps {
-  items: TableItem[];
-}
+type TableProps = { items: TableItem[] }
 
 export default function Table({ items }: TableProps) {
   return (

@@ -2,9 +2,9 @@ import Table from '@/components/UI/Table';
 
 import { TableItem } from '@/interfaces/interfaces';
 
-interface ProfileProps {
+type ProfileProps = {
   profile: TableItem[];
-}
+};
 
 export default function Profile({ profile }: ProfileProps) {
   return (

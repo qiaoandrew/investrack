@@ -17,11 +17,15 @@ export default function Markets() {
   useEffect(() => {
     const fetchMarkets = async () => {
       setLoading(true);
-      const { data } = await axios.get('/api/stocks/market-summary', {
-        params: { country: selectedOption.value },
-      });
-      setMarkets(data.map((asset: any) => ({ ...asset, label: asset.name })));
-      setLoading(false);
+      try {
+        const { data } = await axios.get('/api/stocks/market-summary', {
+          params: { country: selectedOption.value },
+        });
+        setMarkets(data.map((asset: any) => ({ ...asset, label: asset.name })));
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchMarkets();
@@ -33,7 +37,7 @@ export default function Markets() {
       loading={loading}
       selectedOption={selectedOption}
       setSelectedOption={setSelectedOption}
-      dropdownOptions={DROPDOWN_OPTIONS}
+      dropdownOptions={MARKET_DROPDOWN_OPTIONS}
       dropdownLabelSize='w-6'
       margin='mb-section'
     >
@@ -50,7 +54,7 @@ export default function Markets() {
   );
 }
 
-const DROPDOWN_OPTIONS = [
+const MARKET_DROPDOWN_OPTIONS = [
   {
     label: 'US',
     value: 'united states',

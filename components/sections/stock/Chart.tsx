@@ -10,11 +10,11 @@ import { PriceHistory } from '@/interfaces/interfaces';
 import { INTERVALS, PERIODS } from '@/constants/stock';
 import { COLORS } from '@/constants/colors';
 
-interface ChartProps {
+type ChartProps = {
   price: number;
   change: number;
   changePercent: number;
-}
+};
 
 export default function Chart({ price, change, changePercent }: ChartProps) {
   const [loading, setLoading] = useState(true);

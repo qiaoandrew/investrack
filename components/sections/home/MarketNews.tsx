@@ -3,7 +3,11 @@ import NewsCard from '@/components/cards/NewsCard';
 
 import { NewsArticle } from '@/interfaces/interfaces';
 
-export default function MarketNews({ news }: { news: NewsArticle[] }) {
+type MarketNewsProps = {
+  news: NewsArticle[];
+};
+
+export default function MarketNews({ news }: MarketNewsProps) {
   return (
     <Carousel title='Market News'>
       {news.map((article) => (

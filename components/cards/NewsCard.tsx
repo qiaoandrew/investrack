@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
-export interface NewsCardProps {
+type NewsCardProps = {
   title: string;
   description?: string;
   image: string;
   url: string;
-}
+};
 
 export default function NewsCard({
   title,

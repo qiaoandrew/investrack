@@ -2,7 +2,7 @@ import { Search } from 'react-feather';
 
 import { COLORS } from '@/constants/colors';
 
-interface SearchBarProps {
+type SearchBarProps = {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus: () => void;

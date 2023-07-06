@@ -7,6 +7,7 @@ import { COLORS } from '@/constants/colors';
 
 export default function StockList({ stocks }: { stocks: StockPrice[] }) {
   if (!stocks) return null;
+  
   return (
     <div className='max-w-[566px]'>
       {stocks.map((stock, i) => (

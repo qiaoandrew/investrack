@@ -1,8 +1,8 @@
-interface IconButtonProps {
+type IconButtonProps = {
   icon: React.ReactNode;
   onClick: () => void;
   classes?: string;
-}
+};
 
 export default function IconButton({
   icon,

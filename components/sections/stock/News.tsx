@@ -3,7 +3,9 @@ import NewsCard from '@/components/cards/NewsCard';
 
 import { NewsArticle } from '@/interfaces/interfaces';
 
-export default function News({ news }: { news: NewsArticle[] }) {
+type NewsProps = { news: NewsArticle[] };
+
+export default function News({ news }: NewsProps) {
   return (
     <section>
       <Carousel title='News'>

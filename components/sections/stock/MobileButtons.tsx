@@ -5,7 +5,6 @@ import Button from '@/components/UI/Button';
 
 import { AppDispatch } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
-
 import { COLORS } from '@/constants/colors';
 
 export default function MobileButtons() {

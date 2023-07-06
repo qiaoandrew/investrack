@@ -7,11 +7,11 @@ import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
 import { COLORS } from '@/constants/colors';
 
-interface HeaderProps {
+type HeaderProps = {
   name: string;
   symbol: string;
   exchange: string;
-}
+};
 
 export default function Header({ name, symbol, exchange }: HeaderProps) {
   const dispatch: AppDispatch = useDispatch();

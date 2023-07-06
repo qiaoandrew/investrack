@@ -2,9 +2,7 @@ import Table from '@/components/UI/Table';
 
 import { TableItem } from '@/interfaces/interfaces';
 
-interface SummaryProps {
-  summary: TableItem[];
-}
+type SummaryProps = { summary: TableItem[] };
 
 export default function Summary({ summary }: SummaryProps) {
   return (

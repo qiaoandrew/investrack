@@ -191,13 +191,13 @@ export default function Menu() {
   );
 }
 
-interface MenuItemProps {
+type MenuItemProps = {
   label: string;
   icon: React.ReactNode;
   isActive: boolean;
   onClick: () => void;
   margin?: string;
-}
+};
 
 function MenuItem({ label, icon, isActive, onClick, margin }: MenuItemProps) {
   const dispatch: AppDispatch = useDispatch();

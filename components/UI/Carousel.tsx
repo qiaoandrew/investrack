@@ -6,9 +6,10 @@ import LoadingSpinner from './LoadingSpinner';
 
 import { COLORS } from '@/constants/colors';
 
-interface CarouselProps {
+type CarouselProps = {
   title: string;
   loading?: boolean;
+  error?: boolean;
   selectedOption?: {
     label: string;
     value: any;
@@ -21,11 +22,12 @@ interface CarouselProps {
   dropdownLabelSize?: string;
   margin?: string;
   children: React.ReactNode[];
-}
+};
 
 export default function Carousel({
   title,
   loading,
+  error,
   selectedOption,
   setSelectedOption,
   dropdownOptions,
@@ -75,23 +77,31 @@ export default function Carousel({
           </div>
         </div>
       </div>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <div className='relative'>
-          <div
-            ref={carouselRef}
-            className='px-dashboard no-scrollbar relative flex gap-6 overflow-x-scroll scroll-smooth whitespace-nowrap pr-[10%]'
-          >
-            {children.map((child, i) => (
-              <div className='inline-flex self-stretch' key={`child-${i}`}>
-                {child}
-              </div>
-            ))}
-          </div>
-          <div className='pointer-events-none absolute inset-y-0 right-0 z-20 w-1/5 bg-gradient-to-l from-black to-transparent' />
-        </div>
+      {loading && !error && <LoadingSpinner />}
+      {!loading && error && (
+        <p className='px-dashboard text-blue1'>
+          An error occurred while fetching data. Please try again later.
+        </p>
       )}
+      {!loading &&
+        !error &&
+        (children.length > 0 ? (
+          <div className='relative'>
+            <div
+              ref={carouselRef}
+              className='px-dashboard no-scrollbar relative flex gap-6 overflow-x-scroll scroll-smooth whitespace-nowrap pr-[10%]'
+            >
+              {children.map((child, i) => (
+                <div className='inline-flex self-stretch' key={`child-${i}`}>
+                  {child}
+                </div>
+              ))}
+            </div>
+            <div className='pointer-events-none absolute inset-y-0 right-0 z-20 w-1/5 bg-gradient-to-l from-black to-transparent' />
+          </div>
+        ) : (
+          <p className='px-dashboard text-blue1'>No data is available.</p>
+        ))}
     </section>
   );
 }

@@ -1,12 +1,12 @@
 import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 
-interface CategoryCardProps {
+type CategoryCardProps = {
   label: string;
   image: StaticImageData;
   route: string;
   bg: string;
-}
+};
 
 export default function CategoryCard({
   label,

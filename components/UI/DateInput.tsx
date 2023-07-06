@@ -1,6 +1,6 @@
 import { DateType } from '@/interfaces/interfaces';
 
-interface DateInputProps {
+type DateInputProps  ={
   label: string;
   value: DateType;
   setValue: (value: DateType) => void;

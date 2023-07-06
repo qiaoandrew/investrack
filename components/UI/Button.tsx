@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-interface ButtonProps {
+type ButtonProps = {
   type: 'route' | 'link' | 'button' | 'submit';
   hierarchy:
     | 'primary'
@@ -22,7 +22,7 @@ interface ButtonProps {
   disabled?: boolean;
   classes?: string;
   children: React.ReactNode;
-}
+};
 
 export default function Button({
   type,

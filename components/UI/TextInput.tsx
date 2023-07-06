@@ -1,4 +1,4 @@
-interface TextInputProps {
+type TextInputProps = {
   id: string;
   name: string;
   type: string;

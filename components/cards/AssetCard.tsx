@@ -3,13 +3,13 @@ import { ChevronUp, ChevronDown } from 'react-feather';
 
 import { COLORS } from '@/constants/colors';
 
-interface AssetCardProps {
+type AssetCardProps = {
   label: string;
   price: number;
   change: number;
   changePercent: number;
   route?: string;
-}
+};
 
 export default function AssetCard({
   label,

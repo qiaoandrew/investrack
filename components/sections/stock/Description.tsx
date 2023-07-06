@@ -1,6 +1,4 @@
-interface DescriptionProps {
-  description: string;
-}
+type DescriptionProps = { description: string };
 
 export default function Description({ description }: DescriptionProps) {
   return (

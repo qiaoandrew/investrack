@@ -1,7 +1,7 @@
-interface InputFeedbackProps {
+type InputFeedbackProps = {
   state: 'success' | 'error';
   children: React.ReactNode;
-}
+};
 
 export default function InputFeedback({ state, children }: InputFeedbackProps) {
   return (

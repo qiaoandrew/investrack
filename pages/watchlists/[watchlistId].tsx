@@ -36,6 +36,11 @@ export default function Watchlist() {
       setError('');
       try {
         if (!watchlist) return;
+        if (watchlist.stocks.length === 0) {
+          setLoading(false);
+          setStockPrices([]);
+          return;
+        }
         const { data } = await axios.get('/api/stocks/price', {
           params: { symbols: watchlist.stocks.join(',') },
         });
