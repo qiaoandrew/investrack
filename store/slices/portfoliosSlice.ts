@@ -27,11 +27,13 @@ const portfoliosSlice = createSlice({
       state.portfolios[portfolioIndex] = action.payload;
     },
     removePortfolio(state, action) {
-      const { _id } = action.payload;
+      const portfolioId = action.payload;
       const portfolioIndex = state.portfolios.findIndex(
-        (portfolio) => portfolio._id === _id
+        (portfolio) => portfolio._id === portfolioId
       );
-      state.portfolios.splice(portfolioIndex, 1);
+      if (portfolioIndex !== -1) {
+        state.portfolios.splice(portfolioIndex, 1);
+      }
     },
     logOutPortfolios(state) {
       state.portfolios = [];

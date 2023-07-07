@@ -36,11 +36,13 @@ const watchlistsSlice = createSlice({
       });
     },
     removeWatchlist(state, action) {
-      const { _id } = action.payload;
+      const watchlistId = action.payload;
       const watchlistIndex = state.watchlists.findIndex(
-        (watchlist) => watchlist._id === _id
+        (watchlist) => watchlist._id === watchlistId
       );
-      state.watchlists.splice(watchlistIndex, 1);
+      if (watchlistIndex !== -1) {
+        state.watchlists.splice(watchlistIndex, 1);
+      }
     },
     logOutWatchlists(state) {
       state.watchlists = [];

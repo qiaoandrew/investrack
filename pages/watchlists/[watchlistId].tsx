@@ -59,10 +59,15 @@ export default function Watchlist() {
   if (!watchlist || !user) return <LoadingSpinner />;
 
   const handleRemoveStock = async (symbol: string) => {
-    const { data } = await axios.delete(
-      `/api/users/${user.uid}/watchlists/${watchlistId}/stocks/${symbol}`
-    );
-    dispatch(updateWatchlist(data));
+    try {
+      const { data } = await axios.delete(
+        `/api/users/${user.uid}/watchlists/${watchlistId}/stocks/${symbol}`
+      );
+      dispatch(updateWatchlist(data));
+    } catch (error) {
+      console.error(error);
+      setError('Something went wrong. Please try again later.');
+    }
   };
 
   return (

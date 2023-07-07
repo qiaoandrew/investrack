@@ -11,7 +11,7 @@ import { removePortfolio } from '@/store/slices/portfoliosSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 
 export default function DeletePortfolioModal() {
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
 
   const router = useRouter();
   const { portfolioId } = router.query;
