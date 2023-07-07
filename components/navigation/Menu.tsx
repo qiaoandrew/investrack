@@ -52,7 +52,7 @@ export default function Menu() {
           isActive={pathname === '/'}
           onClick={() => router.push('/')}
         />
-        <MenuItem
+        {/* <MenuItem
           label='Compare'
           icon={
             <Repeat
@@ -63,7 +63,7 @@ export default function Menu() {
           }
           isActive={pathname === '/compare'}
           onClick={() => router.push('/compare')}
-        />
+        /> */}
       </div>
       <hr className='border-b-1 border-grey2' />
       <div className='relative flex flex-grow overflow-y-hidden'>

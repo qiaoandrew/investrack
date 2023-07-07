@@ -24,11 +24,11 @@
   }
 
   .mx-dashboard {
-    @apply mx-5 xs:mx-7 xl:mx-10 3xl:mx-20 4xl:mx-28;
+    @apply mx-5 xs:mx-7 xl:mx-10 3xl:mx-20 4xl:mx-28 5xl:mx-auto 5xl:max-w-[1400px];
   }
 
   .px-dashboard {
-    @apply px-5 xs:px-7 xl:px-10 3xl:px-20 4xl:px-28;
+    @apply px-5 xs:px-7 xl:px-10 3xl:px-20 4xl:px-28 5xl:px-[calc(((100vw-300px)-1400px)/2)];
   }
 
   .bg-gradient {
