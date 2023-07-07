@@ -11,7 +11,7 @@ import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
 import { updateWatchlist } from '@/store/slices/watchlistsSlice';
-import { StockPrice } from '@/interfaces/interfaces';
+import { StockPrice } from '@/types/types';
 import { COLORS } from '@/constants/colors';
 
 export default function Watchlist() {
@@ -141,7 +141,7 @@ export default function Watchlist() {
           </Fragment>
         ))}
       {!loading && !error && stockPrices.length === 0 && (
-        <p className='mt-4 text-blue1 md:text-lg'>This watchlist is empty.</p>
+        <p className='mt-4 text-blue1 md:text-lg'></p>
       )}
     </div>
   );

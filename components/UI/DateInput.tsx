@@ -1,11 +1,11 @@
-import { DateType } from '@/interfaces/interfaces';
+import { MonthDayYear } from '@/types/types';
 
-type DateInputProps  ={
+type DateInputProps = {
   label: string;
-  value: DateType;
-  setValue: (value: DateType) => void;
+  value: MonthDayYear;
+  setValue: (value: MonthDayYear) => void;
   margin?: string;
-}
+};
 
 export default function DateInput({
   label,

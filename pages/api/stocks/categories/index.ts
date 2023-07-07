@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { StockPrice } from '@/interfaces/interfaces';
+import { StockPrice } from '@/types/types';
 
 const FINANCE_API_BASE_URL = process.env.FINANCE_API_BASE_URL;
 
@@ -26,6 +26,6 @@ export default async function handler(
     res.status(200).json(stocks as StockPrice[]);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: 'Error fetching category.' });
   }
 }

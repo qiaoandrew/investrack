@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Watchlist } from '@/interfaces/interfaces';
+import { Watchlist } from '@/types/types';
 
 interface WatchlistsState {
   watchlists: Watchlist[];

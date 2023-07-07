@@ -22,10 +22,10 @@ export default async function handler(
       const savedWatchlist = await watchlist.save();
       user.watchlists.push(savedWatchlist._id);
       await user.save();
-      res.status(201).json(watchlist);
+      res.status(201).json(savedWatchlist);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Error creating watchlist.' });
     }
   } else if (req.method === 'GET') {
     try {
@@ -37,7 +37,7 @@ export default async function handler(
       res.status(200).json(user.watchlists);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Error fetching watchlists.' });
     }
   } else if (req.method === 'PUT') {
     const { watchlistIds, symbol } = req.body;
@@ -58,7 +58,9 @@ export default async function handler(
       res.status(200).json(savedWatchlists);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Error adding symbol into watchlists.' });
     }
+  } else {
+    res.status(405).json({ message: 'Method not allowed.' });
   }
 }

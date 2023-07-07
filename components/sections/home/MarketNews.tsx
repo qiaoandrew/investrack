@@ -1,15 +1,35 @@
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+
 import Carousel from '@/components/UI/Carousel';
 import NewsCard from '@/components/cards/NewsCard';
 
-import { NewsArticle } from '@/interfaces/interfaces';
+import { NewsArticle } from '@/types/types';
 
-type MarketNewsProps = {
-  news: NewsArticle[];
-};
+export default function MarketNews() {
+  const [news, setNews] = useState<NewsArticle[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-export default function MarketNews({ news }: MarketNewsProps) {
+  useEffect(() => {
+    const fetchNews = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get('/api/stocks/market-news');
+        setNews(data);
+      } catch (error) {
+        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
   return (
-    <Carousel title='Market News'>
+    <Carousel title='Market News' loading={loading} error={error}>
       {news.map((article) => (
         <NewsCard
           title={article.title}

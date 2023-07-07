@@ -8,7 +8,7 @@ import { setWatchlists } from '@/store/slices/watchlistsSlice';
 import { setPortfolios } from '@/store/slices/portfoliosSlice';
 import { setUser } from '@/store/slices/authSlice';
 import { auth } from '@/lib/firebase';
-import { Portfolio, Watchlist } from '@/interfaces/interfaces';
+import { Portfolio, Watchlist } from '@/types/types';
 
 export default function ReduxProvider({
   children,

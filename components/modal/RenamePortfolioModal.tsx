@@ -12,7 +12,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { updatePortfolio } from '@/store/slices/portfoliosSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 import { validateName } from '@/util/formValidation';
-import { Portfolio } from '@/interfaces/interfaces';
+import { Portfolio } from '@/types/types';
 
 export default function RenamePortfolioModal() {
   const [error, setError] = useState(false);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { TrendingStock } from '@/interfaces/interfaces';
+import { TrendingStock } from '@/types/types';
 
 const FINANCE_API_BASE_URL = process.env.FINANCE_API_BASE_URL;
 

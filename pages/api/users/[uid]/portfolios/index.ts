@@ -22,10 +22,10 @@ export default async function handler(
       const savedPortfolio = await portfolio.save();
       user.portfolios.push(savedPortfolio._id);
       await user.save();
-      res.status(201).json(portfolio);
+      res.status(201).json(savedPortfolio);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Error creating portfolio.' });
     }
   } else if (req.method === 'GET') {
     try {
@@ -37,7 +37,9 @@ export default async function handler(
       res.status(200).json(user.portfolios);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Internal server error.' });
+      res.status(500).json({ message: 'Error fetching portfolio.' });
     }
+  } else {
+    return res.status(405).json({ message: 'Method not allowed.' });
   }
 }

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import LoadingSpinner from './LoadingSpinner';
 
-import { SearchResult } from '@/interfaces/interfaces';
+import { SearchResult } from '@/types/types';
 
 type SearchResultsProps = {
   searchResults: SearchResult[];
@@ -11,7 +11,7 @@ type SearchResultsProps = {
   loading: boolean;
   error: boolean;
   maxHeight: string;
-}
+};
 
 export default function SearchResults({
   searchResults,

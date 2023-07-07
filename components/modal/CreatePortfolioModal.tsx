@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { closeModal } from '@/store/slices/modalSlice';
 import { addPortfolio } from '@/store/slices/portfoliosSlice';
 import { validateName } from '@/util/formValidation';
-import { Portfolio } from '@/interfaces/interfaces';
+import { Portfolio } from '@/types/types';
 
 export default function CreatePortfolioModal() {
   const [error, setError] = useState(false);

@@ -10,7 +10,7 @@ import InputFeedback from '../UI/InputFeedback';
 import { AppDispatch, RootState } from '@/store/store';
 import { addWatchlist } from '@/store/slices/watchlistsSlice';
 import { closeModal } from '@/store/slices/modalSlice';
-import { Watchlist } from '@/interfaces/interfaces';
+import { Watchlist } from '@/types/types';
 import { validateName } from '@/util/formValidation';
 
 export default function CreateWatchlistModal() {

@@ -1,11 +1,40 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
 import Carousel from '@/components/UI/Carousel';
 import AssetCard from '@/components/cards/AssetCard';
 
-import { TrendingStock } from '@/interfaces/interfaces';
+import { TrendingStock } from '@/types/types';
 
-export default function Trending({ trending }: { trending: TrendingStock[] }) {
+export default function Trending() {
+  const [trending, setTrending] = useState<TrendingStock[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchTrending = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get('/api/stocks/trending');
+        setTrending(data);
+      } catch (error) {
+        console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTrending();
+  }, []);
+
   return (
-    <Carousel title='Trending' margin='mb-section'>
+    <Carousel
+      title='Trending'
+      loading={loading}
+      error={error}
+      margin='mb-section'
+    >
       {trending.map((stock) => (
         <AssetCard
           label={stock.symbol}

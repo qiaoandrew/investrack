@@ -6,7 +6,7 @@ import { ChevronDown, ChevronUp } from 'react-feather';
 
 import LoadingSpinner from '@/components/UI/LoadingSpinner';
 
-import { PriceHistory } from '@/interfaces/interfaces';
+import { PriceHistory } from '@/types/types';
 import { INTERVALS, PERIODS } from '@/constants/stock';
 import { COLORS } from '@/constants/colors';
 

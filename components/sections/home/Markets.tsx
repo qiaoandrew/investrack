@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import Carousel from '@/components/UI/Carousel';
 import AssetCard from '@/components/cards/AssetCard';
 
-import { MarketSummary } from '@/interfaces/interfaces';
+import { MarketSummary } from '@/types/types';
 
 export default function Markets() {
   const [markets, setMarkets] = useState<MarketSummary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [selectedOption, setSelectedOption] = useState({
     label: 'US',
     value: 'united states',
@@ -22,9 +23,11 @@ export default function Markets() {
           params: { country: selectedOption.value },
         });
         setMarkets(data.map((asset: any) => ({ ...asset, label: asset.name })));
-        setLoading(false);
       } catch (error) {
         console.error(error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -35,6 +38,7 @@ export default function Markets() {
     <Carousel
       title='Markets'
       loading={loading}
+      error={error}
       selectedOption={selectedOption}
       setSelectedOption={setSelectedOption}
       dropdownOptions={MARKET_DROPDOWN_OPTIONS}

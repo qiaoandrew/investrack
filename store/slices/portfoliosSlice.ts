@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Portfolio } from '@/interfaces/interfaces';
+import { Portfolio } from '@/types/types';
 
 interface PortfoliosState {
   portfolios: Portfolio[];

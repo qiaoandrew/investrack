@@ -10,18 +10,13 @@ import LoadingSpinner from '@/components/UI/LoadingSpinner';
 
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
-import {
-  Portfolio,
-  PortfolioHoldings,
-  StockPrice,
-} from '@/interfaces/interfaces';
+import { Portfolio, Holdings, StockPrice } from '@/types/types';
 import { formatDate, formatNumber } from '@/util/helpers';
 import { COLORS } from '@/constants/colors';
 
 export default function Portfolio() {
   const [loading, setLoading] = useState(true);
-  const [portfolioHoldings, setPortfolioHoldings] =
-    useState<PortfolioHoldings>();
+  const [portfolioHoldings, setPortfolioHoldings] = useState<Holdings>();
   const [heights, setHeights] = useState<(0 | 'auto')[]>([]);
 
   const router = useRouter();
@@ -42,7 +37,7 @@ export default function Portfolio() {
         const { data } = await axios.get(
           `/api/users/${user.uid}/portfolios/${portfolioId}/holdings`
         );
-        setPortfolioHoldings(data as PortfolioHoldings);
+        setPortfolioHoldings(data as Holdings);
         setHeights(new Array(Object.keys(data).length).fill(0));
       } catch (error) {
         console.error(error);
@@ -149,7 +144,7 @@ export default function Portfolio() {
                 </div>
               </div>
               <AnimateHeight duration={300} height={heights[i]}>
-                {holding.purchases.map((purchase, j) => (
+                {holding.transactions.map((purchase, j) => (
                   <div
                     key={`purchase-${j}`}
                     className='mb-7 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)_minmax(0,3fr)_minmax(0,1fr)] items-center gap-x-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)]'
