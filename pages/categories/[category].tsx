@@ -6,6 +6,7 @@ import StockList from '@/components/UI/StockList';
 
 import { CATEGORIES } from '@/constants/categories';
 import { StockPrice } from '@/types/types';
+import SEO from '@/components/SEO/SEO';
 
 export default function Category() {
   const [stocks, setStocks] = useState<StockPrice[]>([]);
@@ -36,17 +37,22 @@ export default function Category() {
     fetchStocks();
   }, [category]);
 
+  const label = CATEGORIES.find((c) => c.id === category)?.label;
+
   return (
-    <section className='mx-dashboard'>
-      <h1 className='mb-4 text-4xl font-semibold text-white 2xl:text-5xl'>
-        {CATEGORIES.find((c) => c.id === category)?.label}
-      </h1>
-      <StockList
-        stocks={stocks}
-        loading={loading}
-        error={error}
-        noStocksMessage='No stocks found. Please try again or select a different category.'
-      />
-    </section>
+    <>
+      <SEO title={`${label || ''} Stocks | Investrack`} />
+      <section className='mx-dashboard'>
+        <h1 className='mb-4 text-4xl font-semibold text-white 2xl:text-5xl'>
+          {label}
+        </h1>
+        <StockList
+          stocks={stocks}
+          loading={loading}
+          error={error}
+          noStocksMessage='No stocks found. Please try again or select a different category.'
+        />
+      </section>
+    </>
   );
 }

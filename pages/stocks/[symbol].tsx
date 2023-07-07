@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { type GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 
+import SEO from '@/components/SEO/SEO';
 import Header from '@/components/sections/stock/Header';
 import Chart from '@/components/sections/stock/Chart';
 import MobileButtons from '@/components/sections/stock/MobileButtons';
@@ -98,6 +99,7 @@ export default function Stock({ price }: StockProps) {
 
   return (
     <>
+      <SEO title={`${symbol || ''} | Investrack`} />
       <Header
         name={price.name}
         symbol={price.symbol}

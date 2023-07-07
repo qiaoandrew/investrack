@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { LogOut } from 'react-feather';
 
+import SEO from '@/components/SEO/SEO';
 import Button from '@/components/UI/Button';
 
 import { AppDispatch } from '@/store/store';
@@ -31,23 +32,26 @@ export default function Settings() {
   ];
 
   return (
-    <div className='mx-dashboard'>
-      <h1 className='mb-6 text-4xl font-semibold text-white 2xl:text-5xl'>
-        Settings
-      </h1>
-      <div className='grid max-w-[366px] gap-5'>
-        {BUTTONS.map((button, i) => (
-          <Button
-            type={button.type as 'route' | 'button'}
-            hierarchy='quinary'
-            onClick={button.onClick}
-            icon={button.icon}
-            key={i}
-          >
-            {button.label}
-          </Button>
-        ))}
+    <>
+      <SEO title='Settings | Investrack' />
+      <div className='mx-dashboard'>
+        <h1 className='mb-6 text-4xl font-semibold text-white 2xl:text-5xl'>
+          Settings
+        </h1>
+        <div className='grid max-w-[366px] gap-5'>
+          {BUTTONS.map((button, i) => (
+            <Button
+              type={button.type as 'route' | 'button'}
+              hierarchy='quinary'
+              onClick={button.onClick}
+              icon={button.icon}
+              key={i}
+            >
+              {button.label}
+            </Button>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

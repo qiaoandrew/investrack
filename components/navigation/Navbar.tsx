@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { toggleMobileMenu } from '@/store/slices/mobileMenuSlice';
 
-import logo from '@/public/logo.svg';
+import logo from '@/public/icons/logo.svg';
 
 export default function Navbar() {
   const router = useRouter();
