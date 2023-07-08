@@ -3,14 +3,16 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../UI/Button';
-import InputFeedback from '../UI/InputFeedback';
+import Button from '@/components/UI/Button';
+import InputFeedback from '@/components/UI/InputFeedback';
+import LoadingSpinner from '../UI/LoadingSpinner';
 
 import { AppDispatch, RootState } from '@/store/store';
 import { removePortfolio } from '@/store/slices/portfoliosSlice';
 import { closeModal } from '@/store/slices/modalSlice';
 
 export default function DeletePortfolioModal() {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const router = useRouter();

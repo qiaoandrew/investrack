@@ -5,7 +5,7 @@ import { CATEGORIES } from '@/constants/categories';
 
 export default function Categories() {
   return (
-    <Carousel title='Categories' margin='mb-section'>
+    <Carousel title='Categories' classes='mb-section'>
       {CATEGORIES.map((category) => (
         <CategoryCard
           key={category.id}

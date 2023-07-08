@@ -12,8 +12,8 @@ import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { AppDispatch, RootState } from '@/store/store';
 import { openModal } from '@/store/slices/modalSlice';
 import { updateWatchlist } from '@/store/slices/watchlistsSlice';
-import { StockPrice } from '@/types/types';
 import { COLORS } from '@/constants/colors';
+import { StockPrice } from '@/types/types';
 
 export default function Watchlist() {
   const [loading, setLoading] = useState(true);
@@ -89,7 +89,7 @@ export default function Watchlist() {
             />
           </div>
         </div>
-        {loading && <LoadingSpinner margin='mt-12' />}
+        {loading && <LoadingSpinner classes='mt-12' />}
         {error && <p className='mt-4 text-blue1 md:text-lg'>{error}</p>}
         {!loading &&
           !error &&
@@ -109,7 +109,7 @@ export default function Watchlist() {
                   <p className='text-sm text-blue1 xl:w-16'>{price.symbol}</p>
                 </div>
                 <p className='text-base justify-self-end font-medium text-white'>
-                  {price.price}
+                  {price.price.toFixed(2)}
                 </p>
                 <div className='flex flex-shrink-0 items-center gap-1 xs:gap-1.5'>
                   {price.change > 0 ? (
@@ -130,7 +130,8 @@ export default function Watchlist() {
                       price.change > 0 ? 'text-green' : 'text-red'
                     }`}
                   >
-                    {price.change} ({price.changePercent}%)
+                    {price.change.toFixed(2)} ({price.changePercent.toFixed(2)}
+                    %)
                   </p>
                 </div>
                 <div

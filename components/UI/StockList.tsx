@@ -24,7 +24,7 @@ export default function StockList({
 
   return (
     <div className='max-w-[566px]'>
-      {loading && !error && <LoadingSpinner margin='mt-12' />}
+      {loading && !error && <LoadingSpinner classes='mt-12' />}
       {!loading && error && (
         <p className='mt-4 text-blue1'>
           An error occurred while fetching data. Please try again later.

@@ -78,7 +78,7 @@ export default function Portfolio() {
           </div>
         </div>
         {loading ? (
-          <LoadingSpinner margin='mt-6' />
+          <LoadingSpinner classes='mt-6' />
         ) : (
           <>
             <p className='mb-4 text-8xl font-semibold text-white'>

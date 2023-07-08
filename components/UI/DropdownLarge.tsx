@@ -15,8 +15,8 @@ type DropdownLargeProps = {
   }[];
   placeholder: string;
   noOptionsMessage: string;
-  margin?: string;
-}
+  classes?: string;
+};
 
 export default function DropdownLarge({
   selectedOption,
@@ -24,7 +24,7 @@ export default function DropdownLarge({
   options,
   placeholder,
   noOptionsMessage,
-  margin,
+  classes,
 }: DropdownLargeProps) {
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -41,7 +41,7 @@ export default function DropdownLarge({
   }, [showDropdown]);
 
   return (
-    <div className={`select relative z-10 ${margin}`}>
+    <div className={`select relative z-10 ${classes}`}>
       <div
         onClick={() => setShowDropdown((prev) => !prev)}
         className={`transition-300 flex cursor-pointer justify-between rounded-sm border py-4 pl-5 pr-4 ${

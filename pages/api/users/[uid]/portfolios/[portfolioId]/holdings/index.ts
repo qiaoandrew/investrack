@@ -42,7 +42,7 @@ export default async function handler(
           const purchases = portfolio.holdings.get(symbol);
           const holding = createHolding(symbol as string, priceMap, purchases);
           totalValue += holding.value;
-          totalSpent += holding.return + holding.value;
+          totalSpent += holding.totalSpent;
           return holding;
         }
       );
@@ -53,7 +53,6 @@ export default async function handler(
           Math.round(((totalValue - totalSpent) / totalSpent) * 10000) / 100,
         holdings: holdingsList,
       };
-
       res.status(200).json(holdings);
     } catch (error) {
       console.error(error);
@@ -128,5 +127,6 @@ const createHolding = (
     returnPercent:
       ((valueInSymbol - totalSpentOnSymbol) / totalSpentOnSymbol) * 100,
     transactions,
+    totalSpent: totalSpentOnSymbol,
   };
 };

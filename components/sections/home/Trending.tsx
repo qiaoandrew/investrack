@@ -33,7 +33,7 @@ export default function Trending() {
       title='Trending'
       loading={loading}
       error={error}
-      margin='mb-section'
+      classes='mb-section'
     >
       {trending.map((stock) => (
         <AssetCard

@@ -4,15 +4,15 @@ import { COLORS } from '@/constants/colors';
 
 type LoadingSpinnerProps = {
   height?: string;
-  margin?: string;
-}
+  classes?: string;
+};
 
 export default function LoadingSpinner({
   height,
-  margin,
+  classes,
 }: LoadingSpinnerProps) {
   return (
-    <div className={`grid place-content-center ${height} ${margin}`}>
+    <div className={`grid place-content-center ${height} ${classes}`}>
       <Oval
         width={60}
         height={60}

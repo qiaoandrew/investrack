@@ -20,7 +20,7 @@ type CarouselProps = {
     value: any;
   }[];
   dropdownLabelSize?: string;
-  margin?: string;
+  classes?: string;
   children: React.ReactNode[];
 };
 
@@ -32,7 +32,7 @@ export default function Carousel({
   setSelectedOption,
   dropdownOptions,
   dropdownLabelSize,
-  margin,
+  classes,
   children,
 }: CarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ export default function Carousel({
   };
 
   return (
-    <section className={margin}>
+    <section className={classes}>
       <div className='mx-dashboard mb-4 flex items-center justify-between 2xl:mb-5'>
         <div className='flex flex-grow items-center justify-between md:flex-grow-0 md:justify-start md:gap-20'>
           <h2 className='text-2xl font-semibold text-white 2xl:text-3xl'>

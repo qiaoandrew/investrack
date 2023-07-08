@@ -4,17 +4,17 @@ type DateInputProps = {
   label: string;
   value: MonthDayYear;
   setValue: (value: MonthDayYear) => void;
-  margin?: string;
+  classes?: string;
 };
 
 export default function DateInput({
   label,
   value,
   setValue,
-  margin,
+  classes,
 }: DateInputProps) {
   return (
-    <div className={`text-white ${margin}`}>
+    <div className={`text-white ${classes}`}>
       <p className='mb-4 font-medium'>{label}</p>
       <div className='flex items-center gap-2'>
         <input

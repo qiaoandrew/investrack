@@ -1,7 +1,7 @@
 import LoadingSpinner from './LoadingSpinner';
 
-import { TableItem } from '@/types/types';
 import { getHiddenClasses, extractDomain } from '@/util/helpers';
+import { TableItem } from '@/types/types';
 
 type TableProps = { items: TableItem[]; loading?: boolean; error?: boolean };
 

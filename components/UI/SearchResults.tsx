@@ -40,7 +40,7 @@ export default function SearchResults({
           : 'pointer-events-none opacity-0'
       }`}
     >
-      {state === 'loading' && <LoadingSpinner margin='my-6' />}
+      {state === 'loading' && <LoadingSpinner classes='my-6' />}
       {state === 'error' && (
         <p className='p-4 text-white'>
           An error occured. Please try again later.

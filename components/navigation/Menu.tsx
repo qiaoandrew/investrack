@@ -196,10 +196,10 @@ type MenuItemProps = {
   icon: React.ReactNode;
   isActive: boolean;
   onClick: () => void;
-  margin?: string;
+  classes?: string;
 };
 
-function MenuItem({ label, icon, isActive, onClick, margin }: MenuItemProps) {
+function MenuItem({ label, icon, isActive, onClick, classes }: MenuItemProps) {
   const dispatch: AppDispatch = useDispatch();
 
   return (
@@ -211,7 +211,7 @@ function MenuItem({ label, icon, isActive, onClick, margin }: MenuItemProps) {
       }}
       className={`transition-300 group flex cursor-pointer items-center gap-3 rounded-md px-4 py-4 ${
         isActive ? 'bg-grey3' : 'hover:bg-grey3 hover:bg-opacity-70'
-      } ${margin}`}
+      } ${classes}`}
     >
       {icon}
       <span

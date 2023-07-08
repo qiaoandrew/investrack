@@ -8,8 +8,8 @@ type SearchBarProps = {
   onFocus: () => void;
   onBlur: () => void;
   placeholder: string;
-  margin?: string;
-}
+  classes?: string;
+};
 
 export default function SearchBar({
   value,
@@ -17,10 +17,10 @@ export default function SearchBar({
   onFocus,
   onBlur,
   placeholder,
-  margin,
+  classes,
 }: SearchBarProps) {
   return (
-    <div className={`relative ${margin}`}>
+    <div className={`relative ${classes}`}>
       <Search
         size={20}
         color={COLORS.grey1}
