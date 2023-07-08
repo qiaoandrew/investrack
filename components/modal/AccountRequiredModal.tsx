@@ -21,7 +21,7 @@ export default function AccountRequiredModal() {
         Account Required
       </h2>
       <p className='mb-8 text-blue1 md:text-lg'>
-        Create an account to create watchlists.
+        Create an account to create watchlists and portfolios.
       </p>
       <div className='flex flex-col gap-4'>
         <Button
